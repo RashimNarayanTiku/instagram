@@ -1,0 +1,29 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Login &#8226; Instagram{% endblock %}
+
+    {% block welcome %} {% endblock %}
+    
+    {% block content %}
+    
+
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group" style="margin:0;">
+                <legend class="border-bottom mb-4">Log In</legend>
+                {{form}}
+                <button type='submit' class='btn btn-success'>Log In</button>
+                <input type="hidden" name="next" value="{{ next }}" />
+            </fieldset>
+        </form>
+
+        {% block messages %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="alert alert-{{msg.level_tag}}" role="alert">
+                        {{msg.message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endblock %}
+    {% endblock %}

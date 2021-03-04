@@ -1,0 +1,4 @@
+
+    {% for message in messages %}
+    <p class='reciever_message'>RECIEVED:  {{ message.text }} <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+    {% endfor %} 

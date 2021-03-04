@@ -1,0 +1,23 @@
+{% extends "user/base.html" %}
+{% load humanize %}
+
+{% block title %} Inbox &#8226; Direct {% endblock %}
+
+
+{% block content %}
+  <ul type='none'>
+  {% for inbox in inboxes %}
+  
+  <li onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;" class="inbox" id='inbox-{{inbox.id}}' >
+    <img class="rounded-circle article-img" src="{{ inbox.reciever.user.photo.url }}" style="width:5%;">
+    <div class="article-metadata">
+        <p class="mr-2" > {{ inbox.reciever }}</p>
+    </div>
+  </li>
+  {% endfor %}
+  </ul>
+
+  <div id='inbox-detail'>
+  </div>
+
+{% endblock %}

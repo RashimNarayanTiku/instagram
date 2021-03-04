@@ -1,0 +1,21 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Edit Profile &#8226; Instagram {% endblock %}
+
+
+{% block content %}
+    <div class="col s12 m8 offset-m2">
+        <div class="card">
+            <div class="card-content">
+            <form method="POST" class="padding" enctype="multipart/form-data">
+                {% csrf_token %} 
+                {{ u_form.as_p }}
+                {{ p_form.as_p }}
+                <button type="submit" class="btn-floating btn-large waves-light waves-effect"><i class="large material-icons">Submit</i></button>
+                <a href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red"><i class="material-icons">Cancel</i></a>
+    
+            </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

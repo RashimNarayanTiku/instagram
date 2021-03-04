@@ -1,0 +1,9 @@
+
+
+{% if post.post_likes.count > 1 %}
+<p>{{post.post_likes.count}} likes</p>
+{% elif post.post_likes.count == 1 %}
+<p>{{post.post_likes.count}} like</p>
+{% else %}
+<p></p>
+{% endif %}

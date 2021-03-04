@@ -1,0 +1,41 @@
+
+{% if inbox %}
+
+<img class="rounded-circle article-img" src="{{ inbox.reciever.user.photo.url }}" style="width:5%;">
+<a class="mr-2" href="{% url 'profile' inbox.reciever.username %}"> {{ inbox.reciever }}</a>
+
+    <div class="media-body"> 
+
+        <div class='message-section' id="message-section-{{inbox.id}}" style="height:50vh; overflow:auto;">
+            {% for message in messages %}
+            {% if message in owner_messages %}
+            <p class='owner_message'>SENT:  {{ message.text }} <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+            {% else %}
+            <p class='reciever_message'>RECIEVED:  {{ message.text }} <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+            {% endif %}
+            {% endfor %} 
+        </div>
+      
+        <!-- csrf token handled by javascript using global cookie -->
+        <form method="post" class='messageForm' id='messageForm-{{inbox.id}}' name='messageForm' autocomplete="off">
+            {{message_form.text}}
+            <input type='submit' class='submit' value="message">
+            <input type='hidden' name='url' id='url' value='{% url "message_create" inbox.id %}'>
+        </form>  
+    </div> 
+
+{% else %}
+<p> nothing here </p>
+{% endif %}
+
+
+<script>    
+    var START_UPDATING_MESSAGES = setInterval(function(){
+        if($('.message-section').children().length > 0){
+            console.log('Found the message-section')
+            UpdateMessages();
+            clearInterval(START_UPDATING_MESSAGES);
+        }
+    }, 500);
+    
+</script>
