@@ -247,3 +247,16 @@ function UpdateMessages() {
     });
 
 };
+
+// ------------------ Message Notification ----------------------
+var message_notification = setInterval(function(){
+    var url = '/notification/message'
+    
+    $.get(url, function(response) {
+        console.log(url, 'detail finished successfully');
+        $(".inbox-notification").html(response.html)
+
+    }).fail(function(xhr) {
+        alert('Save failed with '+xhr.status+' '+url);
+    });
+}, 1000);

@@ -1,4 +1,5 @@
 from message.models import Inbox, Message
+from notification.models import InboxNotification
 from post.owner import  OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpdateView, OwnerDeleteView
 from datetime import timedelta
 
@@ -76,6 +77,8 @@ def MessageCreateView(request, pk):
             owner_inbox = owner_inbox,
             reciever_inbox = reciever_inbox,
         )
+
+        notification = InboxNotification(reciever_inbox)
 
         format = "%B %d, %Y"
         time = message.created_at.strftime(format)

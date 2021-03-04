@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'message',
     'post',
     'user',
+    'notification',
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',

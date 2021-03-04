@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 from user import views as user_views
 from post import views as post_views
 from message import views as message_views
+from notification import views as notification_views
 
 
 urlpatterns = [
@@ -24,9 +25,12 @@ urlpatterns = [
 
     path('direct/inbox/', message_views.InboxListView, name='inbox_list'),
     path('direct/t/<int:pk>/', message_views.InboxDetailView, name='inbox_detail'),
-    # path('direct/new/', message_views.InboxCreateView.as_view(), name='inbox_create'),
+    ########################## path('direct/new/', message_views.InboxCreateView.as_view(), name='inbox_create'),
     path('message/<int:pk>/', message_views.MessageCreateView, name='message_create'),
     path('direct/t/message/update/<int:pk>', message_views.MessageUpdateView, name='message_update'),
+
+
+    path('notification/message', notification_views.InboxNotificationView.as_view(), name='inbox_notification'),
 
 
     path('<str:username>/', user_views.profileView, name='profile'),
