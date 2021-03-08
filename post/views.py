@@ -2,6 +2,8 @@ from post.models import Post,Comment,Like,Save
 from post.forms import CommentForm
 from post.owner import  OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpdateView, OwnerDeleteView
 
+from notification.models import LikeNotification, CommentNotification
+
 from django.core import serializers
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -47,15 +49,18 @@ def CommentCreateView(request, pk):
     
     if request.POST.get('action') == 'post':
         text = request.POST.get('text')
-        Comment.objects.create(
+        comment = Comment.objects.create(
             text = text,
             owner = request.user,
             post = post,
         )
+
+        notification = CommentNotification.objects.get_or_create(comment=comment)
+
         response_data['text'] = text
         response_data['post_id'] = pk
-        
         return JsonResponse(response_data)    
+
     return redirect('post_list') 
 
 
@@ -93,14 +98,19 @@ def SinglePostView(request, pk):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class LikeView(LoginRequiredMixin, View):
+
     def post(self, request, pk):
         print("Add like PK:",pk)
         post = get_object_or_404(Post, id=pk)
         like = Like(owner=request.user, post=post)
+        
         try:
-            like.save()  # In case of duplicate key
-        except IntegrityError as e:
+            like.save()  
+            notification = LikeNotification.objects.create(like=like)
+        except IntegrityError:
             pass
+    
+
         html = render_to_string('post/like_count.html', {'post': post})
         return JsonResponse(data={'html':html}, safe=False)
 
@@ -110,10 +120,13 @@ class UnlikeView(LoginRequiredMixin, View):
     def post(self, request, pk):
         print("Delete like PK:",pk)
         post = get_object_or_404(Post, id=pk)
+
         try:
             like = Like.objects.get(owner=request.user, post=post).delete()
-        except Like.DoesNotExist as e:
+            notification = LikeNotification.objects.get(like=like).delete()
+        except (Like.DoesNotExist, LikeNotification.DoesNotExist) as e:
             pass
+
         html = render_to_string('post/like_count.html', {'post': post})
         return JsonResponse(data={'html':html}, safe=False)
 
@@ -138,6 +151,6 @@ class UnsaveView(LoginRequiredMixin, View):
         post = get_object_or_404(Post, id=pk)
         try:
             save = Save.objects.get(owner=request.user, post=post).delete()
-        except Save.DoesNotExist as e:
+        except Save.DoesNotExist:
             pass
         return HttpResponse()

@@ -1,4 +1,70 @@
 
+$(document).ready(function(){
+
+    // -------------------- notifications numbers -------------------------
+    const user_id = JSON.parse(document.getElementById('user_id').textContent);
+    const url = `notification/${user_id}`;
+    
+    $.get(url, function(response) {
+        console.log(url, 'Notification finished successfully');
+        $("#notification").html(response.html);  
+        if(response.count != 0) {
+            $("#notification-dot").css('display','block')
+        }
+
+    }).fail(function(xhr) {
+        console.log('Notification failed with '+xhr.status+' '+url);
+    });
+    
+
+
+    // ---------------------- popup click listener ------------------------
+    $("body").click(function(ele) {
+
+        // search
+        if ( ele.target.id === "user-input" ) {
+            $("#user-input").css('color', 'black');
+        }
+        else {
+            $("#search-results").css("display", "none");
+            $(".triangle-up").css("display",'none');
+            $("#user-input").css('color', 'grey');
+        }
+
+
+        // notification
+        if(ele.target.id !== "notification" && ele.target.id !== "notification-display"){
+            $("#notification-display").css('display', 'none');
+        }
+
+    });
+
+});
+
+
+
+// ----------------------- notification-display click -------------------------
+
+$(document.body).on('click','#notification', function(e) {
+    
+    const user_id = JSON.parse(document.getElementById('user_id').textContent);
+    
+    $.get(`notification/display/${user_id}`, function(response) {
+
+        console.log(url, 'Notification finished successfully');           
+        $("#notification-display").html(response.html);    
+        $("#notification-display").css('display', 'block');   
+        $("#notification-dot").css('display','none')
+
+        
+    }).fail(function(xhr) {
+        console.log('Notification failed with '+xhr.status+' '+url);
+    });
+});
+
+
+
+
 // --------------------Get cookie function--------------------
 function getCookie(cname) {
     var name = cname + "=";
@@ -14,7 +80,6 @@ function getCookie(cname) {
     }
     return "";
   }
-
 
 
 
@@ -53,22 +118,13 @@ user_input.on('keyup', function () {
     }
     // setTimeout returns the ID of the function to be executed
     scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
-})
-
-$("body").click(function(ele) {
-    if ( ele.target.id === "user-input" ) {
-        $("#user-input").css('color', 'black');
-    }
-    else {
-        $("#search-results").css("display", "none");
-        $(".triangle-up").css("display",'none');
-        $("#user-input").css('color', 'grey');
-    }
 });
 
 
 
-//---------------- Comment Form --------------------
+
+//------------------- Comment Form ----------------------
+
 $(document.body).on('submit','.commentForm', function(e) {
     var form = $(this).closest('form');
     $.ajax({
@@ -81,11 +137,10 @@ $(document.body).on('submit','.commentForm', function(e) {
             action: 'post'
         },
         
-        success: function(response){
+        success: function(response) {
         $(`#${form.attr('id')} input[name=text]`).val('');
         $(`#comment-section-${response['post_id']}`).prepend('<p>'+response['text']+'</p>')
         console.log('successful ajax request')
-
         },
         
         error: function(response) {
@@ -104,28 +159,21 @@ $(document.body).on('click','.all-comments', function(){
     var id = $(this).attr('id');
     post_id = id.slice(id.lastIndexOf('-')+1,id.length);
     original_url = document.URL
-
-    $.ajax({
-        type:'GET',
-        url: `p/${post_id}`,
-        data:{},
-        success: function(response){
-            $('.single-post-view').css('display','block');
-            $('.single-post-content').html(response.html);
-            document.body.style.overflow = "hidden";
-
-            var new_url = '/p/' + post_id;
-            window.history.pushState('data', document.title, new_url);
-            
-            console.log('successful single-post ajax request')
-        },
-        error: function() {
-            console.log('ERROR in single-post ajax request')
-        }
+    
+    $.get(`p/${post_id}`, function(response) {
+        $('.single-post-view').css('display','block');
+        $('.single-post-content').html(response.html);
+        document.body.style.overflow = "hidden";
+        
+        var new_url = '/p/' + post_id;
+        window.history.pushState('data', document.title, new_url);
+        
+        console.log('successful single-post ajax request')
+    }).fail(function(xhr) {
+        console.log('ERROR in single-post ajax request')
     });
     return false;
 });
-
 
 $(document.body).on('click','.single-post-view', function(){
     $(this).css('display','none')
@@ -190,8 +238,12 @@ function inboxDetail(url,inbox_id){
     $.get(url, function(response) {
         console.log(url, 'detail finished successfully');
         $("#inbox-detail").html(response.html)
+
         var new_url = `/direct/t/${inbox_id}`;
         window.history.pushState('data', document.title, new_url);
+
+        var message_section = $(`#message-section-${inbox_id}`)
+        message_section[0].scrollTop = message_section[0].scrollHeight - message_section[0].clientHeight;
 
     }).fail(function(xhr) {
         alert('Save failed with '+xhr.status+' '+url);
@@ -200,7 +252,7 @@ function inboxDetail(url,inbox_id){
 
 
 
-//---------------- Message Form--------------------
+//---------------------- Message Form--------------------------
 
 $(document.body).on('submit','.messageForm', function(e) {
     var form = $(this).closest('form');
@@ -216,8 +268,11 @@ $(document.body).on('submit','.messageForm', function(e) {
         
         success: function(response){
             $(`#${form.attr('id')} input[name=text]`).val('');
-            $(`#message-section-${response['inbox_id']}`).append('<p class="owner_messages"> SENT:  ' +response['text']+ `<small class="text-muted"> ${response['created_at']}</small>` + '</p>')
-            console.log('successful message request')
+            var message_section = $(`#message-section-${response['inbox_id']}`)
+            message_section.append('<p class="owner_messages"> SENT:  ' +response['text']+ `<small class="text-muted"> ${response['created_at']}</small>` + '</p>')
+            message_section[0].scrollTop = message_section[0].scrollHeight - message_section[0].clientHeight;
+            
+            console.log('successful message sent')
         },
         
         error: function(response) {
@@ -228,15 +283,14 @@ $(document.body).on('submit','.messageForm', function(e) {
 });
 
 
+
 // ------------------- Message Updating --------------------
 
 function UpdateMessages() {
-
     var m_id = $('.message-section').attr('id')
     inbox_id = m_id.slice(m_id.lastIndexOf('-')+1,m_id.length);
     
     $.ajax({
-        
         url: `message/update/${inbox_id}`,
         success: function(response) {
             $(`#message-section-${inbox_id}`).append(response.html)
@@ -245,18 +299,26 @@ function UpdateMessages() {
             setTimeout(UpdateMessages, 4000);
         }
     });
-
 };
 
-// ------------------ Message Notification ----------------------
-var message_notification = setInterval(function(){
-    var url = '/notification/message'
-    
-    $.get(url, function(response) {
-        console.log(url, 'detail finished successfully');
-        $(".inbox-notification").html(response.html)
 
+
+// ------------------ Message Notification ----------------------
+
+var message_notification = setInterval(function(){
+    
+    var page_url = window.location.href;
+    let inbox_id = '00'
+    if(page_url.includes("direct/t")) {        
+        inbox_id = page_url.slice(page_url.lastIndexOf('/')+1, page_url.length);
+    }    
+    var url = `/notification/message/${inbox_id}`
+
+    $.get(url, function(response) {
+        console.log(url, 'Inbox notification finished successfully');
+        $(".inbox-notification").html(response.html); 
     }).fail(function(xhr) {
-        alert('Save failed with '+xhr.status+' '+url);
+        console.log('Inbox notification failed with '+xhr.status+' '+url);
     });
+
 }, 1000);

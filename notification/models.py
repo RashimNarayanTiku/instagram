@@ -13,7 +13,6 @@ class InboxNotification(models.Model):
 class LikeNotification(models.Model):
     like = models.OneToOneField(Like, on_delete=models.CASCADE)
 
-
 class CommentNotification(models.Model):
     comment = models.OneToOneField(Comment, on_delete=models.CASCADE)
 

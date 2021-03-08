@@ -20,6 +20,8 @@
     {% block head %} {% endblock %}
     </head>
     <body>
+
+    {{ request.user.id|json_script:"user_id" }}
       
     <!-- Single Post View -->
     <div class='single-post-view' id='single-post-view'> 
@@ -52,8 +54,12 @@
                   </div>
 
                 </div>
-                <ul class="navbar-nav ml-auto" style="margin-right:2%;">
+                <ul class="navbar-nav mr-auto" style="margin-right:2%;">
                     <li class='inbox-notification'></li>
+                    <div class='fa fa-circle' id='notification-dot'></div>
+                    <li id='notification'></li>
+                    <li id='notification-display'></li>
+
                     <li class="nav-item dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false" >
                             <div>{{user.username}}</div>
@@ -77,29 +83,6 @@
         </div>
       </nav>
     {% endblock %}
-
-    <!-- <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-        <div class="container">
-          <a class="navbar-brand mr-4" href="/">Instagram</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="/">Home</a>
-              <a class="nav-item nav-link" href="{% url 'profile' user.username %}">PROFILE</a>
-            </div>
-             Navbar Right Side     
-            <div class="navbar-nav">
-              <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-              <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-              <a class="nav-item nav-link" href="{% url 'signup' %}">Signup</a>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>  -->
 
 
     <title>{% block title %} {% endblock %}</title>
@@ -126,6 +109,8 @@
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
             <script src="{% static 'js/base.js' %}"> </script>
+            
+            
             {% block content %}{% endblock %}
             {% block js %}{% endblock %}
 

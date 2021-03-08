@@ -1,5 +1,6 @@
 from post.models import Post,Comment,Like,Save
 from notification.models import InboxNotification, LikeNotification, CommentNotification
+from message.models import Inbox
 
 from django.core import serializers
 from django.core.paginator import Paginator
@@ -12,15 +13,67 @@ from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+from itertools import chain
 
 
 class InboxNotificationView(View):
 
-    def get(self, request):
+    def get(self, request, pk):
+
+        if pk != 00:
+            inbox = Inbox.objects.get(id=pk)
+            InboxNotification.objects.filter(inbox=inbox).delete()
+                    
         count = InboxNotification.objects.filter(inbox__owner=request.user).count()
         html = render_to_string(
             template_name="notification/inbox_notification.html", 
             context={"count": count}
+        )
+        response = {}
+        response['html'] = html
+        return JsonResponse(response)
+        
+        
+class NotificationView(View):
+
+    def get(self, request, pk):
+        
+        user = User.objects.get(id=pk)
+        like_notifications = LikeNotification.objects.filter(like__post__owner=user)
+        comment_notifications = CommentNotification.objects.filter(comment__post__owner=user)
+
+        html = render_to_string(
+            template_name="notification/notification.html", 
+            context={"like_notifications":like_notifications, 'comment_notifications':comment_notifications}
+        )
+        response = {}
+        response['html'] = html
+        response['count'] = like_notifications.count() + comment_notifications.count()
+        return JsonResponse(response)
+        
+        
+class NotificationDisplayView(View):
+
+    def get(self, request, pk):
+        
+        user = User.objects.get(id=pk)
+
+        try:
+            LikeNotification.objects.filter(like__post__owner=user).delete()
+            CommentNotification.objects.filter(comment__post__owner=user).delete()
+        except:
+            pass
+        
+        likes = Like.objects.filter(post__owner=user)
+        comments = Comment.objects.filter(post__owner=user)
+        
+        notifications = sorted(
+            chain(likes, comments),
+            key=lambda notification: notification.created_at, reverse=True)
+
+        html = render_to_string(
+            template_name='notification/notification_display.html', 
+            context = {'notifications':notifications, 'likes':likes, 'comments':comments}
         )
         response = {}
         response['html'] = html

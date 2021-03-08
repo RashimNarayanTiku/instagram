@@ -30,7 +30,9 @@ urlpatterns = [
     path('direct/t/message/update/<int:pk>', message_views.MessageUpdateView, name='message_update'),
 
 
-    path('notification/message', notification_views.InboxNotificationView.as_view(), name='inbox_notification'),
+    path('notification/message/<int:pk>', notification_views.InboxNotificationView.as_view(), name='inbox_notification'),
+    path('notification/<int:pk>', notification_views.NotificationView.as_view(), name='notification'),
+    path('notification/display/<int:pk>', notification_views.NotificationDisplayView.as_view(), name='notification_display'),
 
 
     path('<str:username>/', user_views.profileView, name='profile'),

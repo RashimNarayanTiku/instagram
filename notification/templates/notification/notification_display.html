@@ -1,0 +1,8 @@
+{% for notification in notifications %}
+
+{%if notification in likes %}
+    <p> {{notification.owner.username}} liked your photo. <img src={{notification.post.photo.url}} style="width:20%;"></p>
+{% else %}
+<p> {{notification.owner.username}} commented: {{notification.text}} <img src={{notification.post.photo.url}} style="width:20%;"></p>
+{% endif %}
+{% endfor%}

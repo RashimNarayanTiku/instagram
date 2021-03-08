@@ -19,6 +19,7 @@ class Post(models.Model):
 class Like(models.Model) :
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     # https://docs.djangoproject.com/en/3.0/ref/models/options/#unique-together
     class Meta:
@@ -31,6 +32,7 @@ class Like(models.Model) :
 class Save(models.Model) :
     owner = models.ForeignKey(User, related_name='save_owner', on_delete=models.CASCADE)    
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_saves')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     # https://docs.djangoproject.com/en/3.0/ref/models/options/#unique-together
     class Meta:

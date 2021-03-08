@@ -43,6 +43,8 @@ def InboxDetailView(request, pk):
         owner = inbox.owner.id
         reciever = inbox.reciever.id
 
+        InboxNotification.objects.filter(inbox=inbox).delete()
+
         owner_messages = inbox.owner_messages.all() 
         reciever_messages = inbox.reciever_messages.all() 
 
@@ -78,7 +80,8 @@ def MessageCreateView(request, pk):
             reciever_inbox = reciever_inbox,
         )
 
-        notification = InboxNotification(reciever_inbox)
+
+        notification = InboxNotification.objects.get_or_create(inbox=reciever_inbox)
 
         format = "%B %d, %Y"
         time = message.created_at.strftime(format)
@@ -101,10 +104,7 @@ def MessageUpdateView(request, pk):
         reciever = inbox.reciever.id
 
         time_threshold = timezone.now() - timedelta(seconds=4)
-
-        # owner_messages = inbox.owner_messages.filter(created_at__gt=time_threshold) 
         reciever_messages = inbox.reciever_messages.filter(created_at__gt=time_threshold) 
-
         messages = reciever_messages
 
         html = render_to_string('message/messages.html', {'messages':messages})

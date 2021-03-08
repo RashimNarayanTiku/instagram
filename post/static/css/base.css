@@ -11,8 +11,8 @@
 
 #search-results{
     position: absolute;
-    width: 32%;
-    height:650%;
+    width: 30%;
+    height:400%;
     background-color: white;
     z-index: 10;
     margin-top: -0.5%;
@@ -128,3 +128,25 @@ a {
     }
 }
 
+
+#notification-display{
+    position: absolute;
+    width: 35%;
+    height:400%;
+    background-color: white;
+    z-index: 10;
+    margin-top: 6%;
+    margin-left:-24%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow:  1.5px 1.5px 1.5px 1.5px rgba(0,0,0,.1);
+    display:none;
+    overflow-x:hidden;
+    overflow-y: auto;
+}
+
+#notification-dot{
+    display:none;
+    font-size: 5px;
+    color:rgb(237,73,86) !important;
+}
