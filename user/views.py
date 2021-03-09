@@ -4,12 +4,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, HttpResponseRedirect, HttpResponse, redirect, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
+from django.http import HttpResponse, JsonResponse
 from django.forms.models import inlineformset_factory
+from django.template.loader import render_to_string
 from django.urls import reverse
+from django.views import View
+
 from .models import Profile
 from .forms import UserEditForm, ProfileEditForm, SignUpForm
 
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.db.utils import IntegrityError
 
 def signupView(request):
     if request.method == 'POST':
@@ -26,9 +34,36 @@ def signupView(request):
     return render(request,'user/signup.html', {'form':form})
 
 
+@method_decorator(csrf_exempt, name='dispatch')
+class followView(View):
+
+    def post(self, request):
+        user_name = request.POST.get('username')
+        user2 = User.objects.get(username=user_name)
+
+        if(user2 in request.user.user.following.all()):
+            u = request.user.user.following.remove(user2)
+        else:
+            u = request.user.user.following.add(user2)
+
+        following_queryset = request.user.user.following.all()
+        following = [user.username for user in following_queryset]
+                
+        html = render_to_string(
+            template_name="user/follow.html", 
+            context={'following':following, 'profile':user2}
+        )
+        response_data = {}
+        response_data['html'] = html
+        return JsonResponse(response_data)    
+
+
 def profileView(request, username):
     profile = get_object_or_404(Profile, user__username=username)
-    return render(request, 'user/profile.html',{'profile':profile})
+    following_queryset = request.user.user.following.all()
+    following = [user.username for user in following_queryset]
+    return render(request, 'user/profile.html',{'profile':profile,'following':following})
+
 
 
 @login_required
@@ -52,6 +87,8 @@ def editView(request):
     }
 
     return render(request, 'user/edit.html', context)
+
+
 
 @login_required
 def change_password(request):

@@ -3,7 +3,7 @@ $(document).ready(function(){
 
     // -------------------- notifications numbers -------------------------
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
-    const url = `notification/${user_id}`;
+    const url = `/notification/${user_id}`;
     
     $.get(url, function(response) {
         console.log(url, 'Notification finished successfully');
@@ -15,12 +15,10 @@ $(document).ready(function(){
     }).fail(function(xhr) {
         console.log('Notification failed with '+xhr.status+' '+url);
     });
-    
-
-
+        
     // ---------------------- popup click listener ------------------------
     $("body").click(function(ele) {
-
+    
         // search
         if ( ele.target.id === "user-input" ) {
             $("#user-input").css('color', 'black');
@@ -30,16 +28,18 @@ $(document).ready(function(){
             $(".triangle-up").css("display",'none');
             $("#user-input").css('color', 'grey');
         }
-
-
+    
         // notification
         if(ele.target.id !== "notification" && ele.target.id !== "notification-display"){
             $("#notification-display").css('display', 'none');
         }
-
+    
     });
-
 });
+
+
+
+
 
 
 
@@ -49,13 +49,11 @@ $(document.body).on('click','#notification', function(e) {
     
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
     
-    $.get(`notification/display/${user_id}`, function(response) {
-
+    $.get(url=`/notification/display/${user_id}`, function(response) {
         console.log(url, 'Notification finished successfully');           
         $("#notification-display").html(response.html);    
         $("#notification-display").css('display', 'block');   
         $("#notification-dot").css('display','none')
-
         
     }).fail(function(xhr) {
         console.log('Notification failed with '+xhr.status+' '+url);
@@ -322,3 +320,24 @@ var message_notification = setInterval(function(){
     });
 
 }, 1000);
+
+
+
+// --------------------------- follow-btn --------------------------
+
+$(document.body).on('click','.follow-btn', function() {
+    
+    var page_url = window.location.href.split('/');
+    user_username = page_url[page_url.length - 2];
+    console.log('follow request sent @ /follow/')
+
+    $.post('/follow/',{'username':user_username}, function(response){
+        console.log(`/follow/ finished`);
+        $('.follow-section').html(response.html)
+    }).fail(function(xhr){
+        alert('Follow failed with '+xhr.status+' '+'/follow/');
+    });
+    
+    return false;
+});
+

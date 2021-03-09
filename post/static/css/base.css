@@ -146,6 +146,9 @@ a {
 }
 
 #notification-dot{
+    position:absolute;
+    margin-left:5%;
+    margin-top:5%;
     display:none;
     font-size: 5px;
     color:rgb(237,73,86) !important;

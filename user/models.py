@@ -7,6 +7,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE)
+    following = models.ManyToManyField(User, related_name='followers', null=True)
     photo = models.ImageField(upload_to="profile_pics", default='default.jpg')
     website = models.URLField(default='', blank=True)
     bio = models.TextField(default='', blank=True)
