@@ -6,7 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from django.forms.models import inlineformset_factory
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -18,6 +18,8 @@ from .forms import UserEditForm, ProfileEditForm, SignUpForm
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.db.utils import IntegrityError
+from django.core.exceptions import PermissionDenied
+
 
 def signupView(request):
     if request.method == 'POST':
@@ -58,12 +60,27 @@ class followView(View):
         return JsonResponse(response_data)    
 
 
+
 def profileView(request, username):
     profile = get_object_or_404(Profile, user__username=username)
     following_queryset = request.user.user.following.all()
     following = [user.username for user in following_queryset]
     return render(request, 'user/profile.html',{'profile':profile,'following':following})
 
+
+
+def savedDisplayView(request,username):
+    if(request.user.username != username): 
+        return HttpResponseNotFound("<b>Sorry, this page isn't available.</b> The link you followed may be broken, or the page may have been removed. <a href='/'>Go back to Instagram.</a>")    
+
+    saves = request.user.save_owner.all()
+    posts = [s.post for s in saves]
+    ctx={}
+    ctx['posts'] = posts
+    return render(request, 'user/saved_display.html', ctx)
+
+    return HttpResponse('HEOLLLLLLIOOO')
+    
 
 
 @login_required

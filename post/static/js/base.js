@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
 
+    
     // -------------------- notifications numbers -------------------------
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
     const url = `/notification/${user_id}`;
@@ -16,6 +17,7 @@ $(document).ready(function(){
         console.log('Notification failed with '+xhr.status+' '+url);
     });
         
+
     // ---------------------- popup click listener ------------------------
     $("body").click(function(ele) {
     

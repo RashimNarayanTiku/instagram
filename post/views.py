@@ -29,6 +29,8 @@ class PostListView(OwnerListView):
     def get_context_data(self, **kwargs):
         context = super(OwnerListView, self).get_context_data(**kwargs)
 
+        posts = Post.objects.filter(owner__in = self.request.user.user.following.all())
+        context['posts'] = posts
         comment_form = CommentForm()
         context['comment_form'] = comment_form
 
@@ -41,6 +43,8 @@ class PostListView(OwnerListView):
         context['saved_posts'] = saved_posts
 
         return context
+    
+
 
 @login_required
 def CommentCreateView(request, pk):
@@ -82,6 +86,7 @@ def SearchView(request):
         return JsonResponse(data=data_dict, safe=False)
 
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 @login_required
 def SinglePostView(request, pk):
@@ -94,6 +99,7 @@ def SinglePostView(request, pk):
         comment_form = CommentForm()
         html = render_to_string('post/single_post.html', {'post': post, 'comment_form':comment_form, 'liked_posts':liked_posts, 'saved_posts':saved_posts})
         return JsonResponse(data={'html':html}, safe=False)
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -115,6 +121,7 @@ class LikeView(LoginRequiredMixin, View):
         return JsonResponse(data={'html':html}, safe=False)
 
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 class UnlikeView(LoginRequiredMixin, View):
     def post(self, request, pk):
@@ -131,6 +138,7 @@ class UnlikeView(LoginRequiredMixin, View):
         return JsonResponse(data={'html':html}, safe=False)
 
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 class SaveView(LoginRequiredMixin, View):
     def post(self, request, pk):
@@ -142,6 +150,7 @@ class SaveView(LoginRequiredMixin, View):
         except IntegrityError as e:
             pass
         return HttpResponse()
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')
