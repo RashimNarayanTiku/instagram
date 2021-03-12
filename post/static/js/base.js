@@ -354,20 +354,27 @@ $(document.body).on('submit','.messageForm', function(e) {
 
 
 // ------------------- Message Updating --------------------
-
+var isLoading = false;
 function UpdateMessages() {
-    var m_id = $('.message-section').attr('id')
-    inbox_id = m_id.slice(m_id.lastIndexOf('-')+1,m_id.length);
-    
-    $.ajax({
-        url: `message/update/${inbox_id}`,
-        success: function(response) {
-            $(`#message-section-${inbox_id}`).append(response.html)
-        },
-        complete: function() {
-            setTimeout(UpdateMessages, 4000);
-        }
-    });
+    if(!isLoading) {
+
+        isLoading = true;
+        var m_id = $('.message-section').attr('id')
+        inbox_id = m_id.slice(m_id.lastIndexOf('-')+1,m_id.length);
+        
+        $.ajax({
+            url: `message/update/${inbox_id}`,
+            success: function(response) {
+                console.log('0000000000 MESSAGE CAME 0000000000')
+                $(`#message-section-${inbox_id}`).append(response.html)
+                response.html = '';
+            },
+            complete: function() {
+                setTimeout(UpdateMessages, 3000);
+                isLoading = false;
+            }
+        });
+    }
 };
 
 
@@ -384,7 +391,6 @@ var message_notification = setInterval(function(){
     var url = `/notification/message/${inbox_id}`
 
     $.get(url, function(response) {
-        console.log(url, 'Inbox notification finished successfully');
         $(".inbox-notification").html(response.html); 
     }).fail(function(xhr) {
         console.log('Inbox notification failed with '+xhr.status+' '+url);

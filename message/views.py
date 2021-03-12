@@ -136,7 +136,7 @@ def MessageUpdateView(request, pk):
         owner = inbox.owner.id
         reciever = inbox.reciever.id
 
-        time_threshold = timezone.now() - timedelta(seconds=4)
+        time_threshold = timezone.now() - timedelta(seconds=3)
         reciever_messages = inbox.reciever_messages.filter(created_at__gt=time_threshold) 
         messages = reciever_messages
 

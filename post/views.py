@@ -1,5 +1,5 @@
 from post.models import Post,Comment,Like,Save
-from post.forms import CommentForm
+from post.forms import PostForm, CommentForm
 from post.owner import  OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpdateView, OwnerDeleteView
 
 from notification.models import LikeNotification, CommentNotification
@@ -19,31 +19,42 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 
-class PostListView(OwnerListView):
-    context_object_name = "posts"
+
+@login_required
+def PostListView(request):
     template_name = "post/post_list.html"
+
+    context = {}
+
+    posts = Post.objects.filter(owner__in = request.user.user.following.all()).order_by('-created_at')
+    paginator = Paginator(posts, 2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context['page_obj'] = page_obj
+
+    comment_form = CommentForm()
+    context['comment_form'] = comment_form
+
+    rows = request.user.like_post.values('id')
+    liked_posts = [ row['id'] for row in rows ]
+    context['liked_posts'] = liked_posts
+
+    rows = request.user.save_post.values('id')
+    saved_posts = [ row['id'] for row in rows ]
+    context['saved_posts'] = saved_posts
+
+    return render(request, template_name, context)
+
+
+
+class PostCreateView(OwnerCreateView):
     model = Post
-    ordering = ['-created_at']
-    paginate_by = 3
+    template_name = "post/post_create.html"
+    form_class = PostForm
 
-    def get_context_data(self, **kwargs):
-        context = super(OwnerListView, self).get_context_data(**kwargs)
+    def get_success_url(self):
+        return reverse('post_list')
 
-        posts = Post.objects.filter(owner__in = self.request.user.user.following.all())
-        context['posts'] = posts
-        comment_form = CommentForm()
-        context['comment_form'] = comment_form
-
-        rows = self.request.user.like_post.values('id')
-        liked_posts = [ row['id'] for row in rows ]
-        context['liked_posts'] = liked_posts
-
-        rows = self.request.user.save_post.values('id')
-        saved_posts = [ row['id'] for row in rows ]
-        context['saved_posts'] = saved_posts
-
-        return context
-    
 
 
 @login_required

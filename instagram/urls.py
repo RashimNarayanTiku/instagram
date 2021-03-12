@@ -11,7 +11,8 @@ from notification import views as notification_views
 
 
 urlpatterns = [
-    path('', post_views.PostListView.as_view(), name='post_list'),
+    path('', post_views.PostListView, name='post_list'),
+    path('create/details/', post_views.PostCreateView.as_view(), name='post_create'),
     path('p/<int:pk>', post_views.SinglePostView, name='single_post_view'),
     path('comment/<int:pk>', post_views.CommentCreateView, name='post_comment_create'),
     path('search/', post_views.SearchView, name='search'),

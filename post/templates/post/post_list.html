@@ -8,7 +8,7 @@
 {% block content %}
   <div class= infinite-container>
 
-    {% for post in posts %}
+    {% for post in page_obj %}
       <article class="infinite-item post" id='post-{{post.id}}'>
         <img class="rounded-circle article-img" src="{{ post.owner.user.photo.url }}" style="width:5%;">
         <div class="media-body">
@@ -90,8 +90,10 @@
           <p>{{post.post_likes.count}} like</p>
           {% endif %}
         </div>
-
+        
+          {% if post.caption %}
           <p><b>{{post.owner.username}}</b> {{post.caption}}</p>
+          {% endif %}
 
           {% if post.post_comments.count > 2 %}
           <div class='btn all-comments text-emuted' id='all-comments-{{post.id}}'> View all {{post.post_comments.count}} comments </div>

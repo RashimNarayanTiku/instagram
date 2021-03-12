@@ -2,7 +2,7 @@
   <ul id='new-inbox-list'>
     {% for profile in profiles %}
     <a href = '/direct/new/{{profile.id}}'>
-    <li class='new-inbox-profile' id='new-inbox-profile-{{profile.user.id}}' style="width: fit-content;">
+    <li class='new-inbox-profile' id='new-inbox-profile-{{profile.id}}' style="width: fit-content;">
       <div style="display: flex;"><img class='rounded-circle' id='new-inbox-pic'src='{{profile.user.photo.url}}' style="width: 10%;">
       <ul type='none'>
         <li style="font-weight: 600;margin-bottom: -45%;">
