@@ -1,7 +1,7 @@
 # Instagram
 It is a fully functional Instagram clone made in Django (In progress)
 
-**Backend stuff Done**:
+## Backend Stuff Done:
 
 *Profile*
 * login/signup page
