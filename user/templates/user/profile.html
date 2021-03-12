@@ -35,8 +35,8 @@
   </div>
 
   
-  {% if posts %}
-  {% for post in posts %}
+  {% if profile.user.owner_posts.count > 0 %}
+  {% for post in profile.user.owner_posts.all %}
   <img class="btn article-img all-comments" id='all-comments-{{post.id}}' src="{{ post.photo.url }}" style="width: 50%;">
   {% endfor %}
   
