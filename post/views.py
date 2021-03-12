@@ -59,7 +59,8 @@ def CommentCreateView(request, pk):
             post = post,
         )
 
-        notification = CommentNotification.objects.get_or_create(comment=comment)
+        if comment.owner != post.owner:
+            notification = CommentNotification.objects.get_or_create(comment=comment)
 
         response_data['text'] = text
         response_data['post_id'] = pk
@@ -112,7 +113,9 @@ class LikeView(LoginRequiredMixin, View):
         
         try:
             like.save()  
-            notification = LikeNotification.objects.create(like=like)
+            print(like.owner,post.owner)
+            if like.owner != post.owner:
+                notification = LikeNotification.objects.create(like=like)
         except IntegrityError:
             pass
     
@@ -163,3 +166,26 @@ class UnsaveView(LoginRequiredMixin, View):
         except Save.DoesNotExist:
             pass
         return HttpResponse()
+
+
+
+class ExploreView(OwnerListView):
+    context_object_name = "posts"
+    template_name = "post/explore.html"
+    model = Post
+    ordering = ['-created_at']
+    paginate_by = 2
+
+    def get_context_data(self, **kwargs):
+        context = super(OwnerListView, self).get_context_data(**kwargs)
+
+        rows = self.request.user.like_post.values('id')
+        liked_posts = [ row['id'] for row in rows ]
+        context['liked_posts'] = liked_posts
+
+        rows = self.request.user.save_post.values('id')
+        saved_posts = [ row['id'] for row in rows ]
+        context['saved_posts'] = saved_posts
+
+        return context
+    

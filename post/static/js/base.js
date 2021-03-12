@@ -19,6 +19,7 @@ $(document).ready(function(){
         
 
     // ---------------------- popup click listener ------------------------
+
     $("body").click(function(ele) {
     
         // search
@@ -31,13 +32,77 @@ $(document).ready(function(){
             $("#user-input").css('color', 'grey');
         }
     
-        // notification
+        
+        // ---------notification---------
         if(ele.target.id !== "notification" && ele.target.id !== "notification-display"){
             $("#notification-display").css('display', 'none');
         }
-    
+        
+        console.log(ele.target.id)
+
+        // ----------new inbox----------
+        if(ele.target.id === 'new-inbox-icon' || ele.target.id === 'new-inbox' || ele.target.id === 'new-inbox-input'|| ele.target.id === 'new-inbox-results'){
+            $('#new-inbox').css('display','block');
+        }
+        else{
+            $('#new-inbox').css('display','none');
+        }
+
+
+        // ------------ Inbox Create Profile search --------------
+
+        const new_inbox_input = $("#new-inbox-input")
+        const new_inbox_load_icon = $('#new-inbox-load-icon')
+        const profile_div = $('#new-inbox-results')
+        var new_inbox_endpoint = '/direct/profile/'
+        const delay_by = 700
+        let scheduled_func = false
+
+
+        let ajax_calling = function (new_inbox_endpoint, request_parameters) {
+
+            $.getJSON(new_inbox_endpoint, request_parameters)
+                .done(response => {
+                    profile_div.fadeTo('slow', 0).promise().then(() => {
+                        profile_div.html(response['html_from_view'])
+                        profile_div.fadeTo('slow', 1)
+                        new_inbox_load_icon.hide()
+                    })
+                })
+        }
+
+        new_inbox_input.on('keyup', function () {
+            console.log('new inbox text sent')
+        
+            const request_parameters = {
+                q: $(this).val() 
+            }
+            new_inbox_load_icon.show()
+            // if scheduled_func is NOT false, cancel the execution of the function
+            if (scheduled_func) {
+                clearTimeout(scheduled_func)
+            }
+            // setTimeout returns the ID of the function to be executed
+            scheduled_func = setTimeout(ajax_calling, delay_by, new_inbox_endpoint, request_parameters)
+        });
+
+
+
+        // ------------ Inbox Create make --------------
+
+        // $('.new-inbox-profile').click(function(){
+        //     var id = $(this).attr('id').split('-');
+        //     profile_id = id[id.length - 1];
+        //     alert(profile_id)
+        //     var url = `/direct/new/${profile_id}` 
+        //     $.post(url, function(){
+
+        //     });
+
+        });
     });
-});
+   
+
 
 
 
@@ -83,7 +148,7 @@ function getCookie(cname) {
 
 
 
-// --------------------Ajax search--------------------
+// --------------------Profile search--------------------
 
 const user_input = $("#user-input")
 const load_icon = $('#load-icon')
@@ -160,7 +225,7 @@ $(document.body).on('click','.all-comments', function(){
     post_id = id.slice(id.lastIndexOf('-')+1,id.length);
     original_url = document.URL
     
-    $.get(`p/${post_id}`, function(response) {
+    $.get(`/p/${post_id}`, function(response) {
         $('.single-post-view').css('display','block');
         $('.single-post-content').html(response.html);
         document.body.style.overflow = "hidden";
@@ -249,6 +314,10 @@ function inboxDetail(url,inbox_id){
         alert('Save failed with '+xhr.status+' '+url);
     });
 }
+
+
+
+
 
 
 
@@ -342,4 +411,6 @@ $(document.body).on('click','.follow-btn', function() {
     
     return false;
 });
+
+
 

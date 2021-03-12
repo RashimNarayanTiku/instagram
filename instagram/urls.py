@@ -15,6 +15,7 @@ urlpatterns = [
     path('p/<int:pk>', post_views.SinglePostView, name='single_post_view'),
     path('comment/<int:pk>', post_views.CommentCreateView, name='post_comment_create'),
     path('search/', post_views.SearchView, name='search'),
+    path('explore/', post_views.ExploreView.as_view(), name='explore'),
     path('admin/', admin.site.urls),
     
     path('like/<int:pk>/',post_views.LikeView.as_view(), name='post_like'),
@@ -25,7 +26,8 @@ urlpatterns = [
 
     path('direct/inbox/', message_views.InboxListView, name='inbox_list'),
     path('direct/t/<int:pk>/', message_views.InboxDetailView, name='inbox_detail'),
-    ########################## path('direct/new/', message_views.InboxCreateView.as_view(), name='inbox_create'),
+    path('direct/profile/', message_views.InboxFindProfileView, name='inbox_find_profile'),
+    path('direct/new/<int:pk>', message_views.InboxCreateView, name='inbox_create'),
     path('message/<int:pk>/', message_views.MessageCreateView, name='message_create'),
     path('direct/t/message/update/<int:pk>', message_views.MessageUpdateView, name='message_update'),
 

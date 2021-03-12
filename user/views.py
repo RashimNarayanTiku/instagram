@@ -36,6 +36,7 @@ def signupView(request):
     return render(request,'user/signup.html', {'form':form})
 
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 class followView(View):
 
@@ -68,18 +69,15 @@ def profileView(request, username):
     return render(request, 'user/profile.html',{'profile':profile,'following':following})
 
 
-
+@login_required
 def savedDisplayView(request,username):
     if(request.user.username != username): 
         return HttpResponseNotFound("<b>Sorry, this page isn't available.</b> The link you followed may be broken, or the page may have been removed. <a href='/'>Go back to Instagram.</a>")    
 
     saves = request.user.save_owner.all()
     posts = [s.post for s in saves]
-    ctx={}
-    ctx['posts'] = posts
-    return render(request, 'user/saved_display.html', ctx)
-
-    return HttpResponse('HEOLLLLLLIOOO')
+    
+    return render(request, 'user/saved_display.html', {'posts':posts})
     
 
 

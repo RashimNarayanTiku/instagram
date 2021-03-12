@@ -1,4 +1,7 @@
 
+body{
+    background-color: rgb(250, 250, 250);
+}
 .search{
     margin-left:40%;
     width:150%;
@@ -106,9 +109,13 @@
     -ms-flex-align: center;
     align-items: center;
 }
-    
+ 
+svg {
+    cursor:pointer;
+}
 a {
     cursor:pointer;
+
 }
 
 

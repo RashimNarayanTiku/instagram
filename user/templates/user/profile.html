@@ -33,4 +33,19 @@
       </div>
     </div>
   </div>
+
+  
+  {% if posts %}
+  {% for post in posts %}
+  <img class="btn article-img all-comments" id='all-comments-{{post.id}}' src="{{ post.photo.url }}" style="width: 50%;">
+  {% endfor %}
+  
+  {% else %}
+  <div class='no-post'>
+      <img src='{%static "img/no-post.png" %}'>
+      <h3>No posts Yet</h3>
+      <p> When you share photos, they will appear on <br> your profile.</p>
+  </div>
+  {% endif %}
+
 {% endblock %}

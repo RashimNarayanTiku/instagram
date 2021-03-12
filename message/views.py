@@ -22,6 +22,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .forms import MessageForm
 
 
+
 @login_required
 def InboxListView(request):
     ctx = {}
@@ -31,6 +32,7 @@ def InboxListView(request):
         inboxes = Inbox.objects.filter(owner=request.user)
         ctx = {'inboxes':inboxes}
     return render(request, 'message/inbox.html', ctx)
+
 
 
 @login_required
@@ -56,6 +58,37 @@ def InboxDetailView(request, pk):
         return JsonResponse(data={'html':html}, safe=False)
     
     return redirect('inbox_list')
+
+
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+@login_required
+def InboxFindProfileView(request):
+    if request.is_ajax():
+        url_parameter = request.GET.get("q")
+        if url_parameter:
+            profiles = User.objects.filter(first_name__icontains=url_parameter)
+        else:
+            profiles = None
+
+        html = render_to_string(
+            template_name="message/new_inbox.html", 
+            context={"profiles": profiles}
+        )
+        data_dict = {"html_from_view": html}
+        return JsonResponse(data=data_dict, safe=False)
+
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+@login_required
+def InboxCreateView(request,pk):
+
+    reciever = User.objects.get(id=pk)
+    inbox = Inbox.objects.get_or_create(owner=request.user, reciever=reciever)
+    return redirect(reverse("inbox_list"))
+
 
 
 
