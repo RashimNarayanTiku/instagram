@@ -130,10 +130,11 @@ $(document).ready(function(){
             id = $(this).attr('id').split('-')
             profile_id = id[id.length-1]
 
-            alert($(this).closest(".share-search-results"))
             var search_results = $(this).closest('.share-search-results')
             search_results = search_results.attr('id').split('-');
             var post_id = search_results[search_results.length-1]
+            alert('post ->'+ post_id)
+            alert('profile ->'+profile_id)
 
             
             var url = '/share/'
@@ -402,25 +403,21 @@ $(document.body).on('submit','.messageForm', function(e) {
 // ------------------- Message Updating --------------------
 var isLoading = false;
 function UpdateMessages() {
-    if(!isLoading) {
 
-        isLoading = true;
-        var m_id = $('.message-section').attr('id')
-        inbox_id = m_id.slice(m_id.lastIndexOf('-')+1,m_id.length);
-        
-        $.ajax({
-            url: `message/update/${inbox_id}`,
-            success: function(response) {
-                console.log('0000000000 MESSAGE CAME 0000000000')
-                $(`#message-section-${inbox_id}`).append(response.html)
-                response.html = '';
-            },
-            complete: function() {
-                setTimeout(UpdateMessages, 3000);
-                isLoading = false;
-            }
-        });
-    }
+    var m_id = $('.message-section').attr('id')
+    inbox_id = m_id.slice(m_id.lastIndexOf('-')+1,m_id.length);
+    
+    $.ajax({
+        url: `message/update/${inbox_id}`,
+        success: function(response) {
+            // console.log('0000000000 MESSAGE CAME 0000000000')
+            console.log(response.html)
+            $(`#message-section-${inbox_id}`).append(response.html)
+        },
+        complete: function() {
+            setTimeout(UpdateMessages, 3000);
+        }
+    });
 };
 
 

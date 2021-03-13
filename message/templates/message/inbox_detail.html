@@ -8,11 +8,11 @@
 
         <div class='message-section' id="message-section-{{inbox.id}}" style="height:50vh; overflow:auto;">
             {% for message in messages %}
-                {% if message.post%}
+                {% if message.post %}
                     {% if message in owner_messages %}
-                    <p class='owner_message'>SENT:  {{ message.post.photo }} <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+                    <p class='owner_message'>SENT:  <img src='{{ message.post.photo.url }}' style='width:5%;'> <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
                     {% else %}
-                    <p class='reciever_message'>RECIEVED:  {{ message.post.photo }} <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+                    <p class='reciever_message'>RECIEVED:  <img src='{{ message.post.photo.url }}' style='width:5%;'> <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
                     {% endif %}
                 {% else %}
                     {% if message in owner_messages %}

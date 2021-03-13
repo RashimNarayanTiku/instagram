@@ -3,7 +3,7 @@ from message.models import Message, Inbox
 from post.forms import PostForm, CommentForm
 from post.owner import  OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpdateView, OwnerDeleteView
 
-from notification.models import LikeNotification, CommentNotification
+from notification.models import LikeNotification, CommentNotification, InboxNotification
 
 from django.core import serializers
 from django.core.paginator import Paginator
@@ -203,17 +203,18 @@ def ShareProfileView(request):
 class ShareView(LoginRequiredMixin, View):
 
     def post(self, request):
+        
         profile_id = request.POST.get('profile_id')
         post_id = request.POST.get('post_id')
-        
-        owner_inbox = Inbox.objects.get_or_create(owner=self.request.user, reciever=User.objects.get(id=profile_id))
-        reciever_inbox = Inbox.objects.get_or_create(owner=User.objects.get(id=profile_id), reciever=self.request.user)
+
+        owner_inbox = Inbox.objects.get_or_create(owner=self.request.user, reciever=User.objects.get(id=profile_id))[0]
+        reciever_inbox = Inbox.objects.get_or_create(owner=User.objects.get(id=profile_id), reciever=self.request.user)[0]
         post = get_object_or_404(Post, id=post_id)
 
-        try:
-            message = Message(post=post,owner_inbox=owner_inbox, reciever_inbox=reciever_inbox)
-        except:
-            pass
+        message = Message.objects.create(post=post,owner_inbox=owner_inbox, reciever_inbox=reciever_inbox)
+
+        notification = InboxNotification.objects.get_or_create(inbox=reciever_inbox)[0]
+
         return HttpResponse()
 
 

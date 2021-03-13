@@ -7,7 +7,6 @@ class Inbox(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='inbox_owner')
     reciever = models.ForeignKey(User, on_delete=models.CASCADE, related_name='inbox_reciever')
 
-    # https://docs.djangoproject.com/en/3.0/ref/models/options/#unique-together
     class Meta:
         unique_together = ('owner', 'reciever')
 
@@ -18,7 +17,7 @@ class Inbox(models.Model):
 class Message(models.Model):
 
     text = models.CharField(max_length=250, blank=True, null=True)
-    post = models.OneToOneField(Post, on_delete=models.CASCADE, blank=True, null=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
 
     owner_inbox = models.ForeignKey(Inbox, on_delete=models.CASCADE, default=None, related_name='owner_messages')
     reciever_inbox = models.ForeignKey(Inbox, on_delete=models.CASCADE, default=None, related_name='reciever_messages')

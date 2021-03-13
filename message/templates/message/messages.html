@@ -1,4 +1,8 @@
 
-    {% for message in messages %}
+{% for message in messages %}
+    {% if message.post %}
+    <p class='reciever_message'>RECIEVED:  <img src='{{ message.post.photo.url }}' style='width:5%;'> <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+    {% else %}
     <p class='reciever_message'>RECIEVED:  {{ message.text }} <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
-    {% endfor %} 
+    {% endif %} 
+{% endfor %} 
