@@ -21,6 +21,8 @@ urlpatterns = [
     
     path('like/<int:pk>/',post_views.LikeView.as_view(), name='post_like'),
     path('unlike/<int:pk>/',post_views.UnlikeView.as_view(), name='post_unlike'),
+    path('share/search/',post_views.ShareProfileView, name='share_profile_search'),
+    path('share/',post_views.ShareView.as_view(), name='post_share'),
     
     path('save/<int:pk>/',post_views.SaveView.as_view(), name='post_save'),
     path('unsave/<int:pk>/',post_views.UnsaveView.as_view(), name='post_unsave'),

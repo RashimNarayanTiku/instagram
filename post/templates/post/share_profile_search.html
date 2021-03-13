@@ -1,0 +1,22 @@
+{% if profiles %}
+  <ul id='search-list'>
+    {% for profile in profiles %}
+    <li class='share-post' id='share-post-{{profile.id}}'style="width: fit-content;">
+      <div style="display: flex;"><img class='rounded-circle' id='search-pic'src='{{ profile.user.photo.url}}'>
+        <ul style="list-style-type: none; padding-left:2%; height:fit-content;">
+        <li style="font-weight: 600;margin-bottom: -45%;">
+          {{profile.username}}
+        </li>
+        <br>
+        <li style="color:grey; font-weight: 400;">
+          {{profile.first_name}}
+        </li>
+      </ul>
+    </li>
+
+    {% endfor %}
+  </ul>
+
+{% else %}
+  <div id='no-result'></div>
+{% endif %}

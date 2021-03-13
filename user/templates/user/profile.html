@@ -5,9 +5,8 @@
 {% block content%}
 <div class="content-section mx-auto">
     <h4>Profile</h4>
-  </div>
-  <h1 class="media-heading">
-    {{profile.user.first_name}}
+</div>
+
 
     <div class='follow-section'>
       {% if profile.user == user %}
@@ -49,3 +48,5 @@
   {% endif %}
 
 {% endblock %}
+
+

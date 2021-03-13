@@ -1,4 +1,5 @@
 from post.models import Post,Comment,Like,Save
+from message.models import Message, Inbox
 from post.forms import PostForm, CommentForm
 from post.owner import  OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpdateView, OwnerDeleteView
 
@@ -71,7 +72,7 @@ def CommentCreateView(request, pk):
         )
 
         if comment.owner != post.owner:
-            notification = CommentNotification.objects.get_or_create(comment=comment)
+            notification = CommentNotification.objects.Inbox.objects.get_or_create(comment=comment)
 
         response_data['text'] = text
         response_data['post_id'] = pk
@@ -179,6 +180,43 @@ class UnsaveView(LoginRequiredMixin, View):
         return HttpResponse()
 
 
+@method_decorator(csrf_exempt, name='dispatch')
+@login_required
+def ShareProfileView(request):
+    if request.is_ajax():
+        url_parameter = request.GET.get("q")
+        if url_parameter:
+            profiles = User.objects.filter(first_name__icontains=url_parameter)
+        else:
+            profiles = None
+
+        html = render_to_string(
+            template_name="post/share_profile_search.html", 
+            context={"profiles": profiles}
+        )
+        data_dict = {"html_from_view": html}
+        return JsonResponse(data=data_dict, safe=False)
+
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ShareView(LoginRequiredMixin, View):
+
+    def post(self, request):
+        profile_id = request.POST.get('profile_id')
+        post_id = request.POST.get('post_id')
+        
+        owner_inbox = Inbox.objects.get_or_create(owner=self.request.user, reciever=User.objects.get(id=profile_id))
+        reciever_inbox = Inbox.objects.get_or_create(owner=User.objects.get(id=profile_id), reciever=self.request.user)
+        post = get_object_or_404(Post, id=post_id)
+
+        try:
+            message = Message(post=post,owner_inbox=owner_inbox, reciever_inbox=reciever_inbox)
+        except:
+            pass
+        return HttpResponse()
+
+
 
 class ExploreView(OwnerListView):
     context_object_name = "posts"
@@ -200,3 +238,4 @@ class ExploreView(OwnerListView):
 
         return context
     
+
