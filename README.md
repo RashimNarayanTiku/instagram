@@ -13,6 +13,7 @@ It is a fully functional Instagram clone made in Django (In progress)
 * profile search
 * Single post page
 * Dynamic Like, Comment, Save 
+* Share post in Messages
 
 *Message System*
 * Inbox Page
