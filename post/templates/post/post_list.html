@@ -66,7 +66,7 @@
                 <div class="modal-body">
                   <form class="search-form" autocomplete="off">
                     <label for='share-label-{{post.id}}'>To: </label>
-                    <input class="share-input" id="share-input-{{post.id}}" type="text" placeholder="Search" aria-label="Search">
+                    <input class="share-input" id="share-input-{{post.id}}" type="text" placeholder="Search" aria-label="Search" onfocus="clearField(this)">
                   </form>
                   <div class='share-search-results' id='share-search-results-{{post.id}}'>
                     {% include 'post/share_profile_search.html' %}

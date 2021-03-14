@@ -1,4 +1,9 @@
 
+function clearField(target){
+    target.value= "";
+}
+
+
 $(document).ready(function(){
 
     
@@ -20,7 +25,7 @@ $(document).ready(function(){
 
     // ---------------------- popup click listener ------------------------
 
-    $("body").click(function(ele) {
+    $("body").on('click',function(ele) {
     
         // search
         if ( ele.target.id === "user-input" ) {
@@ -127,18 +132,20 @@ $(document).ready(function(){
         // --------------------Share Post -----------------------
 
         $('.share-post').click(function(){
+
             id = $(this).attr('id').split('-')
             profile_id = id[id.length-1]
 
-            var search_results = $(this).closest('.share-search-results')
-            search_results = search_results.attr('id').split('-');
+            var search_results = $(this).closest('.share-search-results').attr('id').split('-');
             var post_id = search_results[search_results.length-1]
-            alert('post ->'+ post_id)
-            alert('profile ->'+profile_id)
-
             
+            $(`#share-input-${post_id}`).val('');
+            $(`#share-search-results-${post_id}`).html("")
+
             var url = '/share/'
-            $.post(url, {'profile_id':profile_id, 'post_id':post_id}, function(){
+            var data = {'profile_id':profile_id, 'post_id':post_id}
+            
+            $.post(url, data, function(){
                 console.log("Post shared successfully")
             }).fail(function(xhr) {
                 console.log('Post share failed with '+xhr.status+' '+url);

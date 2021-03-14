@@ -27,7 +27,17 @@ class Message(models.Model):
         ordering = ['created_at']
 
     def __str__(self) :
-        return '%s -> %s :  %s' % (self.owner_inbox.owner.username, self.reciever_inbox.owner.username, self.text)
+        if self.post:
+            if len(self.post.caption)>10:
+                return '%s -> %s : [Post] %s...' % (self.owner_inbox.owner.username, self.reciever_inbox.owner.username, self.post.caption[:10])
+            else:
+                return '%s -> %s : [Post] %s' % (self.owner_inbox.owner.username, self.reciever_inbox.owner.username, self.post.caption)
+
+        else:
+            if len(self.text)>10:
+                return '%s -> %s : [Message] %s...' % (self.owner_inbox.owner.username, self.reciever_inbox.owner.username, self.text[:10])
+            else:
+                return '%s -> %s : [Message] %s' % (self.owner_inbox.owner.username, self.reciever_inbox.owner.username, self.text)
 
 
 # class Image(models.Model):
