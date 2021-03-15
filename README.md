@@ -1,6 +1,6 @@
 # Instagram
 It is a fully functional Instagram clone made in Django (In progress)
-![image title](https://rushter.com/counter.svg)
+
 ## Backend Stuff Done:
 
 *Profile*
