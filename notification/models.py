@@ -9,10 +9,12 @@ from message.models import Inbox
 class InboxNotification(models.Model):
     inbox = models.OneToOneField(Inbox, on_delete=models.CASCADE)
 
-
 class LikeNotification(models.Model):
     like = models.OneToOneField(Like, on_delete=models.CASCADE)
 
 class CommentNotification(models.Model):
     comment = models.OneToOneField(Comment, on_delete=models.CASCADE)
+
+class FollowNotification(models.Model):
+    follow = models.OneToOneField(User, on_delete=models.CASCADE)
 

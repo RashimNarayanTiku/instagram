@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.views import View
 
 from .models import Profile
+from notification.models import FollowNotification
 from .forms import UserEditForm, ProfileEditForm, SignUpForm
 
 from django.views.decorators.csrf import csrf_exempt
@@ -48,6 +49,7 @@ class followView(View):
             u = request.user.user.following.remove(user2)
         else:
             u = request.user.user.following.add(user2)
+
 
         following_queryset = request.user.user.following.all()
         following = [user.username for user in following_queryset]

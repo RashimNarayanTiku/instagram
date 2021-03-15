@@ -64,7 +64,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form class="search-form" autocomplete="off">
+                  <form onsubmit="event.preventDefault()" class="search-form" autocomplete="off">
                     <label for='share-label-{{post.id}}'>To: </label>
                     <input class="share-input" id="share-input-{{post.id}}" type="text" placeholder="Search" aria-label="Search" onfocus="clearField(this)">
                   </form>

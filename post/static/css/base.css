@@ -160,3 +160,7 @@ a {
     font-size: 5px;
     color:rgb(237,73,86) !important;
 }
+
+.unread{
+    font-weight: bold;
+}

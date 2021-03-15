@@ -109,7 +109,6 @@ $(document).ready(function(){
                 });
         };
 
-
         $('.share-input').on('keyup', function () {
             console.log('SHARE PRESSED KEYUP')
             
@@ -139,8 +138,10 @@ $(document).ready(function(){
             var search_results = $(this).closest('.share-search-results').attr('id').split('-');
             var post_id = search_results[search_results.length-1]
             
+            $(`#share-modal-${post_id}`).modal('toggle');
             $(`#share-input-${post_id}`).val('');
             $(`#share-search-results-${post_id}`).html("")
+
 
             var url = '/share/'
             var data = {'profile_id':profile_id, 'post_id':post_id}
@@ -442,9 +443,19 @@ var message_notification = setInterval(function(){
 
     $.get(url, function(response) {
         $(".inbox-notification").html(response.html); 
+
+        var notif = response.notifications
+
+        $('.inbox').removeClass('unread')
+        for(var i=0; i<notif.length; i++){
+            $(`#inbox-${notif[i]}`).addClass('unread')
+        }
+        
+
     }).fail(function(xhr) {
         console.log('Inbox notification failed with '+xhr.status+' '+url);
     });
+
 
 }, 1000);
 

@@ -16,6 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
 
 
+
 class InboxNotificationView(View):
 
     def get(self, request, pk):
@@ -24,16 +25,23 @@ class InboxNotificationView(View):
             inbox = Inbox.objects.get(id=pk)
             InboxNotification.objects.filter(inbox=inbox).delete()
                     
-        count = InboxNotification.objects.filter(inbox__owner=request.user).count()
+        notifications = InboxNotification.objects.filter(inbox__owner=request.user)
+        count = notifications.count()
+        notifications = [ n.inbox.id for n in notifications ]
+        
+
         html = render_to_string(
             template_name="notification/inbox_notification.html", 
             context={"count": count}
         )
         response = {}
         response['html'] = html
+        response['notifications'] = notifications
+
         return JsonResponse(response)
         
         
+
 class NotificationView(View):
 
     def get(self, request, pk):
@@ -50,7 +58,8 @@ class NotificationView(View):
         response['html'] = html
         response['count'] = like_notifications.count() + comment_notifications.count()
         return JsonResponse(response)
-        
+    
+
         
 class NotificationDisplayView(View):
 
@@ -78,5 +87,3 @@ class NotificationDisplayView(View):
         response = {}
         response['html'] = html
         return JsonResponse(response)
-        
-        
