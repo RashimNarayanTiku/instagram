@@ -1,5 +1,6 @@
 from post.models import Post,Comment,Like,Save
-from notification.models import InboxNotification, LikeNotification, CommentNotification
+from user.models import Follow
+from notification.models import InboxNotification, LikeNotification, CommentNotification, FollowNotification
 from message.models import Inbox
 
 from django.core import serializers
@@ -49,10 +50,11 @@ class NotificationView(View):
         user = User.objects.get(id=pk)
         like_notifications = LikeNotification.objects.filter(like__post__owner=user)
         comment_notifications = CommentNotification.objects.filter(comment__post__owner=user)
+        follow_notifications = FollowNotification.objects.filter(follow__reciever=user)
 
         html = render_to_string(
             template_name="notification/notification.html", 
-            context={"like_notifications":like_notifications, 'comment_notifications':comment_notifications}
+            context={"like_notifications":like_notifications, 'comment_notifications':comment_notifications, 'follow_notifications':follow_notifications}
         )
         response = {}
         response['html'] = html
@@ -70,19 +72,22 @@ class NotificationDisplayView(View):
         try:
             LikeNotification.objects.filter(like__post__owner=user).delete()
             CommentNotification.objects.filter(comment__post__owner=user).delete()
+            FollowNotification.objects.filter(follow__reciever=user).delete()
+
         except:
             pass
         
         likes = Like.objects.filter(post__owner=user)
         comments = Comment.objects.filter(post__owner=user)
+        follows = Follow.objects.filter(reciever=user)
         
         notifications = sorted(
-            chain(likes, comments),
+            chain(likes, comments, follows),
             key=lambda notification: notification.created_at, reverse=True)
 
         html = render_to_string(
             template_name='notification/notification_display.html', 
-            context = {'notifications':notifications, 'likes':likes, 'comments':comments}
+            context = {'notifications':notifications, 'likes':likes, 'comments':comments, 'follows':follows}
         )
         response = {}
         response['html'] = html

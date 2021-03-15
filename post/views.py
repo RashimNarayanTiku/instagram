@@ -27,7 +27,10 @@ def PostListView(request):
 
     context = {}
 
-    posts = Post.objects.filter(owner__in = request.user.user.following.all()).order_by('-created_at')
+    following_queryset = request.user.following.all()
+    following = [follow.reciever for follow in following_queryset]
+    posts = Post.objects.filter(owner__in = following).order_by('-created_at')
+    
     paginator = Paginator(posts, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -125,7 +128,6 @@ class LikeView(LoginRequiredMixin, View):
         
         try:
             like.save()  
-            print(like.owner,post.owner)
             if like.owner != post.owner:
                 notification = LikeNotification.objects.create(like=like)
         except IntegrityError:

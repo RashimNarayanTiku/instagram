@@ -21,8 +21,9 @@
 
   </h1>
   <span>{{profile.user.owner_posts.count}} post </span>
-  <span>{{profile.user.followers.count}} followers </span>
-  <span>{{profile.following.count}} following </span>
+  <span>{{profile.user.followers.count|add:-1}} followers </span>
+  <span>{{profile.user.following.count|add:-1}} following </span>
+  
   <div class="content-section mx-auto">
     <div class="media">
       <img class="rounded-circle account-img" src="{{profile.photo.url}}">

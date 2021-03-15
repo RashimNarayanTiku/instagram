@@ -7,7 +7,6 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE)
-    following = models.ManyToManyField(User, related_name='followers', null=True)
     photo = models.ImageField(upload_to="profile_pics", default='default.jpg')
     website = models.URLField(default='', blank=True)
     bio = models.TextField(default='', blank=True)
@@ -18,10 +17,28 @@ class Profile(models.Model):
         return f'{self.user.username}'
 
 
+
+class Follow(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')    
+    reciever = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ('owner', 'reciever')
+
+        
+    def __str__(self):
+        return f'{self.owner.username} follows {self.reciever.username}'
+
+
+
+
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+        Follow.objects.create(owner=instance, reciever=instance)
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):

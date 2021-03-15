@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.views import View
 
 from .models import Profile
+from user.models import Follow
 from notification.models import FollowNotification
 from .forms import UserEditForm, ProfileEditForm, SignUpForm
 
@@ -45,17 +46,17 @@ class followView(View):
         user_name = request.POST.get('username')
         user2 = User.objects.get(username=user_name)
 
-        if(user2 in request.user.user.following.all()):
-            u = request.user.user.following.remove(user2)
+        following_queryset = request.user.following.all()
+        following = [follow.reciever.username for follow in following_queryset]
+
+        if(user2.username in following):
+            u = Follow.objects.get(owner=request.user, reciever=user2).delete()
         else:
-            u = request.user.user.following.add(user2)
+            u = Follow.objects.get_or_create(owner=request.user, reciever=user2)[0]
+            notification = FollowNotification.objects.create(follow=u)
 
-
-        following_queryset = request.user.user.following.all()
-        following = [user.username for user in following_queryset]
-                
         html = render_to_string(
-            template_name="user/follow.html", 
+            template_name="user/follow.html",
             context={'following':following, 'profile':user2}
         )
         response_data = {}
@@ -66,9 +67,12 @@ class followView(View):
 
 def profileView(request, username):
     profile = get_object_or_404(Profile, user__username=username)
-    following_queryset = request.user.user.following.all()
-    following = [user.username for user in following_queryset]
+
+    following_queryset = request.user.following.all()
+    following = [follow.reciever.username for follow in following_queryset]
+
     return render(request, 'user/profile.html',{'profile':profile,'following':following})
+
 
 
 @login_required

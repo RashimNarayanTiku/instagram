@@ -470,7 +470,7 @@ $(document.body).on('click','.follow-btn', function() {
     console.log('follow request sent @ /follow/')
 
     $.post('/follow/',{'username':user_username}, function(response){
-        console.log(`/follow/ finished`);
+        console.log(response.html);
         $('.follow-section').html(response.html)
     }).fail(function(xhr){
         alert('Follow failed with '+xhr.status+' '+'/follow/');

@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from post.models import Post, Like, Comment
+from user.models import Follow
+
 from message.models import Inbox
 
 
@@ -16,5 +18,5 @@ class CommentNotification(models.Model):
     comment = models.OneToOneField(Comment, on_delete=models.CASCADE)
 
 class FollowNotification(models.Model):
-    follow = models.OneToOneField(User, on_delete=models.CASCADE)
+    follow = models.OneToOneField(Follow, on_delete=models.CASCADE)
 

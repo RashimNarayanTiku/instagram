@@ -1,9 +1,9 @@
 {% load static %}
 {% if profile == user %}
-<div class='btn btn-outline-secondary btn-sm'><span style="color:black;">Edit Profile</span></div>
+    <div class='btn btn-outline-secondary btn-sm'><span style="color:black;">Edit Profile</span></div>
 {% elif profile.username in following %}
-<div class='btn btn-outline-secondary btn-sm '><span style="color:black;">Message</span></div>
-<div class='btn btn-outline-secondary btn-sm follow-btn' style="color:black;"><img src='{% static "img/user-icon.png"%}' style="width:80%;"></div>
+    <div class='btn btn-primary btn-sm follow-btn'>Follow</div>
 {% else %}
-<div class='btn btn-primary btn-sm follow-btn'>Follow</div>
+    <div class='btn btn-outline-secondary btn-sm '><span style="color:black;">Message</span></div>
+    <div class='btn btn-outline-secondary btn-sm follow-btn' style="color:black;"><img src='{% static "img/user-icon.png"%}' style="width:80%;"></div>
 {% endif%}
