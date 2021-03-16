@@ -4,173 +4,106 @@ function clearField(target){
 }
 
 
-$(document).ready(function(){
+
+// -------------------- notifications numbers -------------------------
+const user_id = JSON.parse(document.getElementById('user_id').textContent);
+const url = `/notification/${user_id}`;
+
+$.get(url, function(response) {
+    console.log(url, 'Notification finished successfully');
+    $("#notification").html(response.html);  
+    if(response.count != 0) {
+        $("#notification-dot").css('display','block')
+    }
+
+}).fail(function(xhr) {
+    console.log('Notification failed with '+xhr.status+' '+url);
+});
+        
+
+
+// ---------------------- popup click listener ------------------------
+
+$("body").on('click',function(ele) {
+
+    // search
+    if ( ele.target.id === "user-input" ) {
+        $("#user-input").css('color', 'black');
+    }
+    else {
+        $("#search-results").css("display", "none");
+        $(".triangle-up").css("display",'none');
+        $("#user-input").css('color', 'grey');
+    }
 
     
-    // -------------------- notifications numbers -------------------------
-    const user_id = JSON.parse(document.getElementById('user_id').textContent);
-    const url = `/notification/${user_id}`;
+    // ---------notification---------
+    if(ele.target.id !== "notification" && ele.target.id !== "notification-display"){
+        $("#notification-display").css('display', 'none');
+    }
     
-    $.get(url, function(response) {
-        console.log(url, 'Notification finished successfully');
-        $("#notification").html(response.html);  
-        if(response.count != 0) {
-            $("#notification-dot").css('display','block')
-        }
+    console.log(ele.target.id)
 
-    }).fail(function(xhr) {
-        console.log('Notification failed with '+xhr.status+' '+url);
-    });
-        
-
-    // ---------------------- popup click listener ------------------------
-
-    $("body").on('click',function(ele) {
-    
-        // search
-        if ( ele.target.id === "user-input" ) {
-            $("#user-input").css('color', 'black');
-        }
-        else {
-            $("#search-results").css("display", "none");
-            $(".triangle-up").css("display",'none');
-            $("#user-input").css('color', 'grey');
-        }
-    
-        
-        // ---------notification---------
-        if(ele.target.id !== "notification" && ele.target.id !== "notification-display"){
-            $("#notification-display").css('display', 'none');
-        }
-        
-        console.log(ele.target.id)
-
-        // ----------new inbox----------
-        if(ele.target.id === 'new-inbox-icon' || ele.target.id === 'new-inbox' || ele.target.id === 'new-inbox-input'|| ele.target.id === 'new-inbox-results'){
-            $('#new-inbox').css('display','block');
-        }
-        else{
-            $('#new-inbox').css('display','none');
-        }
-
-
-
-        // ------------ Inbox Create Profile search --------------
-
-        const new_inbox_input = $("#new-inbox-input")
-        const new_inbox_load_icon = $('#new-inbox-load-icon')
-        const profile_div = $('#new-inbox-results')
-        var new_inbox_endpoint = '/direct/profile/'
-        const delay_by = 700
-        let scheduled_func = false
-
-
-        let ajax_calling = function (new_inbox_endpoint, request_parameters) {
-
-            $.getJSON(new_inbox_endpoint, request_parameters)
-                .done(response => {
-                    profile_div.fadeTo('slow', 0).promise().then(() => {
-                        profile_div.html(response['html_from_view'])
-                        profile_div.fadeTo('slow', 1)
-                        new_inbox_load_icon.hide()
-                    })
-                })
-        }
-
-        new_inbox_input.on('keyup', function () {
-            console.log('new inbox text sent')
-        
-            const request_parameters = {
-                q: $(this).val() 
-            }
-            new_inbox_load_icon.show()
-            // if scheduled_func is NOT false, cancel the execution of the function
-            if (scheduled_func) {
-                clearTimeout(scheduled_func)
-            }
-            // setTimeout returns the ID of the function to be executed
-            scheduled_func = setTimeout(ajax_calling, delay_by, new_inbox_endpoint, request_parameters)
-        });
-
-
-        
-        // --------------------Share Profile search-----------------------
-
-        const endpointURL = '/share/search/'
-        const delay_ = 700
-        let scheduled_fu = false
-
-        let ajax_calledd = function (endpointURL, request_parameters) {
-
-            $.getJSON(endpointURL, request_parameters)
-                .done(response => {
-                    console.log(`#share-search-results-${request_parameters['post_id']}`)
-                    $(`#share-search-results-${request_parameters['post_id']}`).html(response['html_from_view']);
-                });
-        };
-
-        $('.share-input').on('keyup', function () {
-            console.log('SHARE PRESSED KEYUP')
-            
-            share_id = $(this).attr('id').split('-')
-            post_id = share_id[share_id.length-1];
-            const request_parameters = {
-                q: $(this).val(),
-                post_id:post_id,
-            }
-            load_icon.show()
-            // if scheduled_fu is NOT false, cancel the execution of the function
-            if (scheduled_fu) {
-                clearTimeout(scheduled_fu)
-            }
-            // setTimeout returns the ID of the function to be executed
-            scheduled_fu = setTimeout(ajax_calledd, delay_, endpointURL, request_parameters)
-        });
-
-
-        // --------------------Share Post -----------------------
-
-        $('.share-post').click(function(){
-
-            id = $(this).attr('id').split('-')
-            profile_id = id[id.length-1]
-
-            var search_results = $(this).closest('.share-search-results').attr('id').split('-');
-            var post_id = search_results[search_results.length-1]
-            
-            $(`#share-modal-${post_id}`).modal('toggle');
-            $(`#share-input-${post_id}`).val('');
-            $(`#share-search-results-${post_id}`).html("")
-
-
-            var url = '/share/'
-            var data = {'profile_id':profile_id, 'post_id':post_id}
-            
-            $.post(url, data, function(){
-                console.log("Post shared successfully")
-            }).fail(function(xhr) {
-                console.log('Post share failed with '+xhr.status+' '+url);
-            });
-        })
-
-    });
+    // ----------new inbox----------
+    if(ele.target.id === 'new-inbox-icon' || ele.target.id === 'new-inbox' || ele.target.id === 'new-inbox-input'|| ele.target.id === 'new-inbox-results'){
+        $('#new-inbox').css('display','block');
+    }
+    else{
+        $('#new-inbox').css('display','none');
+    }
 });
    
 
 
 
 
+// ------------ Inbox Create Profile search --------------
+
+const new_inbox_input = $("#new-inbox-input")
+const new_inbox_load_icon = $('#new-inbox-load-icon')
+const profile_div = $('#new-inbox-results')
+var new_inbox_endpoint = '/direct/profile/'
+const delay_by = 700
+let scheduled_func = false
+
+
+let ajax_calling = function (new_inbox_endpoint, request_parameters) {
+
+    $.getJSON(new_inbox_endpoint, request_parameters)
+        .done(response => {
+            profile_div.fadeTo('slow', 0).promise().then(() => {
+                profile_div.html(response['html_from_view'])
+                profile_div.fadeTo('slow', 1)
+                new_inbox_load_icon.hide()
+            })
+        })
+}
+
+new_inbox_input.on('keyup', function () {
+    console.log('new inbox text sent')
+
+    const request_parameters = {
+        q: $(this).val() 
+    }
+    new_inbox_load_icon.show()
+    // if scheduled_func is NOT false, cancel the execution of the function
+    if (scheduled_func) {
+        clearTimeout(scheduled_func)
+    }
+    // setTimeout returns the ID of the function to be executed
+    scheduled_func = setTimeout(ajax_calling, delay_by, new_inbox_endpoint, request_parameters)
+});
 
 
 
 
 // ----------------------- notification-display click -------------------------
 
-$(document.body).on('click','#notification', function(e) {
+$(document).on('click','#notification', function(e) {
     
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
     
-    $.get(url=`/notification/display/${user_id}`, function(response) {
+    $.get(`/notification/display/${user_id}`, function(response) {
         console.log(url, 'Notification finished successfully');           
         $("#notification-display").html(response.html);    
         $("#notification-display").css('display', 'block');   
@@ -245,7 +178,7 @@ user_input.on('keyup', function () {
 
 //------------------- Comment Form ----------------------
 
-$(document.body).on('submit','.commentForm', function(e) {
+$(document).on('submit','.commentForm', function(e) {
     var form = $(this).closest('form');
     $.ajax({
         type:'post',
@@ -295,19 +228,31 @@ $(document.body).on('click','.all-comments', function(){
     return false;
 });
 
-$(document.body).on('click','.single-post-view', function(){
+$(document).on('click','.single-post-view', function(){
     $(this).css('display','none')
     document.body.style.overflow = "scroll";
     window.history.pushState('data', document.title, original_url);
 });
 
-$(document.body).on('click','.single-post-content', function(e){
+$(document).on('click','.single-post-content', function(e){
     e.stopPropagation()
 });
 
 
 
 // ----------------------Like button functionality----------------------
+
+
+$(document).on('dblclick', '.post-img', function(){
+    var btn = $(this).siblings('.like_btns');
+
+    if($('.like-btn').css('display') == 'none')
+        var r = btn.find('.unlike-btn');
+    else
+        var r = btn.find('.like-btn');
+    r.click();
+});
+
 
 function likePost(url,post_id){
     console.log('Requesting Like functionality'); 
@@ -350,6 +295,64 @@ function savePost(url,post_id){
 
 
 
+// --------------------Share Profile search-----------------------
+
+const endpointURL = '/share/search/'
+const delay_ = 700
+let scheduled_fu = false
+
+let ajax_calledd = function (endpointURL, request_parameters) {
+
+    $.getJSON(endpointURL, request_parameters)
+        .done(response => {
+            console.log(`#share-search-results-${request_parameters['post_id']}`)
+            $(`#share-search-results-${request_parameters['post_id']}`).html(response['html_from_view']);
+        });
+};
+
+$(document).on('keyup','.share-input', function () {
+    
+    share_id = $(this).attr('id').split('-')
+    post_id = share_id[share_id.length-1];
+    const request_parameters = {
+        q: $(this).val(),
+        post_id:post_id,
+    }
+
+    if (scheduled_fu) {
+        clearTimeout(scheduled_fu)
+    }
+    scheduled_fu = setTimeout(ajax_calledd, delay_, endpointURL, request_parameters)
+});
+
+
+// --------------------Share Post -----------------------
+
+$(document).on('click','.share-post', function(){
+
+    id = $(this).attr('id').split('-')
+    profile_id = id[id.length-1]
+
+    var search_results = $(this).closest('.share-search-results').attr('id').split('-');
+    var post_id = search_results[search_results.length-1]
+    
+    $(`#share-modal-${post_id}`).modal('toggle');
+    $(`#share-input-${post_id}`).val('');
+    $(`#share-search-results-${post_id}`).html("")
+
+
+    var url = '/share/'
+    var data = {'profile_id':profile_id, 'post_id':post_id}
+    
+    $.post(url, data, function(){
+        console.log("Post shared successfully")
+    }).fail(function(xhr) {
+        console.log('Post share failed with '+xhr.status+' '+url);
+    });
+});
+
+
+
 // -------------------Inbox Detail Button Functionality-------------------
 
 function inboxDetail(url,inbox_id){
@@ -373,12 +376,9 @@ function inboxDetail(url,inbox_id){
 
 
 
-
-
-
 //---------------------- Message Form--------------------------
 
-$(document.body).on('submit','.messageForm', function(e) {
+$(document).on('submit','.messageForm', function(e) {
     var form = $(this).closest('form');
     $.ajax({
         type:'post',
@@ -423,7 +423,7 @@ function UpdateMessages() {
             $(`#message-section-${inbox_id}`).append(response.html)
         },
         complete: function() {
-            setTimeout(UpdateMessages, 3000);
+            setTimeout(UpdateMessages, 3100);
         }
     });
 };

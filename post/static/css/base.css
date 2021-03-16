@@ -134,6 +134,29 @@ a {
         transform: scale(1);
     }
 }
+/* @keyframes double_burst{
+
+    0%,20%{
+        transform: scale(1);
+    }
+    20%,50%{
+        transform: scale(1.2);
+    }
+    50%,80%{
+        transform:scale(0.95);
+    }
+    80%,100%{
+        transform: scale(1);
+    }
+    
+    100%,50%{
+        transform: scale(0.5);
+    }
+    50%,30%{
+        transform: scale(0.2);
+    }
+
+} */
 
 
 #notification-display{
@@ -163,4 +186,18 @@ a {
 
 .unread{
     font-weight: bold;
+}
+.popover{
+    margin-top: 2.3%;
+    background: rgb(237,73,86) !important;
+    font-size:110%;
+    border-radius: 10px 10px;
+}
+.arrow::before,::after{
+    border-bottom-color: rgb(237,73,86) !important;
+}
+.popover-body{
+    border-radius: 10px 10px;
+    background: rgb(237,73,86) !important;
+    color:white;
 }
