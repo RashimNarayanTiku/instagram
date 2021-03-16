@@ -22,4 +22,4 @@ It is a fully functional Instagram clone made in Django (In progress)
 
 *Notification*
 * Dynamic message notification
-* Like, Comment notification
+* Like, Comment, follow notification
