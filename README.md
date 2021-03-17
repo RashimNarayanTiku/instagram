@@ -26,6 +26,6 @@ It is a fully functional Instagram clone made in Django (In progress)
 * Dynamic message notification
 * Like, Comment, follow notification
 
-## Backend Stuff Done:
+## Frontend Stuff Done:
 
 *Navigation-bar*
