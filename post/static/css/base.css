@@ -10,17 +10,7 @@ body{
     margin-top: 12%;
 }
 
-@media (max-width: 768px) { 
-    .nav>ul{
-        margin-top:2%;
-        padding-bottom: 2%;
-    }
-    .card,.card-header,.card-body,.card-footer{
-        background-color: #fafafa !important;
-        border:0 !important; 
-    }
 
-}
 .post-img{
     width:100%;
 }
@@ -260,4 +250,39 @@ a {
 
 .logo{
     width:103px;
+}
+
+.buttons{
+    padding:0;
+    margin:0;
+}
+
+.buttons>div{
+    margin:0% 0%;
+    margin-right:2%;
+}
+
+.save_btn{
+    margin-left:77% !important;
+}
+.owner-username{
+    font-weight: 600;
+}
+.post-like{
+    font-weight: 600;
+}
+
+
+@media (max-width: 768px) { 
+    .nav>ul{
+        margin-top:2%;
+        padding-bottom: 2%;
+    }
+    .card,.card-header,.card-body,.card-footer{
+        background-color: #fafafa !important;
+        border:0 !important; 
+    }
+    .save_btn{
+        margin-left:67% !important;
+    }
 }
