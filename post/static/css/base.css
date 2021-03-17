@@ -19,10 +19,7 @@ body{
         background-color: #fafafa !important;
         border:0 !important; 
     }
-    /* .card{
-        background-color: #fafafa !important;
-        border:0 !important;
-    } */
+
 }
 .post-img{
     width:100%;
@@ -204,10 +201,13 @@ a {
     overflow-y: auto;
 }
 
+.notif-dot-container{
+    padding-top: 30%;
+    margin-left: -25%; 
+}
+
 #notification-dot{
     display:none;
-    padding-left: 50%;
-    padding-top: 15%;
     font-size: 5px;
     color:rgb(237,73,86) !important;
 }
