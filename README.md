@@ -10,10 +10,12 @@ It is a fully functional Instagram clone made in Django (In progress)
 * password change
 
 *Posts page*
-* profile search
-* Single post page
+* Profile Search
+* Single Post Page
 * Dynamic Like, Comment, Save 
 * Share post in Messages
+* Explore Page
+* Saved Post Page
 
 *Message System*
 * Inbox Page
@@ -23,3 +25,7 @@ It is a fully functional Instagram clone made in Django (In progress)
 *Notification*
 * Dynamic message notification
 * Like, Comment, follow notification
+
+## Frontend Stuff Done:
+
+*Navigation-bar*
