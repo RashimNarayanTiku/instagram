@@ -2,10 +2,6 @@
 body{
     background-color: rgb(250, 250, 250);
 }
-.search{
-    margin-left:40%;
-    width:150%;
-}
 .search-form{
     border-radius: 3px;
     width:30%;
@@ -188,16 +184,51 @@ a {
     font-weight: bold;
 }
 .popover{
-    margin-top: 2.3%;
+    margin-top: 2%;
     background: rgb(237,73,86) !important;
     font-size:110%;
     border-radius: 10px 10px;
 }
-.arrow::before,::after{
+
+.notification-popover.popover.arrow::before,::after{
     border-bottom-color: rgb(237,73,86) !important;
 }
+
 .popover-body{
     border-radius: 10px 10px;
     background: rgb(237,73,86) !important;
     color:white;
+}
+
+#user-input{
+    text-align: center;
+}
+#user-input::-webkit-input-placeholder {
+    text-align: center;
+}
+#user-input:-moz-placeholder {
+    text-align: center;
+}
+
+.nav-link-item{
+    float:left;
+}
+.nav li{
+    float:left;
+}
+.nav> ul{
+    padding-left:0.5%;
+    margin-bottom: 0.7% !important;
+    padding-top: 1.1%;
+    padding-right: 0%;
+}
+.nav{
+    border: 1px solid #e5e5e5;
+    position: fixed !important;
+    width:100%;
+    z-index: 10;
+}
+
+.logo{
+    width:103px;
 }
