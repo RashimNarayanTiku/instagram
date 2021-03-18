@@ -192,7 +192,7 @@ $(document).on('submit','.commentForm', function(e) {
         
         success: function(response) {
         $(`#${form.attr('id')} input[name=text]`).val('');
-        $(`#comment-section-${response['post_id']}`).prepend('<p>'+response['text']+'</p>')
+        $(`#comment-section-${response['post_id']}`).append("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
         console.log('successful ajax request')
         },
         
@@ -272,7 +272,7 @@ function likePost(url,post_id){
 // -------------------Like Button Animation-------------------
 
 $(function(){
-    $(document).on('mouseup','.like_btns',function(){
+    $(document).on('mouseup','.like_btn',function(){
         var ele = $(this).find('svg');
         ele.css("animation", "0.45s linear burst");    
     });
@@ -400,7 +400,7 @@ $(document).on('submit','.messageForm', function(e) {
         },
         
         error: function(response) {
-            console.log('ERROR in comment message request')
+            console.log('ERROR in message request')
         }
     });
     return false;

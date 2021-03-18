@@ -5,7 +5,7 @@
 <div class='notification-popover' href="#" data-toggle="popover" data-html='true' data-placement="bottom" data-content="
 
     {% if comment_notifications.count is not 0 %}
-    <i class='fas fa-comment' style='transform: scaleX(-1);'></i> {{comment_notifications.count}}
+    <i class='fas fa-comment'></i> {{comment_notifications.count}}
     {% endif%}
     {% if like_notifications.count is not 0 %}
     <i class='fa fa-heart'></i> {{like_notifications.count}}

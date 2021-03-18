@@ -252,6 +252,10 @@ a {
     width:103px;
 }
 
+.fa-comment{
+    transform: scaleX(-1) !important;
+}
+
 .buttons{
     padding:0;
     margin:0;
@@ -271,6 +275,45 @@ a {
 .post-like{
     font-weight: 600;
 }
+
+.card-body{
+    font-size:90%;
+}
+
+.comment-section>p{
+    margin-bottom:0 !important;
+}
+
+.commentForm>input{
+    border:0 !important;
+    margin-left: 2%;
+    width:83%;
+}
+.commentForm>input:focus{
+    outline: none !important;
+}
+.comment-submit{
+    width: min-content !important;
+    display: inline;
+    font-weight: 600;
+    background-color: #fff;
+    color:#0095f6;
+    padding-right: 0;
+}
+.card-footer{
+    padding: .75rem .5rem;
+}
+
+#id_text::placeholder{
+    color: #C2C2D4;
+}
+#id_text::-webkit-input-placeholder {
+    color: #C2C2D4;
+}
+#id_text:-moz-placeholder {
+    color: #C2C2D4;
+}
+
 
 
 @media (max-width: 768px) { 

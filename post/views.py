@@ -75,9 +75,11 @@ def CommentCreateView(request, pk):
         )
 
         if comment.owner != post.owner:
-            notification = CommentNotification.objects.Inbox.objects.get_or_create(comment=comment)
+            notification = CommentNotification.objects.get_or_create(comment=comment)
 
         response_data['text'] = text
+        response_data['created_at'] = comment.created_at
+        response_data['owner'] = comment.owner.username
         response_data['post_id'] = pk
         return JsonResponse(response_data)    
 
