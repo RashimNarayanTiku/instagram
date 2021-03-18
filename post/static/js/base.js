@@ -442,7 +442,9 @@ var message_notification = setInterval(function(){
     var url = `/notification/message/${inbox_id}`
 
     $.get(url, function(response) {
-        $(".inbox-notification").html(response.html); 
+        console.log('Inbox notification successful');
+
+        $("#inbox-notification").html(response.html); 
 
         var notif = response.notifications
 

@@ -254,6 +254,25 @@ a {
     z-index: 10;
 }
 
+#inbox-dot{
+    position: absolute !important;
+    font-size: 21px;
+    right:0;
+    top:0;
+    margin-right:4.5%;
+    margin-top:-3.5%;    
+    color:rgb(237,73,86) !important;
+}
+.inbox-number{
+    position: absolute !important;
+    font-size: 12px;
+    right:0;
+    top:0;
+    margin-right:15%;
+    margin-top:-2%;    
+    color:white;
+}
+
 .logo{
     width:103px;
 }
