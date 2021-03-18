@@ -256,7 +256,7 @@ a {
 
 #inbox-dot{
     position: absolute !important;
-    font-size: 21px;
+    font-size: 120%;
     right:0;
     top:0;
     margin-right:4.5%;
@@ -265,12 +265,12 @@ a {
 }
 .inbox-number{
     position: absolute !important;
-    font-size: 12px;
+    font-size: 80%;
     right:0;
     top:0;
     margin-right:15%;
-    margin-top:-2%;    
-    color:white;
+    margin-top:-8%;    
+    color:#fff;
 }
 
 .logo{
@@ -355,7 +355,25 @@ a {
 }
 
 
-@media (max-width: 768px) { 
+@media (max-width: 992px) { 
+    #inbox-dot{
+        font-size: 110%;
+        right:0;
+        top:0;
+        margin-right:-35%;
+        margin-top:-6%;    
+        color:rgb(237,73,86);
+    }
+    .inbox-number{
+        font-size: 70%;
+        right:0;
+        top:0;
+        margin-right:-15%;
+        margin-top:-3%;    
+        color:#fff;
+    }
+}
+    @media (max-width: 768px) { 
     .nav>ul{
         margin-top:2%;
         padding-bottom: 2%;
@@ -382,5 +400,23 @@ a {
     }
     .comment-submit{
         background-color: #fafafa;
+    }
+
+    
+    #inbox-dot{
+        font-size: 110%;
+        right:0;
+        top:0;
+        margin-right:1%;
+        margin-top:-6%;    
+        color:rgb(237,73,86);
+    }
+    .inbox-number{
+        font-size: 70%;
+        right:0;
+        top:0;
+        margin-right:12%;
+        margin-top:-3%;    
+        color:#fff;
     }
 }
