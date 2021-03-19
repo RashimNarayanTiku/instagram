@@ -192,7 +192,13 @@ $(document).on('submit','.commentForm', function(e) {
         
         success: function(response) {
         $(`#${form.attr('id')} input[name=text]`).val('');
-        $(`#comment-section-${response['post_id']}`).append("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
+
+        if(window.location.href.includes("/p/")) {        
+            $(`#comment-section-${response['post_id']}`).prepend("<p style='margin-bottom:10% !important;'>  <img class='rounded-circle' src='" +response['photo']+ "' style='width:25px;'><span class='owner-username'>  " + response['owner']+ "</span>  "+ response['text']+"</p>")
+        }
+        else {
+        $(`#comment-section-${response['post_id']}`).prepend("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
+        }
         console.log('successful ajax request')
         },
         
@@ -214,7 +220,9 @@ $(document.body).on('click','.all-comments', function(){
     original_url = document.URL
     
     $.get(`/p/${post_id}`, function(response) {
-        $('.single-post-view').css('display','block');
+        
+        $('#single-post-view').modal('show');
+
         $('.single-post-content').html(response.html);
         document.body.style.overflow = "hidden";
         
@@ -222,7 +230,7 @@ $(document.body).on('click','.all-comments', function(){
         window.history.pushState('data', document.title, new_url);
         
         console.log('successful single-post ajax request')
-    }).fail(function(xhr) {
+    }).fail(function() {
         console.log('ERROR in single-post ajax request')
     });
     return false;
@@ -236,7 +244,7 @@ $(document).on('click','.single-post-view', function(){
 
 $(document).on('click','.single-post-content', function(e){
     e.stopPropagation()
-});
+})
 
 
 

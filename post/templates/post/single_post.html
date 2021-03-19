@@ -1,16 +1,22 @@
 {% load static %}
-<article class="single-post" id='post-{{post.id}}'>
-  <img class="rounded-circle article-img" src="{{ post.owner.user.photo.url }}" style="width:5%;">
-  <div class="media-body">
-    <div class="article-metadata">
-      <a class="mr-2" href="{% url 'profile' post.owner.username %}"> {{ post.owner }}</a>
-        <small class="text-muted">{{ post.created_at|date:"F d, Y" }}</small>
-      </div>
-      <h3>{{ post.title }}</h3>
-      <img class="article-img" src="{{ post.photo.url }}" style="width: 50%;">    
+
+<div class='col-8 d-none d-md-block' style="padding:0;">
+  <img class="article-img" src="{{ post.photo.url }}" style="width: 100%; height:100%; border-right: rgb(230, 230, 230) solid 0.1px;"">    
+</div>
+
+<div class='col-12 col-md-4' style="padding:0;">
+
+  <div class='post-metadata' style="padding:5% 2%; border-bottom: rgb(230, 230, 230) solid 0.1px;">
+    <img class="rounded-circle article-img" src="{{ post.owner.user.photo.url }}" style="width:32px; border-right: rgb(230, 230, 230) solid 0.1px;">
+    <a class="mr-2" href="{% url 'profile' post.owner.username %}"><span class='owner-username'>{{post.owner.username}}</span></a>
+  </div>
 
       
-      <div>
+      <div class='comment-section' id='comment-section-{{post.id}}' style="overflow-y:scroll; scrollbar-width:none; overflow-x: hidden; height:45vh; border-bottom: rgb(230, 230, 230) solid 0.1px; margin:2% 1.5% !important;">
+        {% for comment in post.post_comments.all %}
+          <p style="margin-bottom:10% !important;"><img class='rounded-circle' src='{{comment.owner.user.photo.url}}'style="width:25px;"><span class='owner-username'>  {{comment.owner.username}}</span>  {{ comment.text}} </p>
+        {% endfor %}
+      </div>
 
         <div class='like_btns'>
         <!-- like btn -->              
@@ -73,7 +79,6 @@
               </path>
             </svg>
           </a>
-      </div>
 
 
         {% if post.post_likes.count > 1 %}
@@ -82,6 +87,7 @@
         <p>{{post.post_likes.count}} like</p>
         {% endif %}
 
+        <small class="text-muted">{{ post.created_at|date:"F d, Y" }}</small>
 
       <!-- csrf token handled by javascript using global cookie -->
       <form method="post" class='commentForm' id='commentForm-{{post.id}}' name='commentForm' autocomplete="off">
@@ -90,19 +96,14 @@
           <input type='hidden' name='url' id='url' value='{% url "post_comment_create" post.id %}'>
       </form>         
 
-      <div id='comment-section-{{post.id}}'>
-        {% for comment in post.post_comments.all %}
-          <p> {{ comment.text }} </p>
-        {% endfor %}
-      </div>
     </div> 
-  </article>
+</div>
 
-  <script>
-    var btn = document.querySelector('#comment_btn');
-    var input = document.querySelector('#id_text'); // or getElementById
+<script>
+  var btn = document.querySelector('#comment_btn');
+  var input = document.querySelector('#id_text'); // or getElementById
 
-    btn.addEventListener('click', () => {
-      input.focus();
-    });
-  </script>
+  btn.addEventListener('click', () => {
+    input.focus();
+  });
+</script>

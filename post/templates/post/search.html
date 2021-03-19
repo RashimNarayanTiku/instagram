@@ -1,7 +1,7 @@
 {% if profiles %}
-  <ul id='search-list'>
+  <ul class='row' id='search-list'>
     {% for profile in profiles %}
-    <a href='{% url "profile" profile.username %}'>
+    <a class='col-12' href='{% url "profile" profile.username %}'>
     <li style="width: fit-content;">
       <div style="display: flex;"><img class='rounded-circle owner-username' id='search-pic'src='{{ profile.user.photo.url}} '>
         <ul style="list-style-type: none; padding-left:2%; height:fit-content;">
