@@ -28,5 +28,6 @@ It is a fully functional Instagram clone made in Django (In progress)
 
 ## Frontend Stuff Done:
 
-*Navigation-bar*
-*Notification Panel*
+* *Navigation-bar*
+* *Notification Panel*
+* *Single Post View*
