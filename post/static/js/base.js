@@ -267,9 +267,9 @@ function likePost(url,post_id){
 
     $.post(url, {},  function(response){
         console.log(url, 'finished');
-        $("#like-btn-"+post_id).toggle();
-        $("#unlike-btn-"+post_id).toggle();
-        $("#post-like-"+post_id).html(response.html); 
+        $(".like-btn-"+post_id).toggle();
+        $(".unlike-btn-"+post_id).toggle();
+        $(".post-like-"+post_id).html(response.html); 
     }).fail(function(xhr) {
         alert('Like failed with '+xhr.status+' '+url);
     });
@@ -294,8 +294,8 @@ function savePost(url,post_id){
     console.log('Requesting Save functionality');
     $.post(url, {},  function(){
         console.log(url, 'finished');
-        $("#save-btn-"+post_id).toggle();
-        $("#unsave-btn-"+post_id).toggle();
+        $(".save-btn-"+post_id).toggle();
+        $(".unsave-btn-"+post_id).toggle();
     }).fail(function(xhr) {
         alert('Save failed with '+xhr.status+' '+url);
     });

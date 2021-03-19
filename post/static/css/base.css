@@ -320,7 +320,7 @@ a {
     margin-left: 2%;
     width:83%;
 }
-.commentForm>input:focus{
+#id_text:focus{
     outline: none !important;
 }
 .comment-submit{
@@ -341,6 +341,9 @@ a {
     padding: .75rem .5rem;
 }
 
+#id_text{
+    border:0;
+}
 #id_text::placeholder{
     color: #C2C2D4;
 }

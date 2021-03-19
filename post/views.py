@@ -117,7 +117,7 @@ def SinglePostView(request, pk):
         save_rows = request.user.save_post.values('id')
         saved_posts = [ row['id'] for row in save_rows ]
         comment_form = CommentForm()
-        html = render_to_string('post/single_post.html', {'post': post, 'comment_form':comment_form, 'liked_posts':liked_posts, 'saved_posts':saved_posts})
+        html = render_to_string('post/single_post.html', {'user':request.user, 'post': post, 'comment_form':comment_form, 'liked_posts':liked_posts, 'saved_posts':saved_posts})
         return JsonResponse(data={'html':html}, safe=False)
 
 
