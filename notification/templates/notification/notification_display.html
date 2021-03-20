@@ -4,19 +4,19 @@
     <div class="media">
         {%if notification in likes %}
             <div class="media-left">
-                <img src="{{notification.owner.user.photo.url}} " class="media-object rounded-circle" style="width:44px;">
+                <img src="{{notification.owner.user.photo.url}} " class="media-object rounded-circle" style="width:44px; height: 44px;">
             </div>
             <div class="media-body">
                 <p><b><a href='{% url 'profile' notification.owner.username %}'>{{notification.owner.username}}</a></b> liked your photo. <small class="text-muted">{{ notification.created_at|date:"F d, Y" }}</small></p>
             </div>
             <div class="media-right">
-                <img src="{{notification.post.photo.url}}" class="media-object" style="width:44px">
+                <img src="{{notification.post.photo.url}}" class="media-object" style="width:44px;">
             </div>
 
 
         {% elif notification in comments %}
             <div class="media-left">
-                <img src="{{notification.owner.user.photo.url}}" class="media-object rounded-circle" style="width:44px;">
+                <img src="{{notification.owner.user.photo.url}}" class="media-object rounded-circle" style="width:44px; height: 44px;">
             </div>
             <div class="media-body">
                 <p><b><a href='{% url 'profile' notification.owner.username %}'>{{notification.owner.username}}</a></b> commented: {{notification.text}} <small class="text-muted">{{ notification.created_at|date:"F d, Y" }}</small> </p>
@@ -28,7 +28,7 @@
 
         {% else %}
             <div class="media-left">
-                <img src="{{notification.owner.user.photo.url}}" class="media-object rounded-circle" style="width:44px;">
+                <img src="{{notification.owner.user.photo.url}}" class="media-object rounded-circle" style="width:44px; height: 44px;">
             </div>
             <div class="media-body">
                 <p><b><a href='{% url 'profile' notification.owner.username %}'> {{notification.owner.username}}</a></b> started following you. <small class="text-muted">{{ notification.created_at|date:"F d, Y" }}</small> </p>

@@ -185,7 +185,7 @@ $(document).on('submit','.commentForm', function(e) {
         url: form.children("#url").val(),
         headers: {'X-CSRFToken': getCookie('csrftoken')},
         data:{
-            text:form.children("#id_text").val(),
+            text:form.find("#id_text").val(),
             csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
             action: 'post'
         },
