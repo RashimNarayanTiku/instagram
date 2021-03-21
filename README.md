@@ -31,3 +31,4 @@ It is a fully functional Instagram clone made in Django (In progress)
 * *Navigation-bar*
 * *Notification Panel*
 * *Single Post View*
+* *Main/Post Page*
