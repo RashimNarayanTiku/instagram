@@ -252,15 +252,23 @@ $(document).on('click','.single-post-content', function(e){
 
 
 $(document).on('dblclick', '.post-img', function(){
-    var btn = $(this).siblings('.like_btns');
+    var heart = $(this).siblings('.heart').first();
+    console.log(heart.attr('class'))
 
-    if($('.like-btn').css('display') == 'none')
-        var r = btn.find('.unlike-btn');
-    else
-        var r = btn.find('.like-btn');
-    r.click();
+    heart.css("display", "inline");    
+    heart.css("animation", "1s linear double_burst");    
+    
+    
+    var img_id = $(this).attr('id').split('-');
+    post_id = img_id[img_id.length-1];
+    btn = $('.like-btn-'+post_id)
+    if(btn.css('display')=='none') 
+    $('.unlike-btn-'+post_id).click();
+    
+    setTimeout(function() {
+        heart.removeAttr('style');
+    }, 1050);
 });
-
 
 function likePost(url,post_id){
     console.log('Requesting Like functionality'); 

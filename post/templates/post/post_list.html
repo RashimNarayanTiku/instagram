@@ -9,7 +9,6 @@
   <div class='main-content col-xs-12 col-md-11 col-lg-8 '>
     <div class="infinite-container">
 
-
       {% for post in page_obj %}
       <div class="infinite-item post card" id='post-{{post.id}}'>
 
@@ -18,10 +17,15 @@
           <a class="owner-username mr-2 text-dark" href="{% url 'profile' post.owner.username %}"> {{ post.owner }}</a>
         </div>
 
-        <img class="post-img" id='post-img-{{post.id}}' src="{{ post.photo.url }}">
-        
+        <div class='post-img-container '>
+          <img class="post-img" id='post-img-{{post.id}}' src="{{ post.photo.url }}">
+          <svg aria-label="Unlike" class="heart" fill="#fff" height="25" viewBox="0 0 48 48" width="26" >
+            <path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z">
+            </path>
+          </svg>
+        </div>
         <div class="card-body">
-
+          
           <div class='buttons col-12 d-inline-flex'>
             <div class='like_btn'>
               <!-- like btn -->              
@@ -182,9 +186,7 @@
   </div> 
 </div>
 
-<div class='row justify-content-center'>
-<!-- <svg aria-label="Loading..." class="loading-posts fa-spin" viewBox="0 0 100 100" style="width:2%;"><rect fill="#555555" height="6" opacity="0" rx="3" ry="3" transform="rotate(-90 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.08333333333333333" rx="3" ry="3" transform="rotate(-60 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.16666666666666666" rx="3" ry="3" transform="rotate(-30 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.25" rx="3" ry="3" transform="rotate(0 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.3333333333333333" rx="3" ry="3" transform="rotate(30 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.4166666666666667" rx="3" ry="3" transform="rotate(60 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.5" rx="3" ry="3" transform="rotate(90 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.5833333333333334" rx="3" ry="3" transform="rotate(120 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.6666666666666666" rx="3" ry="3" transform="rotate(150 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.75" rx="3" ry="3" transform="rotate(180 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.8333333333333334" rx="3" ry="3" transform="rotate(210 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.9166666666666666" rx="3" ry="3" transform="rotate(240 50 50)" width="25" x="72" y="47"></rect></svg> -->
-<div>
+
 {% if page_obj.has_next %}
   <a class='infinite-more-link' href='?page={{page_obj.next_page_number }}'></a>
 {% endif%}      
