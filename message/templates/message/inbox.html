@@ -6,20 +6,35 @@
 
 {% block content %}
   {{user.username}}
-  <svg aria-label="New Message" id="new-inbox-icon" fill="#262626" height="24" viewBox="0 0 44 44" width="24">
+  <svg style="margin-top:15%;" aria-label="New Message" id="new-inbox-icon" data-toggle="modal" data-target="#new-inbox-modal" fill="#262626" height="24" viewBox="0 0 44 44" width="24">
     <path d="M33.7 44.12H8.5a8.41 8.41 0 01-8.5-8.5v-25.2a8.41 8.41 0 018.5-8.5H23a1.5 1.5 0 010 3H8.5a5.45 5.45 0 00-5.5 5.5v25.2a5.45 5.45 0 005.5 5.5h25.2a5.45 5.45 0 005.5-5.5v-14.5a1.5 1.5 0 013 0v14.5a8.41 8.41 0 01-8.5 8.5z"></path><path d="M17.5 34.82h-6.7a1.5 1.5 0 01-1.5-1.5v-6.7a1.5 1.5 0 01.44-1.06L34.1 1.26a4.45 4.45 0 016.22 0l2.5 2.5a4.45 4.45 0 010 6.22l-24.3 24.4a1.5 1.5 0 01-1.02.44zm-5.2-3h4.58l23.86-24a1.45 1.45 0 000-2l-2.5-2.5a1.45 1.45 0 00-2 0l-24 23.86z"></path><path d="M38.2 14.02a1.51 1.51 0 01-1.1-.44l-6.56-6.56a1.5 1.5 0 012.12-2.12l6.6 6.6a1.49 1.49 0 010 2.12 1.51 1.51 0 01-1.06.4z"></path>
   </svg>
 
-  <div id='new-inbox'>
-    <p>New Message</p>
-    <form class="new-inbox-form" onsubmit="event.preventDefault()" autocomplete="off">
-      <input id="new-inbox-input" type="text" placeholder="Search" aria-label="Search">
-      <svg id='new-inbox-load-icon' aria-label="Loading..." class="fa-spin" viewBox="0 0 100 100" style="width:1.5%;"><rect fill="#555555" height="6" opacity="0" rx="3" ry="3" transform="rotate(-90 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.08333333333333333" rx="3" ry="3" transform="rotate(-60 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.16666666666666666" rx="3" ry="3" transform="rotate(-30 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.25" rx="3" ry="3" transform="rotate(0 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.3333333333333333" rx="3" ry="3" transform="rotate(30 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.4166666666666667" rx="3" ry="3" transform="rotate(60 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.5" rx="3" ry="3" transform="rotate(90 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.5833333333333334" rx="3" ry="3" transform="rotate(120 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.6666666666666666" rx="3" ry="3" transform="rotate(150 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.75" rx="3" ry="3" transform="rotate(180 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.8333333333333334" rx="3" ry="3" transform="rotate(210 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.9166666666666666" rx="3" ry="3" transform="rotate(240 50 50)" width="25" x="72" y="47"></rect></svg>
-    </form>
-    <div id='new-inbox-results'>
-      {% include 'message/new_inbox.html' %}
+
+  <!-- Modal -->
+  <div class="modal fade new-inbox-modal" id="new-inbox-modal" tabindex="-1" role="dialog" aria-labelledby="new-inbox-modalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" style="max-width: 30%; height: 50vh !important;" role="document">
+      <div class="modal-content" style="border-radius: .75rem !important;">
+        <div class="d-flex justify-content-center p-2" style="border-bottom: 1px solid #e0e0e0;" >
+          <button type="button" class="close mr-auto p-1" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h5 class="modal-title col-8 justify-content-start" id="new-inbox-modalLabel"><small><b>New Message</b></small></h5>
+        </div>
+          <form onsubmit="event.preventDefault()" class="new-inbox-form p-3 col-12" autocomplete="off">
+            <label for='new-inbox-input' class="col-1 p-0"> <b>To:</b> </label>
+            <input class="new-inbox-input col-8" id="new-inbox-input" type="text" placeholder="Search..." aria-label="Search" onfocus="clearField(this)" autofocus style="border:none; outline:none;">
+          </form>
+          <div class='modal-footer justify-content-start' style="height: 30vh; overflow-y: auto;">
+          <div id='new-inbox-results' style="width:100%;">
+            {% include 'message/new_inbox.html' %}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+
 
   <ul type='none'>
   {% for inbox in inboxes %}

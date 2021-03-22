@@ -40,17 +40,9 @@ $("body").on('click',function(ele) {
     // ---------notification---------
     if(ele.target.id !== "notification" && ele.target.id !== "notification-display"){
         $("#notification-display").css('display', 'none');
-    }
-    
+    }    
     console.log(ele.target.id)
 
-    // ----------new inbox----------
-    if(ele.target.id === 'new-inbox-icon' || ele.target.id === 'new-inbox' || ele.target.id === 'new-inbox-input'|| ele.target.id === 'new-inbox-results'){
-        $('#new-inbox').css('display','block');
-    }
-    else{
-        $('#new-inbox').css('display','none');
-    }
 });
    
 
@@ -59,38 +51,25 @@ $("body").on('click',function(ele) {
 
 // ------------ Inbox Create Profile search --------------
 
-const new_inbox_input = $("#new-inbox-input")
-const new_inbox_load_icon = $('#new-inbox-load-icon')
-const profile_div = $('#new-inbox-results')
-var new_inbox_endpoint = '/direct/profile/'
-const delay_by = 700
-let scheduled_func = false
+var new_inbox_endpoint = '/direct/profile/';
+const delay_by = 700;
+let scheduled_func = false;
 
-
-let ajax_calling = function (new_inbox_endpoint, request_parameters) {
+let ajax_calling = function(new_inbox_endpoint, request_parameters) {
 
     $.getJSON(new_inbox_endpoint, request_parameters)
         .done(response => {
-            profile_div.fadeTo('slow', 0).promise().then(() => {
-                profile_div.html(response['html_from_view'])
-                profile_div.fadeTo('slow', 1)
-                new_inbox_load_icon.hide()
-            })
-        })
-}
+            $('#new-inbox-results').html(response['html'])
+        });
+};
 
-new_inbox_input.on('keyup', function () {
-    console.log('new inbox text sent')
-
+$(document).on('keyup', '#new-inbox-input', function(){
     const request_parameters = {
         q: $(this).val() 
     }
-    new_inbox_load_icon.show()
-    // if scheduled_func is NOT false, cancel the execution of the function
     if (scheduled_func) {
         clearTimeout(scheduled_func)
     }
-    // setTimeout returns the ID of the function to be executed
     scheduled_func = setTimeout(ajax_calling, delay_by, new_inbox_endpoint, request_parameters)
 });
 
@@ -226,8 +205,6 @@ $(document.body).on('click','.all-comments', function(){
         $('.single-post-content').html(response.html);
         document.body.style.overflow = "hidden";
         
-        var new_url = '/p/' + post_id;
-        window.history.pushState('data', document.title, new_url);
         
         console.log('successful single-post ajax request')
     }).fail(function() {
@@ -239,7 +216,6 @@ $(document.body).on('click','.all-comments', function(){
 $(document).on('click','.single-post-view', function(){
     $(this).css('display','none')
     document.body.style.overflow = "scroll";
-    window.history.pushState('data', document.title, original_url);
 });
 
 $(document).on('click','.single-post-content', function(e){
@@ -434,8 +410,7 @@ function UpdateMessages() {
     $.ajax({
         url: `message/update/${inbox_id}`,
         success: function(response) {
-            // console.log('0000000000 MESSAGE CAME 0000000000')
-            console.log(response.html)
+            console.log('Messages Updated')
             $(`#message-section-${inbox_id}`).append(response.html)
         },
         complete: function() {

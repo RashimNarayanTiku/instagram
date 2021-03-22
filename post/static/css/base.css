@@ -46,7 +46,7 @@ body{
     margin-left:-15%;
     background-color: #fff;
     border-radius: 5px;
-    box-shadow:  1.5px 1.5px 1.5px 1.5px rgba(0,0,0,.1);
+    box-shadow: 1px 1px 5px #d6d6d6;
     display:none;
     overflow-x:hidden;
     overflow-y: auto;
@@ -62,6 +62,11 @@ body{
     border-bottom: 15px solid #fff;
     z-index: 11;
     display: none;
+}
+
+.dropdown-menu{
+    border:0;
+    box-shadow: 2px 2px 5px #c2c2c2;
 }
 
 
@@ -144,6 +149,10 @@ a{
     right:49%; 
     top:32%; 
     transform: scale(1);
+}
+
+.single-post-view .modal-content{
+    border-radius:0;
 }
 
 
@@ -414,6 +423,27 @@ a{
 }
 
 
+/* -------------------  MESSAGES-------------------   */
+
+
+#new-inbox-list{
+    padding: 0 !important;
+    list-style-type: none;
+    width: 100%;
+}
+#new-inbox-list a{
+    text-decoration: none;
+    color:black;
+    font-weight: 600;
+}
+#new-inbox-list>a>li{
+    width:100%;
+    cursor: pointer !important;
+}
+#new-inbox-list>a>li:hover{
+    background-color: rgba(248, 247, 247, 0.589);
+}
+
 @media (max-width: 992px) { 
     #inbox-dot{
         font-size: 110%;
@@ -484,7 +514,7 @@ a{
         height:1100% !important;
     }
 
-    .share-modal>.modal-dialog{
+    .share-modal>.modal-dialog,.new-inbox-modal>.modal-dialog{
         max-width: 100% !important;
     }
 }

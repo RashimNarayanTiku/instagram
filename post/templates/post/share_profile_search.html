@@ -1,7 +1,7 @@
 {% if profiles %}
   <ul id='search-list'>
     {% for profile in profiles %}
-    <li class='share-post' id='share-post-{{profile.id}}'style="width: fit-content;">
+    <li class='share-post' id='share-post-{{profile.id}}'>
         <div class="media p-0">
             <div class="media-left">
               <img class='rounded-circle' id='search-pic'src='{{ profile.user.photo.url}}'>              
@@ -10,7 +10,7 @@
               <p class="media-heading m-0">
                 <b> {{profile.username}} </b>
               </p>
-              <span class='text-muted'>{{profile.first_name}}</span>
+              <p class='text-muted '>{{profile.first_name}}</p>
         </div>
         <br>
     </li>
@@ -18,6 +18,4 @@
     {% endfor %}
   </ul>
 
-{% else %}
-  <div id='no-result'></div>
 {% endif %}

@@ -76,7 +76,7 @@ def InboxFindProfileView(request):
             template_name="message/new_inbox.html", 
             context={"profiles": profiles}
         )
-        data_dict = {"html_from_view": html}
+        data_dict = {"html": html}
         return JsonResponse(data=data_dict, safe=False)
 
 
