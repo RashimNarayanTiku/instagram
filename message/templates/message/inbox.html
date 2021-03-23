@@ -5,51 +5,74 @@
 
 
 {% block content %}
-  {{user.username}}
-  <svg style="margin-top:15%;" aria-label="New Message" id="new-inbox-icon" data-toggle="modal" data-target="#new-inbox-modal" fill="#262626" height="24" viewBox="0 0 44 44" width="24">
-    <path d="M33.7 44.12H8.5a8.41 8.41 0 01-8.5-8.5v-25.2a8.41 8.41 0 018.5-8.5H23a1.5 1.5 0 010 3H8.5a5.45 5.45 0 00-5.5 5.5v25.2a5.45 5.45 0 005.5 5.5h25.2a5.45 5.45 0 005.5-5.5v-14.5a1.5 1.5 0 013 0v14.5a8.41 8.41 0 01-8.5 8.5z"></path><path d="M17.5 34.82h-6.7a1.5 1.5 0 01-1.5-1.5v-6.7a1.5 1.5 0 01.44-1.06L34.1 1.26a4.45 4.45 0 016.22 0l2.5 2.5a4.45 4.45 0 010 6.22l-24.3 24.4a1.5 1.5 0 01-1.02.44zm-5.2-3h4.58l23.86-24a1.45 1.45 0 000-2l-2.5-2.5a1.45 1.45 0 00-2 0l-24 23.86z"></path><path d="M38.2 14.02a1.51 1.51 0 01-1.1-.44l-6.56-6.56a1.5 1.5 0 012.12-2.12l6.6 6.6a1.49 1.49 0 010 2.12 1.51 1.51 0 01-1.06.4z"></path>
-  </svg>
 
-
-  <!-- Modal -->
-  <div class="modal fade new-inbox-modal" id="new-inbox-modal" tabindex="-1" role="dialog" aria-labelledby="new-inbox-modalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered" style="max-width: 30%; height: 50vh !important;" role="document">
-      <div class="modal-content" style="border-radius: .75rem !important;">
-        <div class="d-flex justify-content-center p-2" style="border-bottom: 1px solid #e0e0e0;" >
-          <button type="button" class="close mr-auto p-1" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h5 class="modal-title col-8 justify-content-start" id="new-inbox-modalLabel"><small><b>New Message</b></small></h5>
-        </div>
-          <form onsubmit="event.preventDefault()" class="new-inbox-form p-3 col-12" autocomplete="off">
-            <label for='new-inbox-input' class="col-1 p-0"> <b>To:</b> </label>
-            <input class="new-inbox-input col-8" id="new-inbox-input" type="text" placeholder="Search..." aria-label="Search" onfocus="clearField(this)" autofocus style="border:none; outline:none;">
-          </form>
-          <div class='modal-footer justify-content-start' style="height: 30vh; overflow-y: auto;">
-          <div id='new-inbox-results' style="width:100%;">
-            {% include 'message/new_inbox.html' %}
-          </div>
+<!-- Modal -->
+<div class="modal fade new-inbox-modal" id="new-inbox-modal" tabindex="-1" role="dialog" aria-labelledby="new-inbox-modalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" style="max-width: 30%; height: 50vh !important;" role="document">
+    <div class="modal-content" style="border-radius: .75rem !important;">
+      <div class="d-flex justify-content-center p-2" style="border-bottom: 1px solid #e0e0e0;" >
+        <button type="button" class="close mr-auto p-1" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title col-8 justify-content-start" id="new-inbox-modalLabel"><small><b>New Message</b></small></h5>
+      </div>
+        <form onsubmit="event.preventDefault()" class="new-inbox-form p-3 col-12" autocomplete="off">
+          <label for='new-inbox-input' class="col-1 p-0"> <b>To:</b> </label>
+          <input class="new-inbox-input col-8" id="new-inbox-input" type="text" placeholder="Search..." aria-label="Search" onfocus="clearField(this)" autofocus style="border:none; outline:none;">
+        </form>
+        <div class='modal-footer justify-content-start' style="height: 30vh; overflow-y: auto;">
+        <div id='new-inbox-results' style="width:100%;">
+          {% include 'message/new_inbox.html' %}
         </div>
       </div>
     </div>
   </div>
+</div>
 
 
+<div class='inbox-container row col-9 p-0'>
 
-  <ul type='none'>
-  {% for inbox in inboxes %}
-  
-  <li onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;" class="inbox" id='inbox-{{inbox.id}}' >
-    <img class="rounded-circle article-img" src="{{ inbox.reciever.user.photo.url }}" style="width:5%;">
-    <div class="article-metadata">
-        <p class="mr-2" > {{ inbox.reciever }}</p>
+  <div class="inbox-list card col-4half p-0 rounded-0 border-right-0">
+
+    <div class="card-header p-3 text-center">
+      <b>{{user.username}}</b>
+      <svg class='pull-right' id="new-inbox-icon" aria-label="New Message" data-toggle="modal" data-target="#new-inbox-modal" fill="#262626" height="24" viewBox="0 0 44 44" width="24"><path d="M33.7 44.12H8.5a8.41 8.41 0 01-8.5-8.5v-25.2a8.41 8.41 0 018.5-8.5H23a1.5 1.5 0 010 3H8.5a5.45 5.45 0 00-5.5 5.5v25.2a5.45 5.45 0 005.5 5.5h25.2a5.45 5.45 0 005.5-5.5v-14.5a1.5 1.5 0 013 0v14.5a8.41 8.41 0 01-8.5 8.5z"></path><path d="M17.5 34.82h-6.7a1.5 1.5 0 01-1.5-1.5v-6.7a1.5 1.5 0 01.44-1.06L34.1 1.26a4.45 4.45 0 016.22 0l2.5 2.5a4.45 4.45 0 010 6.22l-24.3 24.4a1.5 1.5 0 01-1.02.44zm-5.2-3h4.58l23.86-24a1.45 1.45 0 000-2l-2.5-2.5a1.45 1.45 0 00-2 0l-24 23.86z"></path><path d="M38.2 14.02a1.51 1.51 0 01-1.1-.44l-6.56-6.56a1.5 1.5 0 012.12-2.12l6.6 6.6a1.49 1.49 0 010 2.12 1.51 1.51 0 01-1.06.4z"></path></svg>
     </div>
-  </li>
-  {% endfor %}
-  </ul>
 
-  <div id='inbox-detail'>
+    <div class="card-body m-0 overflow-auto" style="height: 75vh;">
+      <ul class='p-0 mt-2' type='none'>
+        {% for inbox in inboxes %}
+        <li class="inbox m-0" id='inbox-{{inbox.id}}' onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;">
+          <div class="media p-2 ml-3">
+            <div class="media-left">
+              <img class='rounded-circle' id='inbox-pic'src="{{ inbox.reciever.user.photo.url }}" style="width: 56px; height: 56px;"> 
+            </div>
+            <div class="media-body p-2">
+              <p class="media-heading m-1">
+                <p class="m-0" style="font-size: 110%;"> {{ inbox.reciever.username }}</p>
+              </p>
+              <!-- <span class='text-muted font-weight-bold'>{{inbox.reciever.first_name}}</span> -->
+              </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    
   </div>
 
-{% endblock %}
+  <div class='card col-7half rounded-0' id='inbox-detail' style="height: 75hv;">
 
+  </div>
+
+</div>
+
+<script>
+  $('body').css('overflow','hidden');
+  $(document).on('click','.inbox', function(){
+    $('.active').removeClass('active')
+    $(this).addClass('active')
+  });
+</script>
+
+{% endblock %}

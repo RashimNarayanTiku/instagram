@@ -17,13 +17,14 @@
           <a class="owner-username mr-2 text-dark" href="{% url 'profile' post.owner.username %}"> {{ post.owner }}</a>
         </div>
 
-        <div class='post-img-container '>
+        <div class='post-img-container'>
           <img class="post-img" id='post-img-{{post.id}}' src="{{ post.photo.url }}">
           <svg aria-label="Unlike" class="heart" fill="#fff" height="25" viewBox="0 0 48 48" width="26" >
             <path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z">
             </path>
           </svg>
         </div>
+
         <div class="card-body">
           
           <div class='buttons col-12 d-inline-flex'>
@@ -143,20 +144,20 @@
             
             <small class="text-muted">{{ post.created_at|date:"F d, Y" }}</small>
             
-          </div>
+        </div>
 
-          <div class="card-footer">
-            <form method="post" class='commentForm' id='commentForm-{{post.id}}' name='commentForm' autocomplete="off">
-              <span class='emoji'>
-                <img class="rounded-circle post-owner-img" src="{{ user.user.photo.url }}" style="width:32px;">
-                <svg aria-label="Emoji" disabled fill="#262626" height="24" viewBox="0 0 48 48" width="24"><path d="M24 48C10.8 48 0 37.2 0 24S10.8 0 24 0s24 10.8 24 24-10.8 24-24 24zm0-45C12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21S35.6 3 24 3z"></path><path d="M34.9 24c0-1.4-1.1-2.5-2.5-2.5s-2.5 1.1-2.5 2.5 1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5zm-21.8 0c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5-2.5-1.1-2.5-2.5zM24 37.3c-5.2 0-8-3.5-8.2-3.7-.5-.6-.4-1.6.2-2.1.6-.5 1.6-.4 2.1.2.1.1 2.1 2.5 5.8 2.5 3.7 0 5.8-2.5 5.8-2.5.5-.6 1.5-.7 2.1-.2.6.5.7 1.5.2 2.1 0 .2-2.8 3.7-8 3.7z"></path>
-                </svg>
-              </span>
-              {% csrf_token %}
-              {{comment_form.text}}
-              <input type='submit' class='comment-submit ' value="Post"> 
-              <input type='hidden' name='url' id='url' value='{% url "post_comment_create" post.id %}'>
-            </form>         
+        <div class="card-footer">
+          <form method="post" class='commentForm' id='commentForm-{{post.id}}' name='commentForm' autocomplete="off">
+            <span class='emoji'>
+              <img class="rounded-circle post-owner-img" src="{{ user.user.photo.url }}" style="width:32px;">
+              <svg aria-label="Emoji" disabled fill="#262626" height="24" viewBox="0 0 48 48" width="24"><path d="M24 48C10.8 48 0 37.2 0 24S10.8 0 24 0s24 10.8 24 24-10.8 24-24 24zm0-45C12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21S35.6 3 24 3z"></path><path d="M34.9 24c0-1.4-1.1-2.5-2.5-2.5s-2.5 1.1-2.5 2.5 1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5zm-21.8 0c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5-2.5-1.1-2.5-2.5zM24 37.3c-5.2 0-8-3.5-8.2-3.7-.5-.6-.4-1.6.2-2.1.6-.5 1.6-.4 2.1.2.1.1 2.1 2.5 5.8 2.5 3.7 0 5.8-2.5 5.8-2.5.5-.6 1.5-.7 2.1-.2.6.5.7 1.5.2 2.1 0 .2-2.8 3.7-8 3.7z"></path>
+              </svg>
+            </span>
+            {% csrf_token %}
+            {{comment_form.text}}
+            <input type='submit' class='comment-submit ' value="Post"> 
+            <input type='hidden' name='url' id='url' value='{% url "post_comment_create" post.id %}'>
+          </form>         
         </div>
       </div>
       {% endfor %}
