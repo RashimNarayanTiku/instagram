@@ -1,38 +1,61 @@
 
 {% if inbox %}
 
-
 <div class="card-header pb-0 rounded-0 border-bottom">
-    <div class='mb-3 ml-2'>
+    <div style="margin-bottom: 1.08rem; margin-left:.55rem;">
         <img class="rounded-circle article-img" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; height:24px">
         <b><a href="{% url 'profile' inbox.reciever.username %}"> {{ inbox.reciever.username }}</a></b>
     </div>
 </div>
-<div class="card-body border-top-0">
+<div class="card-body border-top-0 m-0 justify-content-end">
     <div class='message-section' id="message-section-{{inbox.id}}" style="height:65vh; overflow:auto;">
         {% for message in messages %}
             {% if message.post %}
                 {% if message in owner_messages %}
-                <p class='owner_message'>SENT:  <img src='{{ message.post.photo.url }}' style='width:5%;'> <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+                <div class='row m-2 justify-content-end'> 
+                    <div class='owner_message'>
+                        <img src='{{ message.post.photo.url }}' style='width:5%;'> 
+                    </div>
+                </div>
                 {% else %}
-                <p class='reciever_message'>RECIEVED:  <img src='{{ message.post.photo.url }}' style='width:5%;'> <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+                <div class='row m-2 position-relative justify-content-start align-text-bottom'> 
+                    <img class="rounded-circle" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
+                    <div class='reciever_message'>
+                        <img src='{{ message.post.photo.url }}' style='width:5%;'> 
+                    </div>
+                </div>
                 {% endif %}
             {% else %}
                 {% if message in owner_messages %}
-                <p class='owner_message'>SENT:  {{ message.text }} <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+                <div class='row m-2 justify-content-end'> 
+                    <div class='owner_message'>
+                        {{ message.text }} 
+                    </div>
+                </div>
                 {% else %}
-                <p class='reciever_message'>RECIEVED:  {{ message.text }} <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+                <div class='row m-2 position-relative justify-content-start align-text-bottom'> 
+                    <img class="rounded-circle" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
+                    <div class='reciever_message'>
+                        {{ message.text }} 
+                    </div>
+                </div>
                 {% endif %}
             {% endif %}
         {% endfor %} 
     </div>
     
-    <!-- csrf token handled by javascript using global cookie -->
-    <form method="post" class='messageForm' id='messageForm-{{inbox.id}}' name='messageForm' autocomplete="off">
-        {{message_form.text}}
-        <input type='submit' class='submit' value="message">
-        <input type='hidden' name='url' id='url' value='{% url "message_create" inbox.id %}'>
-    </form>  
+    <div class='col-11 ml-3 d-flex' style="border:1px solid #e4e4e4; border-radius:20px; height:7vh; margin-bottom:0.5rem;">
+        <div class='row p-2'> 
+            <span class='emoji col-1 pl-0'>
+                <svg aria-label="Emoji" disabled fill="#262626" height="24" viewBox="0 0 48 48" width="24"><path d="M24 48C10.8 48 0 37.2 0 24S10.8 0 24 0s24 10.8 24 24-10.8 24-24 24zm0-45C12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21S35.6 3 24 3z"></path><path d="M34.9 24c0-1.4-1.1-2.5-2.5-2.5s-2.5 1.1-2.5 2.5 1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5zm-21.8 0c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5-2.5-1.1-2.5-2.5zM24 37.3c-5.2 0-8-3.5-8.2-3.7-.5-.6-.4-1.6.2-2.1.6-.5 1.6-.4 2.1.2.1.1 2.1 2.5 5.8 2.5 3.7 0 5.8-2.5 5.8-2.5.5-.6 1.5-.7 2.1-.2.6.5.7 1.5.2 2.1 0 .2-2.8 3.7-8 3.7z"></path></svg>
+            </span> 
+            <!-- csrf token handled by javascript using global cookie -->
+            <form method="post" class='messageForm col-8' id='messageForm-{{inbox.id}}' name='messageForm' autocomplete="off" spellcheck="false">
+                {{message_form.text}}
+                <input type='hidden' name='url' id='url' value='{% url "message_create" inbox.id %}'>
+            </form>  
+        </div>
+    </div>
 </div> 
 
 {% else %}

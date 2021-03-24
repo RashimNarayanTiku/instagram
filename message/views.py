@@ -121,7 +121,6 @@ def MessageCreateView(request, pk):
         response_data['text'] = text
         response_data['created_at'] = time
         response_data['inbox_id'] = pk
-        
         return JsonResponse(response_data)    
     return redirect('inbox_list') 
 
@@ -134,11 +133,11 @@ def MessageUpdateView(request, pk):
         inbox = Inbox.objects.get(id=pk)
 
         owner = inbox.owner.id
-        reciever = inbox.reciever.id
+        reciever = inbox.reciever
 
         time_threshold = timezone.now() - timedelta(seconds=3)
         reciever_messages = inbox.reciever_messages.filter(created_at__gt=time_threshold) 
         messages = reciever_messages
 
-        html = render_to_string('message/messages.html', {'messages':messages})
+        html = render_to_string('message/messages.html', {'messages':messages, 'user':request.user, 'reciever':reciever})
         return JsonResponse(data={'html':html}, safe=False)

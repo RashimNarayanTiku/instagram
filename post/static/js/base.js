@@ -159,6 +159,13 @@ user_input.on('keyup', function () {
 
 $(document).on('submit','.commentForm', function(e) {
     var form = $(this).closest('form');
+
+    if(form.children('#id_text').val() == '')
+    {
+        console.log('Empty Comment stopped') 
+        return false;
+    }
+
     $.ajax({
         type:'post',
         url: form.children("#url").val(),
@@ -371,6 +378,11 @@ function inboxDetail(url,inbox_id){
 
 $(document).on('submit','.messageForm', function(e) {
     var form = $(this).closest('form');
+    if(form.children('#id_text').val() == '')
+    {
+        console.log('Empty message stopped') 
+        return false;
+    }
     $.ajax({
         type:'post',
         url: form.children("#url").val(),
@@ -384,7 +396,7 @@ $(document).on('submit','.messageForm', function(e) {
         success: function(response){
             $(`#${form.attr('id')} input[name=text]`).val('');
             var message_section = $(`#message-section-${response['inbox_id']}`)
-            message_section.append('<p class="owner_messages"> SENT:  ' +response['text']+ `<small class="text-muted"> ${response['created_at']}</small>` + '</p>')
+            message_section.append("<div class='row m-2 justify-content-end'><div class='owner_message'>"+ response['text'] +"</div></div>")
             message_section[0].scrollTop = message_section[0].scrollHeight - message_section[0].clientHeight;
             
             console.log('successful message sent')
@@ -410,6 +422,7 @@ function UpdateMessages() {
         url: `message/update/${inbox_id}`,
         success: function(response) {
             console.log('Messages Updated')
+
             $(`#message-section-${inbox_id}`).append(response.html)
         },
         complete: function() {

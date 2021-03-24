@@ -384,6 +384,7 @@ a{
 #id_text:focus{
     outline: none !important;
 }
+
 .comment-submit{
     width: min-content !important;
     display: inline;
@@ -393,6 +394,7 @@ a{
     color:#0095f6;
     padding-right: 0;
 }
+
 .commentForm svg{
     display: inline !important;
 }
@@ -467,8 +469,22 @@ a{
 .col-4half { width: 37.5% !important; }
 .col-7half { width: 62.5% !important; }
 
-
-
+.reciever_message{
+    border: 1px solid #e5e5e5;
+    border-radius: 30px;
+    padding: .75rem 1rem;
+    max-width: 45%;
+    margin-left:4%;
+    margin-top:4%;
+}
+.owner_message{
+    border-radius: 30px;
+    background-color: #efefef;
+    padding: .75rem 1rem;
+    max-width: 45%;
+    margin-left:4%;
+    margin-top:1%;
+}
 
 @media (max-width: 992px) { 
     #inbox-dot{

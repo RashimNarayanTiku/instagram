@@ -1,8 +1,22 @@
 
 {% for message in messages %}
-    {% if message.post %}
-    <p class='reciever_message'>RECIEVED:  <img src='{{ message.post.photo.url }}' style='width:5%;'> <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+    {% if message.post %}  
+    <div class='row m-2 position-relative justify-content-start align-text-bottom'> 
+        <img class="rounded-circle" src="{{ reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
+        <div class='reciever_message'>
+            <img src='{{ message.post.photo.url }}' style='width:5%;'> 
+        </div>
+    </div>
+    
     {% else %}
-    <p class='reciever_message'>RECIEVED:  {{ message.text }} <small class="text-muted">{{ message.created_at|date:"F d, Y" }}</small></p>
+        {% if message.owner != user %}
+        <div class='row m-2 position-relative justify-content-start align-text-bottom'> 
+            <img class="rounded-circle" src="{{ reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
+            <div class='reciever_message'>
+                {{ message.text }} 
+            </div>
+        </div>
+
+        {% endif %} 
     {% endif %} 
 {% endfor %} 
