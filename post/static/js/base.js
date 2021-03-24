@@ -170,15 +170,14 @@ $(document).on('submit','.commentForm', function(e) {
         },
         
         success: function(response) {
-        $(`#${form.attr('id')} input[name=text]`).val('');
+            $(`#${form.attr('id')} input[name=text]`).val('');
 
-        if(window.location.href.includes("/p/")) {        
-            $(`#comment-section-${response['post_id']}`).prepend("<p style='margin-bottom:10% !important;'>  <img class='rounded-circle' src='" +response['photo']+ "' style='width:25px;'><span class='owner-username'>  " + response['owner']+ "</span>  "+ response['text']+"</p>")
-        }
-        else {
-        $(`#comment-section-${response['post_id']}`).prepend("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
-        }
-        console.log('successful ajax request')
+            if(form.parent().hasClass('modal-footer')) {        
+                $(`#comment-section-${response['post_id']}`).prepend("<p style='margin-bottom:10% !important;'>  <img class='rounded-circle' src='" +response['photo']+ "' style='width:25px;'><span class='owner-username'>  " + response['owner']+ "</span>  "+ response['text']+"</p>")
+            }
+            else {
+                $(`#comment-section-${response['post_id']}`).prepend("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
+            }
         },
         
         error: function(response) {
