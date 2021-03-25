@@ -43,14 +43,14 @@
     <div class="card-body m-0 overflow-auto" style="height: 75vh;">
       <ul class='p-0 mt-2' type='none'>
         {% for inbox in inboxes %}
-        <li class="inbox m-0" id='inbox-{{inbox.id}}' onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;">
+        <li class="inbox m-0 position-relative" id='inbox-{{inbox.id}}' onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;">
           <div class="media p-2 ml-3">
             <div class="media-left">
               <img class='rounded-circle' id='inbox-pic'src="{{ inbox.reciever.user.photo.url }}" style="width: 56px; height: 56px;"> 
             </div>
             <div class="media-body p-2">
               <p class="media-heading m-1">
-                <p class="m-0" style="font-size: 110%;"> {{ inbox.reciever.username }}</p>
+                <p class="m-0" style="font-size: 110%; font-weight: 500;"> {{ inbox.reciever.username }}</p>
               </p>
               <!-- <span class='text-muted font-weight-bold'>{{inbox.reciever.first_name}}</span> -->
               </div>

@@ -179,11 +179,12 @@ $(document).on('submit','.commentForm', function(e) {
         success: function(response) {
             $(`#${form.attr('id')} input[name=text]`).val('');
 
-            if(form.parent().hasClass('modal-footer')) {        
+            if(form.parent().hasClass('modal-footer')) { 
+                alert($(`#comment-section-${response['post_id']}`).attr('id'))
                 $(`#comment-section-${response['post_id']}`).prepend("<p style='margin-bottom:10% !important;'>  <img class='rounded-circle' src='" +response['photo']+ "' style='width:25px;'><span class='owner-username'>  " + response['owner']+ "</span>  "+ response['text']+"</p>")
             }
             else {
-                $(`#comment-section-${response['post_id']}`).prepend("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
+                form.parent().prev().children('.comment-section').prepend("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
             }
         },
         

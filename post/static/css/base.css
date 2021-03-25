@@ -1,9 +1,6 @@
 b{
     font-weight: 600;
 }
-p{
-    font-weight: 500;
-}
 body{
     background-color: rgb(250, 250, 250);
 }
@@ -218,7 +215,15 @@ a{
 }
 
 .unread{
-    font-weight: bold;
+    font-weight: 600;
+}
+.unread::after {
+    content: '.';
+    position: absolute;
+    top: -1.6rem;
+    font-size: 3.5rem !important;
+    right: 0.8rem;
+    color:#0095f6 !important;
 }
 .popover{
     margin-top: 1.5%;
