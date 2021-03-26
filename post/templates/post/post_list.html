@@ -156,7 +156,7 @@
             </span>
             {% csrf_token %}
             {{comment_form.text}}
-            <input type='submit' class='comment-submit ' value="Post"> 
+            <input type='submit col-1' class='comment-submit ' value="Post"> 
             <input type='hidden' name='url' id='url' value='{% url "post_comment_create" post.id %}'>
           </form>   
                 

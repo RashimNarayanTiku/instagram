@@ -205,7 +205,7 @@ a{
 
 .notif-dot-container{
     padding-top: 30%;
-    margin-left: -25%; 
+    margin-left: -0.3rem; 
 }
 
 #notification-dot{
@@ -226,7 +226,7 @@ a{
     color:#0095f6 !important;
 }
 .popover{
-    margin-top: 1.5%;
+    margin-top: 1.2rem;
     background: rgb(237,73,86) !important;
     font-size:110%;
     border-radius: 10px 10px;
@@ -234,6 +234,7 @@ a{
 
 .notification-popover.popover.arrow::before,::after{
     border-bottom-color: rgb(237,73,86) !important;
+
 }
 
 .popover-body{
@@ -271,19 +272,15 @@ a{
 #inbox-dot{
     position: absolute !important;
     font-size: 120%;
-    right:0;
-    top:0;
-    margin-right:4.5%;
-    margin-top:-3.5%;    
+    right:-0.8rem;
+    top:-0.2rem;
     color:rgb(237,73,86) !important;
 }
 .inbox-number{
     position: absolute !important;
     font-size: 80%;
-    right:0;
-    top:0;
-    margin-right:15%;
-    margin-top:-8%;    
+    right:-1.1rem;
+    top:-0.3rem;
     color:#fff;
 }
 
@@ -381,17 +378,19 @@ a{
     margin-bottom:0;
 }
 
-.commentForm>input{
+.commentForm>#id_text{
     border:0 !important;
     margin-left: 2%;
-    width:83%;
+    width:33rem !important;
 }
+
 #id_text:focus{
     outline: none !important;
 }
 
 .comment-submit{
-    width: min-content !important;
+    width: 2rem;
+    border:0 !important;
     display: inline;
     outline: none;
     font-weight: 600;
@@ -492,22 +491,7 @@ a{
 }
 
 @media (max-width: 992px) { 
-    #inbox-dot{
-        font-size: 110%;
-        right:0;
-        top:0;
-        margin-right:-35%;
-        margin-top:-6%;    
-        color:rgb(237,73,86);
-    }
-    .inbox-number{
-        font-size: 70%;
-        right:0;
-        top:0;
-        margin-right:-15%;
-        margin-top:-3%;    
-        color:#fff;
-    }
+
 }
 
 @media (max-width: 768px) { 
@@ -539,22 +523,6 @@ a{
         background-color: #fafafa;
     }
 
-    #inbox-dot{
-        font-size: 110%;
-        right:0;
-        top:0;
-        margin-right:1%;
-        margin-top:-6%;    
-        color:rgb(237,73,86);
-    }
-    .inbox-number{
-        font-size: 70%;
-        right:0;
-        top:0;
-        margin-right:12%;
-        margin-top:-3%;    
-        color:#fff;
-    }
 
     #notification-display{
         width: 110% !important;
