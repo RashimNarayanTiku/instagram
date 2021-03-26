@@ -33,7 +33,7 @@
                 </div>
                 {% else %}
                 <div class='row m-2 position-relative justify-content-start align-text-bottom'> 
-                    <img class="0ounded-circle" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
+                    <img class="rounded-circle" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
                     <div class='reciever_message p-0'>
                         <div class='message-post-header m-3'>
                             <img class="rounded-circle post-owner-img" src="{{ message.post.owner.user.photo.url }}" style="width:32px;">
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class='message-post-body m-0 w-100'>
-                            <img class='w-100' src='{{ message.post.photo.url }}'> 
+                            <img class='all-comments w-100' id='all-comments-{{message.post.id}}' src='{{ message.post.photo.url }}'> 
                         </div>
                         
                         {% if message.post.caption %}

@@ -200,18 +200,16 @@ $(document).on('submit','.commentForm', function(e) {
 //--------------- Single Post View -------------------
 
 $(document.body).on('click','.all-comments', function(){
-
+   
     var id = $(this).attr('id');
     post_id = id.slice(id.lastIndexOf('-')+1,id.length);
-    original_url = document.URL
+    original_url = document.URL 
     
     $.get(`/p/${post_id}`, function(response) {
         
         $('#single-post-view').modal('show');
 
-        $('.single-post-content').html(response.html);
-        document.body.style.overflow = "hidden";
-        
+        $('.single-post-content').html(response.html);        
         
         console.log('successful single-post ajax request')
     }).fail(function() {
@@ -220,10 +218,6 @@ $(document.body).on('click','.all-comments', function(){
     return false;
 });
 
-$(document).on('click','.single-post-view', function(){
-    $(this).css('display','none')
-    document.body.style.overflow = "scroll";
-});
 
 $(document).on('click','.single-post-content', function(e){
     e.stopPropagation()

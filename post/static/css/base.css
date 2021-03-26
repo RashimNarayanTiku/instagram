@@ -214,8 +214,8 @@ a{
     color:rgb(237,73,86) !important;
 }
 
-.unread{
-    font-weight: 600;
+.unread p{
+    font-weight: 600 !important;
 }
 .unread::after {
     content: '.';
@@ -490,8 +490,10 @@ a{
     margin-top:1%;
 }
 
-@media (max-width: 992px) { 
-
+.inbox-dropdown .dropdown-menu{
+    height:50vh;
+    width:75vw !important;
+    overflow-y:auto;
 }
 
 @media (max-width: 768px) { 
@@ -509,6 +511,9 @@ a{
     .commentForm>#id_text{
         background-color: #fafafa;
         width:75% !important;
+    }
+    .messageForm>#id_text{
+        background-color: #fafafa;
     }
     .comment-submit{
         margin-left:0% !important;
