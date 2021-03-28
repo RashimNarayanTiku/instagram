@@ -511,6 +511,40 @@ a{
     background-color: rgba(255, 255, 255, 0) !important;
 }
 
+
+
+/* ---------------------- Profile ----------------------- */
+
+.post-overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .2s ease;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.post-overlay-container:hover .post-overlay{
+    opacity: 1;
+}
+.overlay-text {
+    color: white;
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+
 @media (max-width: 768px) { 
     .nav>ul{
         margin-top:2%;

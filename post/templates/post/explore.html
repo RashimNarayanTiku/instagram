@@ -10,7 +10,19 @@
 
     {% for post in posts %}
       <article class="infinite-item post" id='post-{{post.id}}'>
-          <img class="btn article-img all-comments" id='all-comments-{{post.id}}' src="{{ post.photo.url }}" style="width: 50%;"> 
+        <div class='post-overlay'>
+          <img class="btn article-img all-comments" id='all-comments-{{post.id}}' src="{{ post.photo.url }}"> 
+          <div class="post-overlay all-comments" id='all-comments-{{post.id}}'>
+            <div class="overlay-text">
+              <i class='fa fa-heart col-2'></i>  {{post.post_likes.count}}       
+              <span class='col-3'></span>
+              <i class='fas fa-comment p-0 col-2'></i>{{post.post_comments.count}}
+            </div>
+          </div>
+  
+        </div>
+
+        
       </article>
 
     {% endfor %}

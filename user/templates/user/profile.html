@@ -35,7 +35,7 @@
           
           <div><b>{{profile.user.first_name}}</b></div>
           <div>{{profile.bio}}</div>
-          <div> <a href='{{profile.wedivbsite}}'><b>{{profile.website}}</b></a></div>
+          <div> <a href='{{profile.website}}'><b>{{profile.website}}</b></a></div>
     </div>  
   </div>
 
@@ -51,10 +51,21 @@
     </a>
     {% endif %}
   </div>
+
+  
   <div class='row mt-5'>
     {% if profile.user.owner_posts.count > 0 %}
       {% for post in profile.user.owner_posts.all %}
-      <img class="btn article-img all-comments" id='all-comments-{{post.id}}' src="{{ post.photo.url }}" style="width: 50%;">
+      <span class='post-overlay-container col-4 p-0'>
+        <img class="btn col-12 p-0" src="{{ post.photo.url }}">
+        <div class="post-overlay all-comments" id='all-comments-{{post.id}}'>
+          <div class="overlay-text">
+            <i class='fa fa-heart col-2'></i>  {{post.post_likes.count}}       
+            <span class='col-3'></span>
+            <i class='fas fa-comment'></i> {{post.post_comments.count}}
+          </div>
+        </div>
+      </span>
       {% endfor %}
     {% else %}
       <div class='no-post'>
