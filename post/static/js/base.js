@@ -117,13 +117,13 @@ function getCookie(cname) {
 
 // --------------------Profile search--------------------
 
-const user_input = $("#user-input")
-const load_icon = $('#load-icon')
-const artists_div = $('#search-results')
-const triangle = $('.triangle-up')
-const endpoint = '/search/'
-const delay_by_in_ms = 700
-const scheduled_functio = false
+let user_input = $("#user-input")
+let load_icon = $('#load-icon')
+let artists_div = $('#search-results')
+let triangle = $('.triangle-up')
+let endpoint = '/search/'
+let delay_by_in_ms = 700
+let scheduled_functio = false
 
 let ajax_call = function (endpoint, request_parameters) {
 
@@ -447,8 +447,9 @@ var message_notification = setInterval(function(){
         var notif = response.notifications
 
         $('.inbox').removeClass('unread')
+        console.log(notif[0],"are the no of notifs")
         for(var i=0; i<notif.length; i++){
-            $(`#inbox-${notif[i]}`).addClass('unread')
+            $(`.inbox-${notif[i]}`).addClass('unread')
         }
         
 

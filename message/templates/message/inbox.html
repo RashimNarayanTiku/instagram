@@ -34,13 +34,13 @@
 <div class='inbox-container row col-12 col-md-9 p-0'>
 
   <div class=' inbox-dropdown col-12 dropdown d-flex d-md-none mt-5 mb-2'>
-    <button type="button" class="btn col-4 dropdown-toggle float-right" data-toggle="dropdown" style="background-color: #0095f6; color:#fff;">
+    <button type="button" class="btn col-12 col-sm-4 dropdown-toggle float-right" data-toggle="dropdown" style="background-color: #0095f6; color:#fff;">
       Inbox
     </button>
-    <div class="dropdown-menu">
+    <div class="dropdown-menu col-12">
       <ul class='p-0 mt-2' type='none'>
         {% for inbox in inboxes %}
-        <li class="inbox m-0 position-relative" id='inbox-{{inbox.id}}' onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;">
+        <li class="inbox m-0 position-relative inbox-{{inbox.id}}" id='inbox-{{inbox.id}}' onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;">
           <div class="media p-2 ml-3">
             <div class="media-left">
               <img class='rounded-circle' id='inbox-pic'src="{{ inbox.reciever.user.photo.url }}" style="width: 56px; height: 56px;"> 
@@ -68,7 +68,7 @@
     <div class="card-body m-0 overflow-auto" style="height: 75vh;">
       <ul class='p-0 mt-2' type='none'>
         {% for inbox in inboxes %}
-        <li class="inbox m-0 position-relative" id='inbox-{{inbox.id}}' onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;">
+        <li class="inbox m-0 position-relative inbox-{{inbox.id}}" id='inbox-{{inbox.id}}' onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;">
           <div class="media p-2 ml-3">
             <div class="media-left">
               <img class='rounded-circle' id='inbox-pic'src="{{ inbox.reciever.user.photo.url }}" style="width: 56px; height: 56px;"> 
@@ -87,10 +87,10 @@
     
   </div>
 
-  <div class='card col-12 col-md-7 p-0 rounded-0 ' id='inbox-detail' style="height: 75hv;">
-    <span style="margin-top:25%; margin-left:40%; "><img src="{% static 'img/message.png' %}" style="width: 96px; height: 96px;"></span>
+  <div class='card col-12 col-md-7 p-0 rounded-0 justify-content-center ' id='inbox-detail' style="height: 70hv;">
+    <span style="margin-top:2.5rem; margin-left:40%; "><img src="{% static 'img/message.png' %}" style="width: 96px; height: 96px;"></span>
     <span style="margin-top:1%; margin-left:36%; font-size: 140%; font-weight: 200 !important;">Your Messages</span>
-    <small style="margin:0 auto; font-weight: 600; font-size: 90%;">Send private photos and messages to a friend or group.</small>
+    <small style="margin:0 auto; font-weight: 600; font-size: 90%; text-align: center;">Send private photos and messages to a friend or group.</small>
     <div class='text-center' data-toggle="modal" data-target="#new-inbox-modal" style="border-radius:5px; background-color:#0095f6; color:white; width:7rem;  margin:3.5% 39%; height: 1.7rem; font-size: 0.9rem; cursor: pointer;"><span><b>Send Message</b></span></div>
   </div>
 

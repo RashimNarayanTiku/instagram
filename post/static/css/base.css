@@ -1,3 +1,8 @@
+
+.image{
+    background-size: cover !important;
+  background-position: center;
+}
 b{
     font-weight: 600;
 }
@@ -88,6 +93,7 @@ body{
     text-decoration: none;
     color:black;
     font-weight: 600;
+
 }
 #search-list>li{
     width:100%;
@@ -137,6 +143,7 @@ a{
     cursor:pointer;
     outline:none;
     color:#000;
+    text-decoration: none !important;
 
 }
 
@@ -492,8 +499,16 @@ a{
 
 .inbox-dropdown .dropdown-menu{
     height:50vh;
-    width:75vw !important;
+    width:92vw !important;
     overflow-y:auto;
+}
+
+.btn.btn-outline-secondary{
+    border-color:#dfdfdf !important;
+    font-weight: 600;
+}
+.btn.btn-outline-secondary:hover{
+    background-color: rgba(255, 255, 255, 0) !important;
 }
 
 @media (max-width: 768px) { 
