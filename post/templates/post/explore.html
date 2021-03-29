@@ -9,13 +9,38 @@
   <div class= infinite-container>
 
     {% for post in posts %}
+
+    <!--Share Modal -->
+    <div class="modal fade share-modal" id="share-modal-{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="share-modalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-centered" style="max-width: 40%; height: 50vh !important;" role="document">
+        <div class="modal-content" style="border-radius: .75rem !important;">
+          <div class="d-flex justify-content-center p-2" style="border-bottom: 1px solid #e0e0e0;" >
+            <button type="button" class="close mr-auto p-1" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h5 class="modal-title col-7 justify-content-start" id="share-modalLabel"><small><b>Share</b></small></h5>
+          </div> 
+            <form onsubmit="event.preventDefault()" class="search-form p-3 col-12" autocomplete="off" spellcheck="false">
+              <label for='share-label-{{post.id}}' class="col-1 p-0"><b>To:</b> </label>
+              <input class="share-input col-8" id="share-input-{{post.id}}" type="text" placeholder="Search..." aria-label="Search" onfocus="clearField(this)" autofocus style="border:none; outline:none;">
+            </form>
+            <div class='modal-footer justify-content-start' style="height: 30vh; overflow-y: auto;">
+            <div class='share-search-results' id='share-search-results-{{post.id}}' style=" width:100%;">
+              {% include 'post/share_profile_search.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
       <article class="infinite-item post" id='post-{{post.id}}'>
         <div class='post-overlay'>
           <img class="btn article-img all-comments" id='all-comments-{{post.id}}' src="{{ post.photo.url }}"> 
           <div class="post-overlay all-comments" id='all-comments-{{post.id}}'>
             <div class="overlay-text">
               <i class='fa fa-heart col-2'></i>  {{post.post_likes.count}}       
-              <span class='col-3'></span>
+              <span class='d-none d-md-inline col-md-3'></span>
               <i class='fas fa-comment p-0 col-2'></i>{{post.post_comments.count}}
             </div>
           </div>

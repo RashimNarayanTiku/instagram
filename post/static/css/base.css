@@ -388,7 +388,7 @@ a{
 .commentForm>#id_text{
     border:0 !important;
     margin-left: 2%;
-    width:33rem !important;
+    width:40% !important;
 }
 
 #id_text:focus{
@@ -396,7 +396,6 @@ a{
 }
 
 .comment-submit{
-    width: 2rem;
     border:0 !important;
     display: inline;
     outline: none;
@@ -517,22 +516,25 @@ a{
 
 .post-overlay{
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
+    top: 6%;
+    bottom: 6%;
+    left: 7.8%;
+    right: 7.5%;
     opacity: 0;
-    transition: .2s ease;
+    transition: .1s ease;
+    padding: 1rem !important;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.post-overlay-container{
+    margin-bottom: 1.5rem;
 }
 
 .post-overlay-container:hover .post-overlay{
     opacity: 1;
 }
 .overlay-text {
-    color: white;
+    color: white !important;
     font-size: 1rem;
     position: absolute;
     top: 50%;
@@ -542,8 +544,6 @@ a{
     transform: translate(-50%, -50%);
     text-align: center;
 }
-
-
 
 @media (max-width: 768px) { 
     .nav>ul{
@@ -559,7 +559,7 @@ a{
     }
     .commentForm>#id_text{
         background-color: #fafafa;
-        width:75% !important;
+        /* width:85% !important; */
     }
     .messageForm>#id_text{
         background-color: #fafafa;
@@ -576,14 +576,22 @@ a{
     .comment-submit{
         background-color: #fafafa;
     }
-
-
+    
+    
     #notification-display{
         width: 110% !important;
         height:1100% !important;
     }
-
+    
     .share-modal>.modal-dialog,.new-inbox-modal>.modal-dialog{
         max-width: 100% !important;
     }
 }
+
+
+@media (max-width: 576px) { 
+    /* .commentForm>#id_text{
+        width:68% !important;
+    }*/
+
+} 

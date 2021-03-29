@@ -103,7 +103,7 @@ def SearchView(request):
             context={"profiles": profiles}
         )
         data_dict = {"html_from_view": html}
-        return JsonResponse(data=data_dict, safe=False)
+        return JsonResponse(data=data_dict)
 
 
 
@@ -118,7 +118,7 @@ def SinglePostView(request, pk):
         saved_posts = [ row['id'] for row in save_rows ]
         comment_form = CommentForm()
         html = render_to_string('post/single_post.html', {'user':request.user, 'post': post, 'comment_form':comment_form, 'liked_posts':liked_posts, 'saved_posts':saved_posts})
-        return JsonResponse(data={'html':html}, safe=False)
+        return JsonResponse(data={'html':html})
 
 
 
@@ -139,7 +139,7 @@ class LikeView(LoginRequiredMixin, View):
     
 
         html = render_to_string('post/like_count.html', {'post': post})
-        return JsonResponse(data={'html':html}, safe=False)
+        return JsonResponse(data={'html':html})
 
 
 
@@ -156,7 +156,7 @@ class UnlikeView(LoginRequiredMixin, View):
             pass
 
         html = render_to_string('post/like_count.html', {'post': post})
-        return JsonResponse(data={'html':html}, safe=False)
+        return JsonResponse(data={'html':html})
 
 
 
@@ -201,7 +201,7 @@ def ShareProfileView(request):
             context={"profiles": profiles}
         )
         data_dict = {"html_from_view": html}
-        return JsonResponse(data=data_dict, safe=False)
+        return JsonResponse(data=data_dict)
 
 
 

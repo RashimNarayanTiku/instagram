@@ -1,8 +1,124 @@
+
+
 {% extends 'user/base.html' %}
 
 {% block title %}{{user.first_name}} (@{{user.username}}) &#8226; Instagram photos and videos &#8212; Facebook{% endblock %}
 {% load static %}
 {% block content%}
+<div class='container col-12 col-lg-9 justify-content-start' style="padding: 0; margin: 0;">
+  <div class='row' style="margin-top: 5rem;">
+
+    <div class="media pb-5 border-bottom">
+      <div class="media-left p-0 col-4 col-sm-3 ml-0 mr-0 ml-md-5 mr-md-5 image">
+        <img class="rounded-circle account-img col-12 image" src="{{user.user.photo.url}}">
+      </div>
+      <div class="media-body m-0" style="font-size: 1rem;">
+        <div class="media-heading d-inline" style="font-size: 1.8rem; font-weight: 300;" >
+          <span> {{user.username}}</span>
+
+          <span class='follow-section d-inline ml-2'>
+            {% if user == user %}
+            <a href="{% url 'edit'%}"><div class='btn btn-outline-secondary btn-sm '><span style="color:black;">Edit Profile</span></div></a>
+            <a href="{% url 'edit'%}"><svg aria-label="Options" class="_8-yf5 " fill="#262626" height="24" viewBox="0 0 48 48" width="24"><path clip-rule="evenodd" d="M46.7 20.6l-2.1-1.1c-.4-.2-.7-.5-.8-1-.5-1.6-1.1-3.2-1.9-4.7-.2-.4-.3-.8-.1-1.2l.8-2.3c.2-.5 0-1.1-.4-1.5l-2.9-2.9c-.4-.4-1-.5-1.5-.4l-2.3.8c-.4.1-.8.1-1.2-.1-1.4-.8-3-1.5-4.6-1.9-.4-.1-.8-.4-1-.8l-1.1-2.2c-.3-.5-.8-.8-1.3-.8h-4.1c-.6 0-1.1.3-1.3.8l-1.1 2.2c-.2.4-.5.7-1 .8-1.6.5-3.2 1.1-4.6 1.9-.4.2-.8.3-1.2.1l-2.3-.8c-.5-.2-1.1 0-1.5.4L5.9 8.8c-.4.4-.5 1-.4 1.5l.8 2.3c.1.4.1.8-.1 1.2-.8 1.5-1.5 3-1.9 4.7-.1.4-.4.8-.8 1l-2.1 1.1c-.5.3-.8.8-.8 1.3V26c0 .6.3 1.1.8 1.3l2.1 1.1c.4.2.7.5.8 1 .5 1.6 1.1 3.2 1.9 4.7.2.4.3.8.1 1.2l-.8 2.3c-.2.5 0 1.1.4 1.5L8.8 42c.4.4 1 .5 1.5.4l2.3-.8c.4-.1.8-.1 1.2.1 1.4.8 3 1.5 4.6 1.9.4.1.8.4 1 .8l1.1 2.2c.3.5.8.8 1.3.8h4.1c.6 0 1.1-.3 1.3-.8l1.1-2.2c.2-.4.5-.7 1-.8 1.6-.5 3.2-1.1 4.6-1.9.4-.2.8-.3 1.2-.1l2.3.8c.5.2 1.1 0 1.5-.4l2.9-2.9c.4-.4.5-1 .4-1.5l-.8-2.3c-.1-.4-.1-.8.1-1.2.8-1.5 1.5-3 1.9-4.7.1-.4.4-.8.8-1l2.1-1.1c.5-.3.8-.8.8-1.3v-4.1c.4-.5.1-1.1-.4-1.3zM24 41.5c-9.7 0-17.5-7.8-17.5-17.5S14.3 6.5 24 6.5 41.5 14.3 41.5 24 33.7 41.5 24 41.5z" fill-rule="evenodd"></path></svg></a>
+            {% elif user.username in following %}
+            <a href="{% url 'inbox_create' user.id %}" class='btn btn-outline-secondary btn-sm'><span style="color:black;">Message</span></a>
+            <div class='btn btn-outline-secondary btn-sm follow-btn' style="color:black;"><img src='{% static "img/user-icon.png"%}' style="width:80%;"></div>
+            {% else %}
+            <div class='btn btn-primary btn-sm follow-btn'>Follow</div> 
+            {% endif%}
+          </span>
+        </div>
+      
+        <div class='counts mt-3 mb-3'>
+          <span class='mr-md-4'><b>{{user.owner_posts.count}}</b> post{%if user.owner_posts.count > 1%}s{% endif %} </span>
+          <span class='mr-md-4'><b>{{user.followers.count|add:-1}}</b> follower{%if user.followers.count > 2%}s{% endif %} </span>
+          <span class='mr-md-4'><b>{{user.following.count|add:-1}}</b> following </span>
+        </div>
+      
+        <div><b>{{user.first_name}}</b></div>
+        <div>{{user.user.bio}}</div>
+        <div> <a href='{{user.user.website}}'><b>{{user.user.website}}</b></a></div>
+      </div>  
+    </div>
+  </div>
+
+  <div class='row col-12 justify-content-center' style="font-size: 0.85rem;">
+    <a class="mr-5 ml-5 ml-md-0 text-secondary" href="{% url 'profile' user.username %}" style="padding-top:1rem">       
+      <svg aria-label="Posts" class="_8-yf5 " fill="#8e8e8e" height="12" viewBox="0 0 48 48" width="12"><path clip-rule="evenodd" d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z" fill-rule="evenodd"></path></svg>
+      <b>POSTS</b> 
+    </a>
+    <a class="mr-5 text-dark border-top border-dark" href="{% url 'saved' user.username %}" style="padding-top:1rem">       
+      <svg aria-label="Saved" class="_8-yf5 " fill="#262626" height="12" viewBox="0 0 48 48" width="12"><path d="M43.5 48c-.4 0-.8-.2-1.1-.4L24 29 5.6 47.6c-.4.4-1.1.6-1.6.3-.6-.2-1-.8-1-1.4v-45C3 .7 3.7 0 4.5 0h39c.8 0 1.5.7 1.5 1.5v45c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1zM24 26c.8 0 1.6.3 2.2.9l15.8 16V3H6v39.9l15.8-16c.6-.6 1.4-.9 2.2-.9z"></path></svg>      
+      <b>SAVED</b> 
+    </a>
+  </div>
+
+  
+  <small class="row text-muted mt-5 ml-4">Only you can see what you've saved</small><br>
+  <div class='row m-0'>
+
+    {% if posts %}
+      {% for post in posts %}
+
+      <!--Share Modal -->
+      <div class="modal fade share-modal" id="share-modal-{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="share-modalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" style="max-width: 40%; height: 50vh !important;" role="document">
+          <div class="modal-content" style="border-radius: .75rem !important;">
+            <div class="d-flex justify-content-center p-2" style="border-bottom: 1px solid #e0e0e0;" >
+              <button type="button" class="close mr-auto p-1" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h5 class="modal-title col-7 justify-content-start" id="share-modalLabel"><small><b>Share</b></small></h5>
+            </div> 
+              <form onsubmit="event.preventDefault()" class="search-form p-3 col-12" autocomplete="off" spellcheck="false">
+                <label for='share-label-{{post.id}}' class="col-1 p-0"><b>To:</b> </label>
+                <input class="share-input col-8" id="share-input-{{post.id}}" type="text" placeholder="Search..." aria-label="Search" onfocus="clearField(this)" autofocus style="border:none; outline:none;">
+              </form>
+              <div class='modal-footer justify-content-start' style="height: 30vh; overflow-y: auto;">
+              <div class='share-search-results' id='share-search-results-{{post.id}}' style=" width:100%;">
+                {% include 'post/share_profile_search.html' %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class='post-overlay-container col-4 p-0 p-md-2'>
+        <img class="btn col-12" src="{{ post.photo.url }}" style="height: 100%;">
+        <div class="post-overlay all-comments" id='all-comments-{{post.id}}'>
+          <div class="overlay-text">
+            <i class='fa fa-heart col-2'></i>  {{post.post_likes.count}}       
+            <span class='d-none d-md-inline col-md-3'></span>
+            <i class='fas fa-comment'></i> {{post.post_comments.count}}
+          </div>
+        </div>
+      </span>
+      {% endfor %}
+    {% else %}
+    <div class='no-saved-post row col-12 mt-5 justify-content-center'>
+        <div class='text-center'>
+            <img src='{%static "img/no-saved-post.png" %}'>
+            <h3>Save</h3>
+            <p>Save photos and videos that you want to see again. No <br> one is notified, and only you can see what you've saved.</p>
+        </div>
+    </div>
+    {% endif %}
+
+  </div>
+  
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <div class='container col-12 col-lg-9 justify-content-start' style="padding: 0; margin: 0;">
   <div class='row' style="margin-top: 5rem;">
 
@@ -21,9 +137,6 @@
             </div>
           
             <div class='counts mt-3 mb-3'>
-                <span class='mr-md-4'><b>{{user.owner_posts.count}}</b> post{%if user.owner_posts.count > 1%}s{% endif %} </span>
-                <span class='mr-md-4'><b>{{user.followers.count|add:-1}}</b> follower{%if user.followers.count > 2%}s{% endif %} </span>
-                <span class='mr-md-4'><b>{{user.following.count|add:-1}}</b> following </span>
             </div>
             
             <div><b>{{user.first_name}}</b></div>
@@ -39,37 +152,53 @@
         <svg aria-label="Posts" class="_8-yf5 " fill="#9c9b9b" height="12" viewBox="0 0 48 48" width="12"><path clip-rule="evenodd" d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z" fill-rule="evenodd"></path></svg>
         <b>POSTS</b> 
     </a>
-    {% if user == user %}
     <a class="mr-5 text-dark border-top border-dark" href="{% url 'saved' user.username %}" style="padding-top:1rem">       
         <svg aria-label="Saved" class="_8-yf5 " fill="#000" height="12" viewBox="0 0 48 48" width="12"><path d="M43.5 48c-.4 0-.8-.2-1.1-.4L24 29 5.6 47.6c-.4.4-1.1.6-1.6.3-.6-.2-1-.8-1-1.4v-45C3 .7 3.7 0 4.5 0h39c.8 0 1.5.7 1.5 1.5v45c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1zM24 26c.8 0 1.6.3 2.2.9l15.8 16V3H6v39.9l15.8-16c.6-.6 1.4-.9 2.2-.9z"></path></svg>      
         <b>SAVED</b> 
     </a>
-    {% endif %}
 </div>
 
   
 
 <div class="row mt-5">
 <small class="text-muted">Only you can see what you've saved</small>
-    {% if posts %}
-        {% for post in posts %}
+        <div class="modal fade share-modal" id="share-modal-{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="share-modalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered" style="max-width: 40%; height: 50vh !important;" role="document">
+                <div class="modal-content" style="border-radius: .75rem !important;">
+                    <div class="d-flex justify-content-center p-2" style="border-bottom: 1px solid #e0e0e0;" >
+                        <button type="button" class="close mr-auto p-1" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title col-7 justify-content-start" id="share-modalLabel"><small><b>Share</b></small></h5>
+                    </div> 
+                    <form onsubmit="event.preventDefault()" class="search-form p-3 col-12" autocomplete="off" spellcheck="false">
+                        <label for='share-label-{{post.id}}' class="col-1 p-0"><b>To:</b> </label>
+                        <input class="share-input col-8" id="share-input-{{post.id}}" type="text" placeholder="Search..." aria-label="Search" onfocus="clearField(this)" autofocus style="border:none; outline:none;">
+                    </form>
+                    <div class='modal-footer justify-content-start' style="height: 30vh; overflow-y: auto;">
+                        <div class='share-search-results' id='share-search-results-{{post.id}}' style=" width:100%;">
+                        {% include 'post/share_profile_search.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class='post-overlay-container col-4 p-0'>
             <img class="btn col-12 p-0" src="{{ post.photo.url }}">
             <div class="post-overlay all-comments" id='all-comments-{{post.id}}'>
                 <div class="overlay-text">
                     <i class='fa fa-heart col-2'></i> {{post.post_likes.count}}       
-                    <span class='col-3'></span>
+                    <span class='d-none d-md-inline col-md-3'></span>
                     <i class='fas fa-comment'></i> {{post.post_comments.count}}
                 </div>
             </div>
         </div>
-        {% endfor %}
-    {% else %}
+
     <div class='no-saved-post'>
         <img src='{%static "img/no-saved-post.png" %}'>
         <h3>Save</h3>
         <p>Save photos and videos that you want to see again. No <br> one is notified, and only you can see what you've saved.</p>
     </div>
-    {% endif %}
-</div>
-{% endblock %}
+</div>-->
