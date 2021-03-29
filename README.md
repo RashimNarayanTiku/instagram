@@ -35,3 +35,4 @@ The frontend is made with Bootstrap, JS, CSS, HTML.
 * *Single Post View*
 * *Main/Post Page*
 * *Messages Page*
+* *Profile Page*
