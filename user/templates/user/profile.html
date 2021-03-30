@@ -97,18 +97,20 @@
         </span>
         {% endfor %}
       {% else %}
-        <div class='no-post row col-9 justify-content-center'>
-          <div class='text-center'>
+
+        <div class='no-post row col-12 mt-3 justify-content-center'>
+          <small class='text-center'>
             <img src='{%static "img/no-post.png" %}'>
-            <h3>No posts Yet</h3>
+            <h3 class='font-weight-light'>No posts Yet</h3>
             <p> When you share photos, they will appear on <br> your profile.</p>
-          </div>
+          </small>
         </div>
+
       {% endif %}
     {% else %}
   </div>
 
-  <div class='row col-9 justify-content-center bg-white'>
+  <div class='row col-12 col-md-9 justify-content-center bg-white'>
     <div class='m-5 text-center'>  
       <b>This Account is Private</b>
       <p>Follow to see their photos and videos.</p>
