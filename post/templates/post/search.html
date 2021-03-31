@@ -1,11 +1,11 @@
 {% if profiles %}
-  <ul class='row' id='search-list'>
+  <ul class='row mt-3' id='search-list'>
     {% for profile in profiles %}
-    <a class='col-12' href='{% url "profile" profile.username %}'>
+    <a class='col-12 p-2 pl-3' href='{% url "profile" profile.username %}'>
     <li style="width: fit-content;">
       <div style="display: flex;"><img class='rounded-circle owner-username' id='search-pic'src='{{ profile.user.photo.url}} '>
         <ul style="list-style-type: none; padding-left:2%; height:fit-content;">
-        <li style="font-weight: 600;margin-bottom: -45%;width:300%;">
+        <li style="font-weight: 600; margin-bottom: -45%; width:300%;">
           {{profile.username}}
         </li>
         <br>

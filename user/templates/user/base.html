@@ -12,7 +12,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="{% static 'css/imagehover.css' %}">
     <link rel="stylesheet" href='{% static "css/base.css" %}'>
 
     <script src='{% static "js/jquery.waypoints.min.js" %}'></script>
@@ -48,8 +47,8 @@
         <ul class='col-md-9 col-12' type='none'>
           <li class="col-3 col-md-4"><a href="/"><img alt="Instagram" class="logo" src="{% static 'img/logo.png' %}"></a></li>
           <li class='search col-4 d-none d-md-block justify-content-center align-items-center'>
-            <form class="search-form" onsubmit="event.preventDefault()" autocomplete="off">
-              <input id="user-input" type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Search" onfocus="clearField(this)">
+            <form class="search-form position-relative col-8 border p-0" onsubmit="event.preventDefault()" autocomplete="off" style="border-radius: 4px;">
+              <input class='col-12 m-0 p-0 font-weight-light'id="user-input" type="text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Search" onfocus="clearField(this)">
               <svg id='load-icon' aria-label="Loading..." class="fa-spin" viewBox="0 0 100 100" "><rect fill="#555555" height="6" opacity="0" rx="3" ry="3" transform="rotate(-90 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.08333333333333333" rx="3" ry="3" transform="rotate(-60 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.16666666666666666" rx="3" ry="3" transform="rotate(-30 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.25" rx="3" ry="3" transform="rotate(0 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.3333333333333333" rx="3" ry="3" transform="rotate(30 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.4166666666666667" rx="3" ry="3" transform="rotate(60 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.5" rx="3" ry="3" transform="rotate(90 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.5833333333333334" rx="3" ry="3" transform="rotate(120 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.6666666666666666" rx="3" ry="3" transform="rotate(150 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.75" rx="3" ry="3" transform="rotate(180 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.8333333333333334" rx="3" ry="3" transform="rotate(210 50 50)" width="25" x="72" y="47"></rect><rect fill="#555555" height="6" opacity="0.9166666666666666" rx="3" ry="3" transform="rotate(240 50 50)" width="25" x="72" y="47"></rect></svg>
             </form>
             <div class="triangle-up"></div>
@@ -60,7 +59,7 @@
 
           <li class="nav-links col-md-4 col-9 d-flex justify-content-end">
 
-            <div class='nav-link-item col-2' id='home'>
+            <div id='nav-home' class='nav-link-item col-2' id='home'>
               <a href="{%url 'post_list' %}">
                 <svg aria-label="Home" class="_8-yf5 " fill="#262626" height="22" viewBox="0 0 48 48" width="22"><path d="M45.3 48H30c-.8 0-1.5-.7-1.5-1.5V34.2c0-2.6-2-4.6-4.6-4.6s-4.6 2-4.6 4.6v12.3c0 .8-.7 1.5-1.5 1.5H2.5c-.8 0-1.5-.7-1.5-1.5V23c0-.4.2-.8.4-1.1L22.9.4c.6-.6 1.5-.6 2.1 0l21.5 21.5c.4.4.6 1.1.3 1.6 0 .1-.1.1-.1.2v22.8c.1.8-.6 1.5-1.4 1.5zm-13.8-3h12.3V23.4L24 3.6l-20 20V45h12.3V34.2c0-4.3 3.3-7.6 7.6-7.6s7.6 3.3 7.6 7.6V45z"></path>
                 </svg>
@@ -71,14 +70,15 @@
               <span class='message-notif'>
                 <a href="{%url 'inbox_list' %}">
                   <svg aria-label="Share Post" fill="#262626" height="24" viewBox="0 0 48 48" width="24">
-                    <path d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3 3.5.1 4S0 5.2.4 5.7l15.9 15.6 5.5 22.6c.1.6.6 1 1.2 1.1h.2c.5 0 1-.3 1.3-.7l23.2-39c.4-.4.4-1 .1-1.5zM5.2 6.1h35.5L18 18.7 5.2 6.1zm18.7 33.6l-4.4-18.4L42.4 8.6 23.9 39.7z">
-                    </path>
-                  </svg>                    
+                    <path d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3 3.5.1 4S0 5.2.4 5.7l15.9 15.6 5.5 22.6c.1.6.6 1 1.2 1.1h.2c.5 0 1-.3 1.3-.7l23.2-39c.4-.4.4-1 .1-1.5zM5.2 6.1h35.5L18 18.7 5.2 6.1zm18.7 33.6l-4.4-18.4L42.4 8.6 23.9 39.7z"></path>
+                  </svg>     
+                  <span class='inbox-notif-numbers'>               
+                  </span>               
                 </a>
               </span>
             </div>
 
-            <div class='nav-link-item col-2' id='explore'>
+            <div id='nav-explore' class='nav-link-item col-2' id='explore'>
               <a href="{% url 'explore' %}">
                 <svg aria-label="Find People" class="_8-yf5 " fill="#262626" height="22" viewBox="0 0 48 48" width="22"><path clip-rule="evenodd" d="M24 0C10.8 0 0 10.8 0 24s10.8 24 24 24 24-10.8 24-24S37.2 0 24 0zm0 45C12.4 45 3 35.6 3 24S12.4 3 24 3s21 9.4 21 21-9.4 21-21 21zm10.2-33.2l-14.8 7c-.3.1-.6.4-.7.7l-7 14.8c-.3.6-.2 1.3.3 1.7.3.3.7.4 1.1.4.2 0 .4 0 .6-.1l14.8-7c.3-.1.6-.4.7-.7l7-14.8c.3-.6.2-1.3-.3-1.7-.4-.5-1.1-.6-1.7-.3zm-7.4 15l-5.5-5.5 10.5-5-5 10.5z" fill-rule="evenodd"></path>
               </svg>
@@ -98,7 +98,7 @@
           </div>
           <div id='notification-display'>
           </div>
-            <div class="dropdown nav-link-item col-2">
+            <div id='nav-profile' class="dropdown nav-link-item col-2">
                 <a  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                     <img class='rounded-circle' src={{user.user.photo.url}} style='width: 25px; height: 25px;'>
                 </a>
@@ -136,8 +136,8 @@
         {% block js %}{% endblock %}
 
         <footer class='col-12 mb-2 mt-5 justify-content-center' style="font-size: 0.75rem; color:#8e8e8e">
-          <p class='text-center'>About  &emsp;Blog  &emsp;Jobs &emsp; Help &emsp; API  &emsp;Privacy &emsp; Terms &emsp; Top Accounts &emsp; Hashtags &emsp;Locations</p>
-          <p class='text-center'>English  © 2021 Instagram from Facebook</p>
+          <p class='text-center'style='cursor:pointer;'> About  &emsp;Blog  &emsp;Jobs &emsp; Help &emsp; API  &emsp;Privacy &emsp; Terms &emsp; Top Accounts &emsp; Hashtags &emsp;Locations</p>
+          <p class='text-center'style='cursor:pointer;'> English  © 2021 Instagram from Facebook</p>
         </footer>
       </div>
     </main>

@@ -58,7 +58,7 @@ class NotificationView(View):
         )
         response = {}
         response['html'] = html
-        response['count'] = like_notifications.count() + comment_notifications.count()
+        response['count'] = like_notifications.count() + comment_notifications.count() + follow_notifications.count()
         return JsonResponse(response)
     
 

@@ -5,7 +5,7 @@ function clearField(target){
 
 
 
-// -------------------- notifications numbers -------------------------
+// -------------------- Notifications Numbers -------------------------
 const user_id = JSON.parse(document.getElementById('user_id').textContent);
 const url = `/notification/${user_id}`;
 
@@ -35,7 +35,7 @@ $("body").on('click',function(ele) {
         $(".triangle-up").css("display",'none');
         $("#user-input").css('color', 'grey');
     }
-
+    
     
     // ---------notification---------
     if(ele.target.id !== "notification" && ele.target.id !== "notification-display"){
@@ -428,7 +428,7 @@ function UpdateMessages() {
 // ------------------ Message Notification ----------------------
 
 var message_notification = setInterval(function(){
-    
+
     var page_url = window.location.href;
     let inbox_id = '00'
     if(page_url.includes("direct/t")) {        
@@ -439,17 +439,15 @@ var message_notification = setInterval(function(){
     $.get(url, function(response) {
         console.log('Inbox notification successful');
 
-        $("#inbox-notification").html(response.html); 
+        $("#inbox-notification .inbox-notif-numbers").html(response.html); 
 
         var notif = response.notifications
 
         $('.inbox').removeClass('unread')
-        console.log(notif[0],"are the no of notifs")
+        console.log(notif + " are the no of notifs")
         for(var i=0; i<notif.length; i++){
             $(`.inbox-${notif[i]}`).addClass('unread')
         }
-        
-
     }).fail(function(xhr) {
         console.log('Inbox notification failed with '+xhr.status+' '+url);
     });
