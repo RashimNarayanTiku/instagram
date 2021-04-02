@@ -113,7 +113,6 @@ def MessageCreateView(request, pk):
             reciever_inbox = reciever_inbox,
         )
 
-
         notification = InboxNotification.objects.get_or_create(inbox=reciever_inbox)
 
         format = "%B %d, %Y"
@@ -136,8 +135,12 @@ def MessageUpdateView(request, pk):
         reciever = inbox.reciever
 
         time_threshold = timezone.now() - timedelta(seconds=3)
-        reciever_messages = inbox.reciever_messages.filter(created_at__gt=time_threshold) 
+        reciever_messages = inbox.reciever_messages.filter(created_at__gt=time_threshold, sent=False)
         messages = reciever_messages
+
+        for m in messages:
+            m.sent = True
+            m.save()
 
         html = render_to_string('message/messages.html', {'messages':messages, 'user':request.user, 'reciever':reciever})
         return JsonResponse(data={'html':html}, safe=False)

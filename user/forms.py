@@ -8,11 +8,11 @@ from .models import Profile
 
 #using first_name as full_name 
 class SignUpForm(UserCreationForm):
-    username   = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})))
-    first_name = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'})), max_length=32, help_text='Full name')
-    email      = forms.EmailField(widget=(forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})), max_length=64, help_text='Enter a valid email address')
-    password1  = forms.CharField(widget=(forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})))
-    password2  = forms.CharField(widget=(forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password Again'})))
+    username   = forms.CharField(widget=(forms.TextInput(attrs={'class': 'signup-form', 'placeholder': 'Username'})),label='')
+    first_name = forms.CharField(widget=(forms.TextInput(attrs={'class': 'signup-form', 'placeholder': 'Full Name'})),label='', max_length=32)
+    email      = forms.EmailField(widget=(forms.EmailInput(attrs={'class': 'signup-form', 'placeholder': 'Email'})),label='', max_length=64)
+    password1  = forms.CharField(widget=(forms.PasswordInput(attrs={'class': 'signup-form', 'placeholder': 'Password'})),label='')
+    password2  = forms.CharField(widget=(forms.PasswordInput(attrs={'class': 'signup-form', 'placeholder': 'Password Again'})),label='')
 
     def clean(self):
         email = self.cleaned_data.get('email')

@@ -22,6 +22,8 @@ class Message(models.Model):
     owner_inbox = models.ForeignKey(Inbox, on_delete=models.CASCADE, default=None, related_name='owner_messages')
     reciever_inbox = models.ForeignKey(Inbox, on_delete=models.CASCADE, default=None, related_name='reciever_messages')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    sent = models.BooleanField(default=False)
     
     class Meta:
         ordering = ['created_at']

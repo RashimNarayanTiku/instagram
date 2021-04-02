@@ -418,7 +418,7 @@ function UpdateMessages() {
             $(`#message-section-${inbox_id}`).append(response.html)
         },
         complete: function() {
-            setTimeout(UpdateMessages, 3100);
+            setTimeout(UpdateMessages, 3000);
         }
     });
 };

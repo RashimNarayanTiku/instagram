@@ -44,6 +44,7 @@ urlpatterns = [
     path('<str:username>/', user_views.profileView, name='profile'),
     path('<str:username>/saved/', user_views.savedDisplayView, name='saved'),
     path('accounts/emailsignup/', user_views.signupView, name='signup'),
+    path('social-auth/', include('social_django.urls', namespace="social")),
     path('accounts/edit/', user_views.editView, name='edit'),
     path('accounts/password/change', user_views.change_password, name='change_password'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name="user/login.html"), name='login'),

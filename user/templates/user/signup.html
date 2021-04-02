@@ -25,23 +25,23 @@
     {% endif %}
     
     
-    <div class='row col-xs-12 col-lg-10 mt-5 pl-5 pr-5' style="margin: 0 auto;">
+    <div class='row col-xs-12 col-lg-10 mt-5 pl-sm-5 pr-sm-5 p-0' style="margin: 0 auto;">
         <div class="phone-side-content d-none d-lg-inline col-5 mt-5 ml-5 p-0 pl-2 mr-0">
             <img src="{% static 'img/phone.png' %}" alt="phone image" style="height:35rem;">
         </div>
-        <div class='signup-content text-center col-xs-12 col-lg-5 m-md-0 ml-sm-5'>
+        <div class='signup-content text-center col-xs-12 col-lg-5 m-md-0 ml-sm-5 m-xs-0'>
             <div class='card p-4 pt-4'>
                 <p><img src="{% static 'img/logo.png' %}" alt="logo" style="width:170px"></p>  
                 <p style="color: #8e8e8e; font-size:medium; font-weight: 600;">Sign up to see photos and videos from your friends.</p>
-                <div class='btn p-0 text-light mb-3' style="background-color: #0095f6;"><img src="{% static 'img/facebook_icon.png'%}" style="width: 8%;"> <b style="font-size: 0.85rem;">Login with Facebook</b></div>
-                <img src="{% static 'img/or.png' %}">          
+                <a href="{% url 'social:begin' 'facebook' %}" class='btn p-0 text-light mb-3' style="background-color: #0095f6;"><img src="{% static 'img/facebook_icon.png'%}" style="width: 8%;"> <b style="font-size: 0.85rem;">Login with Facebook</b></a>
+                <img class='mb-3'src="{% static 'img/or.png' %}">          
                 <form method="post" action="{% url 'signup' %}">
                     {% csrf_token %}
                     {{ form }}
-                    <input type="submit" class="btn btn-primary" value="Sign up" />
+                    <input type="submit" class="btn btn-primary col-11 mt-2 pt-1 pb-1" value="Sign up" style="font: 0.85rem; background-color:#0095f6;" />
                     <input type="hidden" name="next" value="{{ next }}" />
                 </form>
-                <small class='text-muted mt-3'>By signing up, you agree to our <b> Terms , Data Policy and Cookies Policy </b>.</small>
+                <small class='col-11 text-muted mt-3 ml-3' style="font-size: 0.7rem;">By signing up, you agree to our <b> Terms , Data Policy and Cookies Policy </b>.</small>
             </div>
             <div class='card text-center mt-3 p-4'>
                 <small>Have an account? <a href="{% url 'login'%}" style="color: #0095f6 !important">Log In</a></small>
@@ -56,13 +56,9 @@
 </body>
 
 <style>
-    body{
-        overflow-y: scroll !important;
-    }
     .card{
         background-color: white !important;
         border:1px solid #e8e8e8 !important;
-
     }
 </style>
 </html>

@@ -1,7 +1,9 @@
 
+{% load static %}
+{% if notifications %}
 {% for notification in notifications %}
-    {% if notification.owner != notification.post.owner %}
-    <div class="media" >
+    {% if notification.owner != user %}
+    <div class="media mt-3 ml-2 p-0">
         {%if notification in likes %}
             <div class="media-left">
                 <img src="{{notification.owner.user.photo.url}} " class="media-object rounded-circle" style="width:44px; height: 44px;">
@@ -34,8 +36,19 @@
                 <p><b><a href='{% url 'profile' notification.owner.username %}'> {{notification.owner.username}}</a></b> started following you. <small class="text-muted">{{ notification.created_at|date:"F d, Y" }}</small> </p>
             </div>
             <div class="media-right"></div>
-
         {% endif %}
     </div>
     {% endif %}
 {% endfor%}
+
+{% else %}
+
+<small class='text-center d-block justify-content-center'>
+    <img src="{%static 'img/circle-heart.png' %}" style="width:4.5rem; margin-top: 5rem; margin-bottom:1rem;">
+    <p>
+        Activity On Your Posts<br>
+        When someone likes or comments on one of your posts, you'll see it here.
+    </p>
+</small>
+
+{% endif %}

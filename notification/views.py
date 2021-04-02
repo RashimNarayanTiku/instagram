@@ -85,9 +85,12 @@ class NotificationDisplayView(View):
             chain(likes, comments, follows),
             key=lambda notification: notification.created_at, reverse=True)
 
+        if len(notifications) <= 1:
+            notifications = None
+
         html = render_to_string(
             template_name='notification/notification_display.html', 
-            context = {'notifications':notifications, 'likes':likes, 'comments':comments, 'follows':follows}
+            context = {'notifications':notifications, 'likes':likes, 'comments':comments, 'follows':follows, 'user':user}
         )
         response = {}
         response['html'] = html
