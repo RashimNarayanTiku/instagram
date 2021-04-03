@@ -94,7 +94,7 @@ def SearchView(request):
     if request.is_ajax():
         url_parameter = request.GET.get("q")
         if url_parameter:
-            profiles = User.objects.filter(first_name__icontains=url_parameter)
+            profiles = User.objects.filter(username__icontains=url_parameter)
         else:
             profiles = None
 

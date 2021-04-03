@@ -2,9 +2,23 @@
 {% for message in messages %}
     {% if message.post %}  
     <div class='row m-2 position-relative justify-content-start align-text-bottom'> 
-        <img class="rounded-circle" src="{{ reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
-        <div class='reciever_message'>
-            <img src='{{ message.post.photo.url }}' style='width:5%;'> 
+        <img class="rounded-circle" src="{{reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
+        <div class='reciever_message p-0'>
+            <div class='message-post-header m-3'>
+                <img class="rounded-circle post-owner-img" src="{{ message.post.owner.user.photo.url }}" style="width:32px;">
+                <a class="owner-username mr-2 text-dark" href="{% url 'profile' message.post.owner.username %}"> {{ message.post.owner }}</a>                        
+            </div>
+
+            <div class='message-post-body m-0 w-100'>
+                <img class='all-comments w-100' id='all-comments-{{message.post.id}}' src='{{ message.post.photo.url }}'> 
+            </div>
+            
+            {% if message.post.caption %}
+            <div class='message-post-footer m-3'>
+                <span class='owner-username'>{{message.post.owner.username}}</span> {{message.post.caption}}
+            </div>
+            {% endif %}
+
         </div>
     </div>
     

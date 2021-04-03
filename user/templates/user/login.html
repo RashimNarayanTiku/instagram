@@ -1,29 +1,66 @@
-{% extends 'user/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    {% load crispy_forms_tags %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block title %}Login &#8226; Instagram{% endblock %}
+    <title>Instagram</title>
 
-    {% block welcome %} {% endblock %}
-    
-    {% block content %}
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href='{% static "css/base.css" %}'>
+    <script src='{% static "js/jquery.waypoints.min.js" %}'></script>
+    <script src='{% static "js/infinite.min.js" %}'></script>
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+</head>
+<body>    
 
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group" style="margin:0;">
-                <legend class="border-bottom mb-4">Log In</legend>
-                {{form}}
-                <button type='submit' class='btn btn-success'>Log In</button>
-                <input type="hidden" name="next" value="{{ next }}" />
-            </fieldset>
-        </form>
+    <div class='row col-xs-12 col-lg-10 mt-5 pl-sm-5 pr-sm-5 p-0' style="margin: 0 auto;">
+        <div class="phone-side-content d-none d-lg-inline col-5 ml-5 p-0 pl-2 mr-0">
+            <img src="{% static 'img/phone.png' %}" alt="phone image" style="height:35rem;">
+        </div>
+        <div class='signup-content text-center col-xs-12 col-lg-5 m-md-0 ml-sm-5 m-xs-0'>
+            <div class='card p-4 pt-4'>
+                <p><img src="{% static 'img/logo.png' %}" alt="logo" style="width:170px"></p>  
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" class="btn btn-primary col-11 mt-2 p-1" value="Log In" style="font-size: 0.9rem; font-weight: 600; background-color:#0095f6; " />
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </form>
 
-        {% block messages %}
-            {% if messages %}
-                {% for msg in messages %}
-                    <div class="alert alert-{{msg.level_tag}}" role="alert">
-                        {{msg.message}}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endblock %}
-    {% endblock %}
+                <p><img class='mb-2 mt-3'src="{% static 'img/or.png' %}" style="width: 80%;"></p>
+                <a href="{% url 'social:begin' 'facebook' %}" class='btn p-0 text-light mb-3' style="background-color: #fff;"><i class="fa fa-facebook" aria-hidden="true" style="background-color: #385185;color:white; padding:0.14rem 0.14rem 0rem 0.3rem; font-size:small;"></i>
+                    <b style="color:#385185;font-size: 0.9rem;">Login with Facebook</b></a>
+
+                <small><a href='#'>Forgot Password?</a></small>
+
+            </div>
+            <div class='card text-center mt-3 p-4'>
+                <small>Don't have an account? <a href="{% url 'signup'%}" style="color: #0095f6 !important">Sign Up</a></small>
+            </div>
+        </div>
+    </div>
+
+    <footer class='col-12 mb-2 mt-5 justify-content-center' style="font-size: 0.75rem; color:#8e8e8e">
+        <p class='text-center'style='cursor:pointer;'> About  &emsp;Blog  &emsp;Jobs &emsp; Help &emsp; API  &emsp;Privacy &emsp; Terms &emsp; Top Accounts &emsp; Hashtags &emsp;Locations</p>
+        <p class='text-center'style='cursor:pointer;'> English  © 2021 Instagram from Facebook</p>
+    </footer>
+</body>
+
+<style>
+    .card{
+        background-color: white !important;
+        border:1px solid #e8e8e8 !important;
+    }
+</style>
+</html>
+
+
+

@@ -1,18 +1,13 @@
 
-.or::before,
-.or::after{
-    content:'';
-    position:absolute;
-    display:inline-block;
-    top:50%;
-    height:1px;
-    width: 200px;
-    background:#000;
-    left:50%;
-    z-index:1;
-    transform:translateX(-50%);
-    -webkit-transform:translateX(-50%);
-  }
+
+.errorlist{
+    list-style-type: none;
+    font-size: small;
+    font-weight: 600;
+    padding:0;
+    margin-bottom:0.3rem;
+    margin-top:0.3rem;
+}
 
 .image{
     background-size: cover !important;

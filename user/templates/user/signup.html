@@ -2,6 +2,7 @@
 <html>
 <head>
     {% load static %}
+    {% load crispy_forms_tags %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -17,14 +18,9 @@
     <script src='{% static "js/jquery.waypoints.min.js" %}'></script>
     <script src='{% static "js/infinite.min.js" %}'></script>
     <link rel="icon" href="{% static 'img/favicon.ico' %}">
-
 </head>
-<body>
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
-    
-    
+<body>    
+
     <div class='row col-xs-12 col-lg-10 mt-5 pl-sm-5 pr-sm-5 p-0' style="margin: 0 auto;">
         <div class="phone-side-content d-none d-lg-inline col-5 mt-5 ml-5 p-0 pl-2 mr-0">
             <img src="{% static 'img/phone.png' %}" alt="phone image" style="height:35rem;">
@@ -34,7 +30,7 @@
                 <p><img src="{% static 'img/logo.png' %}" alt="logo" style="width:170px"></p>  
                 <p style="color: #8e8e8e; font-size:medium; font-weight: 600;">Sign up to see photos and videos from your friends.</p>
                 <a href="{% url 'social:begin' 'facebook' %}" class='btn p-0 text-light mb-3' style="background-color: #0095f6;"><img src="{% static 'img/facebook_icon.png'%}" style="width: 8%;"> <b style="font-size: 0.85rem;">Login with Facebook</b></a>
-                <img class='mb-3'src="{% static 'img/or.png' %}">          
+                <p><img class='mb-2'src="{% static 'img/or.png' %}" style="width: 80%;"></p>    
                 <form method="post" action="{% url 'signup' %}">
                     {% csrf_token %}
                     {{ form }}
@@ -52,7 +48,7 @@
     <footer class='col-12 mb-2 mt-5 justify-content-center' style="font-size: 0.75rem; color:#8e8e8e">
         <p class='text-center'style='cursor:pointer;'> About  &emsp;Blog  &emsp;Jobs &emsp; Help &emsp; API  &emsp;Privacy &emsp; Terms &emsp; Top Accounts &emsp; Hashtags &emsp;Locations</p>
         <p class='text-center'style='cursor:pointer;'> English  © 2021 Instagram from Facebook</p>
-      </footer>
+    </footer>
 </body>
 
 <style>

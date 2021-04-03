@@ -15,7 +15,7 @@ from django.views import View
 from .models import Profile
 from user.models import Follow
 from notification.models import FollowNotification
-from .forms import UserEditForm, ProfileEditForm, SignUpForm
+from .forms import UserEditForm, ProfileEditForm, SignUpForm, LoginForm
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -32,10 +32,11 @@ def signupView(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('/')
+            return redirect(reverse('post_list'))
     else:
         form = SignUpForm()
     return render(request,'user/signup.html', {'form':form})
+
 
 
 
