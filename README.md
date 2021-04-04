@@ -38,3 +38,5 @@ The frontend is made with Bootstrap, JS, CSS, HTML.
 * *Messages Page*
 * *Profile Page*
 * *Explore Page*
+* *Login Page*
+* *Signup Page*
