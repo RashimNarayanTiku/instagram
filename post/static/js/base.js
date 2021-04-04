@@ -3,8 +3,6 @@ function clearField(target){
     target.value= "";
 }
 
-
-
 // -------------------- Notifications Numbers -------------------------
 const user_id = JSON.parse(document.getElementById('user_id').textContent);
 const url = `/notification/${user_id}`;

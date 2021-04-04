@@ -2,6 +2,7 @@
 
 .errorlist{
     list-style-type: none;
+    color:#dd1515;
     font-size: small;
     font-weight: 600;
     padding:0;
