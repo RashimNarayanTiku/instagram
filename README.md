@@ -47,3 +47,7 @@ The frontend is made with HTML, CSS/Bootstrap and JS/Jquery
 ![Messages Page](inbox.png)
 
 
+## Credit
+Almost every logo/Image (except profile pictures and posts) are the property of Facebook, Inc. and I am in no way intenting to call it as my own.
+
+### *Imitation is the highest form of Flattery*
