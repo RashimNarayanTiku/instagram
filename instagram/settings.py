@@ -131,3 +131,10 @@ LOGIN_REDIRECT_URL = 'post_list'
 
 SOCIAL_AUTH_FACEBOOK_KEY = 746872296220379
 SOCIAL_AUTH_FACEBOOK_SECRET=f"{os.environ.get('instagram_SOCIAL_AUTH_FACEBOOK_SECRET')}"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = f"{os.environ.get('EMAIL_HOST_USER')}"
+EMAIL_HOST_PASSWORD = f"{os.environ.get('EMAIL_HOST_PASSWORD')}" 
