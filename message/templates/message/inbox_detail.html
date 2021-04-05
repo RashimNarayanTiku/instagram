@@ -3,7 +3,7 @@
 
 <div class="card-header pb-0 rounded-0 border-bottom">
     <div style="margin-bottom: 1.08rem; margin-left:.55rem;">
-        <img class="rounded-circle article-img" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; height:24px">
+        <img class="rounded-circle article-img" src="{{ inbox.reciever.user.photo.url }}" style="width:24px;">
         <b><a href="{% url 'profile' inbox.reciever.username %}"> {{ inbox.reciever.username }}</a></b>
     </div>
 </div>
@@ -33,7 +33,7 @@
                 </div>
                 {% else %}
                 <div class='row m-2 position-relative justify-content-start align-text-bottom'> 
-                    <img class="rounded-circle" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
+                    <img class="rounded-circle" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; top:95% !important; position:absolute !important;">
                     <div class='reciever_message p-0'>
                         <div class='message-post-header m-3'>
                             <img class="rounded-circle post-owner-img" src="{{ message.post.owner.user.photo.url }}" style="width:32px;">
@@ -62,7 +62,7 @@
                 </div>
                 {% else %}
                 <div class='row m-2 position-relative justify-content-start align-text-bottom'> 
-                    <img class="rounded-circle" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
+                    <img class="rounded-circle" src="{{ inbox.reciever.user.photo.url }}" style="width:24px; top:95% !important; position:absolute !important;">
                     <div class='reciever_message'>
                         {{ message.text }} 
                     </div>

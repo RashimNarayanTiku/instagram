@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import PIL.Image as Image
 
 
 class Post(models.Model):
@@ -12,6 +13,33 @@ class Post(models.Model):
     comments = models.ManyToManyField(User, through='Comment', related_name='comment_post')
     likes = models.ManyToManyField(User, through='Like', related_name='like_post')
     saves = models.ManyToManyField(User, through='Save', related_name='save_post')
+
+    
+    def save(self, *args, **kwargs):
+        super().save()
+        img = Image.open(self.photo.path)
+        width, height = img.size  # Get dimensions
+
+
+        # check which one is smaller
+        if height < width:
+            # make square by cutting off equal amounts left and right
+            left = (width - height) / 2
+            right = (width + height) / 2
+            top = 0
+            bottom = height
+            img = img.crop((left, top, right, bottom))
+
+        elif width < height:
+            # make square by cutting off bottom
+            left = 0
+            right = width
+            top = 0
+            bottom = width
+            img = img.crop((left, top, right, bottom))
+
+        img.save(self.photo.path)
+
 
     def __str__(self):
         return f'{self.owner.username}: {self.caption[:15]}...'
