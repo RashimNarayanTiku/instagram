@@ -1,5 +1,5 @@
 # Instagram
-It is a fully functional and Responsive Instagram web clone made in Django (In progress).
+It is a fully functional and responsive Instagram web clone made in Django (In progress).
 
 The frontend is made with HTML, CSS/Bootstrap and JS/Jquery
 
