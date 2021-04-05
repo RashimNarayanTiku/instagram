@@ -1,7 +1,36 @@
 # Instagram
 It is a fully functional Instagram web clone made in Django (In progress).
 
-The frontend is made with Bootstrap, JS, CSS, HTML.
+The frontend is made with HTML, CSS/Bootstrap and JS/Jquery
+
+
+## Features
+
+### *Profile*
+* Login/Signup page
+* Profile page
+* Saved Post Page
+* Edit Profile
+* Password change
+
+### *Instagram Feeds*
+* Infinite scrolling posts
+* Profile Search
+* Single Post Page
+* Dynamic Like, Comment, Save Posts
+* Share post in others
+* Explore Page
+
+### *Message System*
+* Messages Page
+* Find people to message
+* Send/Recieve messages in real-time
+* Message Notification counter on top
+
+### *Notification System*
+* Real-time Message Notification
+* Notification Panel and Popup notification for Like, Comment and follow.
+
 
 ## Images
 ### Signup Page
@@ -16,40 +45,4 @@ The frontend is made with Bootstrap, JS, CSS, HTML.
 ### Messages Page
 ![Messages Page](inbox.png)
 
-## Backend Stuff Done:
 
-*Profile*
-* Login/Signup page
-* Basic user profile page
-* Edit profile
-* Password change
-* Saved Post Page
-
-*Instagram Feeds*
-* Profile Search
-* Infinite scrolling posts
-* Single Post Page
-* Dynamic Like, Comment, Save 
-* Share post in Messages
-* Explore Page
-
-*Message System*
-* Inbox Page
-* Create new inboxes
-* Dynamic messages send/recieve
-
-*Notification System*
-* Dynamic message notification
-* Like, Comment, follow notification
-
-## Frontend Stuff Done:
-
-* *Navigation-bar*
-* *Notification Panel*
-* *Single Post View*
-* *Main/Post Page*
-* *Messages Page*
-* *Profile Page*
-* *Explore Page*
-* *Login Page*
-* *Signup Page*
