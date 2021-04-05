@@ -3,6 +3,19 @@ It is a fully functional Instagram web clone made in Django (In progress).
 
 The frontend is made with Bootstrap, JS, CSS, HTML.
 
+## Images
+### Signup Page
+![Signup Page](signup.png)
+
+### Home Page
+![Home Page](home.png)
+
+### Profile Page
+![Profile Page](profile.png)
+
+### Messages Page
+![Messages Page](inbox.png)
+
 ## Backend Stuff Done:
 
 *Profile*
