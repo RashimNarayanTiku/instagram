@@ -1,5 +1,5 @@
 # Instagram
-It is a fully functional Instagram web clone made in Django (In progress).
+It is a fully functional and Responsive Instagram web clone made in Django (In progress).
 
 The frontend is made with HTML, CSS/Bootstrap and JS/Jquery
 
@@ -8,6 +8,7 @@ The frontend is made with HTML, CSS/Bootstrap and JS/Jquery
 
 ### *Profile*
 * Login/Signup page
+* Facebook Authentication
 * Profile page
 * Saved Post Page
 * Edit Profile
@@ -17,13 +18,13 @@ The frontend is made with HTML, CSS/Bootstrap and JS/Jquery
 * Infinite scrolling posts
 * Profile Search
 * Single Post Page
-* Dynamic Like, Comment, Save Posts
-* Share post in others
+* Dynamic Like, Comment and Save posts
+* Share post to others
 * Explore Page
 
 ### *Message System*
 * Messages Page
-* Find people to message
+* Search people to message
 * Send/Recieve messages in real-time
 * Message Notification counter on top
 
