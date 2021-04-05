@@ -13,6 +13,7 @@ The frontend is made with HTML, CSS/Bootstrap and JS/Jquery
 * Saved Post Page
 * Edit Profile
 * Password change
+* E-mail Password Reset
 
 ### *Instagram Feeds*
 * Infinite scrolling posts
