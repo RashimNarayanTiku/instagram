@@ -1,5 +1,7 @@
 
 {% load static %}
+{% load humanize %}
+{% load time_format %}
 {% if notifications %}
 {% for notification in notifications %}
     {% if notification.owner != user %}
@@ -9,7 +11,7 @@
                 <img src="{{notification.owner.user.photo.url}} " class="media-object rounded-circle" style="width:44px; height: 44px;">
             </div>
             <div class="media-body">
-                <p><b><a href='{% url 'profile' notification.owner.username %}'>{{notification.owner.username}}</a></b> liked your photo. <small class="text-muted">{{ notification.created_at|date:"F d, Y" }}</small></p>
+                <p><b><a href='{% url 'profile' notification.owner.username %}'>{{notification.owner.username}}</a></b> liked your photo. <small class="text-muted">{{ notification.created_at|timesince|upto:',' }}</small></p>
             </div>
             <div class="media-right">
                 <img src="{{notification.post.photo.url}}" class="media-object all-comments" id='all-comments-{{notification.post.id}}' style="width:44px;">
@@ -21,7 +23,7 @@
                 <img src="{{notification.owner.user.photo.url}}" class="media-object rounded-circle" style="width:44px; height: 44px;">
             </div>
             <div class="media-body">
-                <p><b><a href='{% url 'profile' notification.owner.username %}'>{{notification.owner.username}}</a></b> commented: {{notification.text}} <small class="text-muted">{{ notification.created_at|date:"F d, Y" }}</small> </p>
+                <p><b><a href='{% url 'profile' notification.owner.username %}'>{{notification.owner.username}}</a></b> commented: {{notification.text}} <small class="text-muted">{{ notification.created_at|timesince|upto:',' }}</small> </p>
             </div>
             <div class="media-right">
                 <img src="{{notification.post.photo.url}}" class="media-object all-comments" id='all-comments-{{notification.post.id}}' style="width:44px">
@@ -33,7 +35,7 @@
                 <img src="{{notification.owner.user.photo.url}}" class="media-object rounded-circle" style="width:44px; height: 44px;">
             </div>
             <div class="media-body">
-                <p><b><a href='{% url 'profile' notification.owner.username %}'> {{notification.owner.username}}</a></b> started following you. <small class="text-muted">{{ notification.created_at|date:"F d, Y" }}</small> </p>
+                <p><b><a href='{% url 'profile' notification.owner.username %}'> {{notification.owner.username}}</a></b> started following you. <small class="text-muted">{{ notification.created_at|timesince|upto:',' }}</small> </p>
             </div>
             <div class="media-right"></div>
         {% endif %}

@@ -1,5 +1,6 @@
 {% extends "user/base.html" %}
 {% load humanize %}
+{% load time_format %}
 {% load static %}
 
 {% block title %} Instagram {% endblock %}
@@ -25,7 +26,7 @@
           </svg>
         </div>
 
-        <div class="card-body">
+        <div class="card-body mb-0">
           
           <div class='buttons col-12 d-inline-flex'>
             <div class='like_btn'>
@@ -145,7 +146,7 @@
             {% endfor %}
           </div>
           
-          <small class="text-muted">{{ post.created_at|date:"F d, Y" }}</small>
+          <small class="text-muted mt-2">{{ post.created_at|timesince|upto:',' }}</small>
             
         </div>
 

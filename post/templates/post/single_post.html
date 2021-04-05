@@ -1,4 +1,6 @@
 {% load static %}
+{% load humanize %}
+{% load time_format %}
 
 <div class='col-8 d-none d-md-block' style="padding:0;">
   <img class="article-img" src="{{ post.photo.url }}" style="width: 100%; height: 85vh; border-right: rgb(230, 230, 230) solid 0.1px;"">    
@@ -103,7 +105,7 @@
 
     
     <!-- csrf token handled by javascript using global cookie -->
-    <small class="text-muted position-absolute "style='bottom:10%;'>{{ post.created_at|date:"F d, Y" }}</small>
+    <small class="text-muted position-absolute "style='bottom:10%;'>{{ post.created_at|timesince|upto:',' }}</small>
     <div class='modal-footer justify-content-start position-absolute ' style="padding:4% 0 !important; bottom:0;">
       <form method="post" class='commentForm row' id='commentForm-{{post.id}}' name='commentForm' autocomplete="off">
         <span class='col-2'>
