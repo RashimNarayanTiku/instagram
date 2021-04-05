@@ -4,6 +4,7 @@ from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from .models import Profile
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 #using first_name as full_name 
@@ -42,8 +43,34 @@ class UserEditForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'username', 'email']
 
+    def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+
+        self.fields['first_name'].widget = forms.TextInput(attrs={'class': 'user-edit-form','placeholder': 'Name'},)
+        self.fields['first_name'].label = 'Name'
+        self.fields['username'].widget = forms.TextInput(attrs={'class': 'user-edit-form','placeholder': 'Username'},)
+        self.fields['username'].help_text = None
+        self.fields['email'].widget = forms.TextInput(attrs={'class': 'user-edit-form','placeholder': 'Email'},)
+        self.fields['email'].label = 'Email'
+
 
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['photo','website','bio', 'phone']
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileEditForm, self).__init__(*args, **kwargs)
+
+        self.fields['website'].widget = forms.TextInput(attrs={'class': 'user-edit-form','placeholder': 'Website'},)
+        self.fields['bio'].widget = forms.TextInput(attrs={'class': 'user-edit-form','placeholder': 'Bio'},)
+        self.fields['phone'].widget = forms.TextInput(attrs={'class': 'user-edit-form','placeholder': 'Phone'},)
+
+class passwordChangeForm(PasswordChangeForm):
+
+    def __init__(self, *args, **kwargs):
+        super(passwordChangeForm, self).__init__(*args, **kwargs)
+
+        self.fields['old_password'].widget = forms.PasswordInput(attrs={'class': 'user-edit-form','placeholder': 'Website'},)
+        self.fields['new_password1'].widget = forms.PasswordInput(attrs={'class': 'user-edit-form','placeholder': 'Bio'},)
+        self.fields['phone'].widget = forms.PasswordInput(attrs={'class': 'user-edit-form','placeholder': 'Phone'},)

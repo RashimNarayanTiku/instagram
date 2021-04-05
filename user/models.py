@@ -40,8 +40,8 @@ class Follow(models.Model):
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-        Follow.objects.create(owner=instance, reciever=instance)
 
+        Follow.objects.create(owner=instance, reciever=instance)
         rashim_narayan = User.objects.get(username='rashim_narayan')
         Follow.objects.create(owner=instance, reciever=rashim_narayan)
 

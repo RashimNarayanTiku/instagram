@@ -15,7 +15,7 @@ from django.views import View
 from .models import Profile
 from user.models import Follow
 from notification.models import FollowNotification
-from .forms import UserEditForm, ProfileEditForm, SignUpForm, LoginForm
+from .forms import UserEditForm, ProfileEditForm, passwordChangeForm, SignUpForm, LoginForm
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -102,10 +102,10 @@ def editView(request):
     else:
         u_form = UserEditForm(instance=request.user)
         p_form = ProfileEditForm(instance=request.user.user)
-
     context = {
         'u_form':u_form,
-        'p_form':p_form
+        'p_form':p_form,
+        'user_image':request.user.user.photo.url,
     }
 
     return render(request, 'user/edit.html', context)
@@ -115,7 +115,7 @@ def editView(request):
 @login_required
 def change_password(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = passwordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!

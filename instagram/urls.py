@@ -48,7 +48,6 @@ urlpatterns = [
     path('accounts/edit/', user_views.editView, name='edit'),
     path('accounts/password/change', user_views.change_password, name='change_password'),
     path('accounts/login/', user_views.LoginView.as_view(template_name="user/login.html",authentication_form=LoginForm), name='login'),
-    # path('login/', views.LoginView.as_view(template_name="login.html",),name='login')
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     
 ]

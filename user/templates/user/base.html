@@ -15,7 +15,6 @@
 
     <script src='{% static "js/jquery.waypoints.min.js" %}'></script>
     <script src='{% static "js/infinite.min.js" %}'></script>
-    <script src='{% static "js/emojiPicker.js" %}'></script>
     
     <link rel="icon" href="{% static 'img/favicon.ico' %}">
 
@@ -136,12 +135,5 @@
         {% block js %}{% endblock %}
       </div>
     </main>
-
-    <script>
-      (() => {
-        new EmojiPicker()
-      })()
-    </script>
-    
   </body>
 </html>

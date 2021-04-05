@@ -4,18 +4,37 @@
 
 
 {% block content %}
-    <div class="col s12 m8 offset-m2">
-        <div class="card">
-            <div class="card-content">
-            <form method="POST" class="padding" enctype="multipart/form-data">
-                {% csrf_token %} 
-                {{ u_form.as_p }}
-                {{ p_form.as_p }}
-                <button type="submit" class="btn-floating btn-large waves-light waves-effect"><i class="large material-icons">Submit</i></button>
-                <a href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red"><i class="material-icons">Cancel</i></a>
-    
-            </form>
+    <div class="row col-11 col-md-9 mt-5 pt-4">
+        <div class='card col-3 rounded-0 border-right-0 p-0 d-none d-md-inline'>
+            <ul type='none' class='p-0'>
+                <a href="{% url 'edit' %}"><li class='p-3 pl-4' style="border-left:2px solid black; font-weight:600;">Edit Profile</li></a>
+                <a href="{% url 'change_password' %}"><li class='p-3 pl-4'>Change Password</li></a>
+
+            </ul>
+        </div>
+        <div class="card col-12 col-md-9 p-0 p-md-5 rounded-0 mx-auto">
+            <div class="card-content col-12 pl-lg-5 p-0">
+                <form method="POST" class="padding" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    {{ u_form.as_p }}
+                    <img class='rounded-circle col-3' src='{{user_image}}' alt='' style="width: 85px; height: 50px;">
+                    {{ p_form.as_p }}
+                    <button type="submit" class="btn" style="background-color: #0095f6;"><b style="color: #fff;">Submit</b></button>
+                </form>
             </div>
         </div>
     </div>
+    
+    <footer class='col-12 mb-2 mt-5 justify-content-center' style="font-size: 0.75rem; color:#8e8e8e;">
+        <p class='text-center'style='cursor:pointer;'> About  &emsp;Blog  &emsp;Jobs &emsp; Help &emsp; API  &emsp;Privacy &emsp; Terms &emsp; Top Accounts &emsp; Hashtags &emsp;Locations</p>
+        <p class='text-center'style='cursor:pointer;'> English  © 2021 Instagram from Facebook</p>
+    </footer>
+
+    <style>
+        @media (max-width: 768px) { 
+          body, .card{
+            background-color: white !important;
+          }
+        }
+      </style>
 {% endblock %}
