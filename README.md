@@ -17,6 +17,7 @@ The frontend is made with HTML, CSS/Bootstrap and JS/Jquery
 
 ### *Instagram Feeds*
 * Infinite scrolling posts
+* Add New Posts
 * Profile Search
 * Single Post Page
 * Dynamic Like, Comment and Save posts
