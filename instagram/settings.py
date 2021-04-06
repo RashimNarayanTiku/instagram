@@ -129,7 +129,7 @@ MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_REDIRECT_URL = 'post_list'
 
-SOCIAL_AUTH_FACEBOOK_KEY = 746872296220379
+SOCIAL_AUTH_FACEBOOK_KEY = f"{os.environ.get('instagram_SOCIAL_AUTH_FACEBOOK_KEY')}"
 SOCIAL_AUTH_FACEBOOK_SECRET=f"{os.environ.get('instagram_SOCIAL_AUTH_FACEBOOK_SECRET')}"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

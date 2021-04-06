@@ -1,7 +1,7 @@
 {% if profiles %}
+
 <ul id='new-inbox-list'>
-  {% for profile in profiles %}
-  
+  {% for profile in profiles %}  
   <a href = '/direct/new/{{profile.id}}'>
     <li class='new-inbox-profile' id='new-inbox-profile-{{profile.id}}'>
         <div class="media p-0">
@@ -20,4 +20,5 @@
   </a>
   {% endfor %}
 </ul>
+
 {% endif %}

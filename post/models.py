@@ -18,12 +18,9 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         super().save()
         img = Image.open(self.photo.path)
-        width, height = img.size  # Get dimensions
+        width, height = img.size  
 
-
-        # check which one is smaller
         if height < width:
-            # make square by cutting off equal amounts left and right
             left = (width - height) / 2
             right = (width + height) / 2
             top = 0
@@ -31,7 +28,6 @@ class Post(models.Model):
             img = img.crop((left, top, right, bottom))
 
         elif width < height:
-            # make square by cutting off bottom
             left = 0
             right = width
             top = 0
@@ -50,7 +46,6 @@ class Like(models.Model) :
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # https://docs.djangoproject.com/en/3.0/ref/models/options/#unique-together
     class Meta:
         unique_together = ('owner', 'post')
 
@@ -63,7 +58,6 @@ class Save(models.Model) :
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_saves')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # https://docs.djangoproject.com/en/3.0/ref/models/options/#unique-together
     class Meta:
         unique_together = ('owner', 'post')
 

@@ -42,6 +42,4 @@ class Message(models.Model):
                 return '%s -> %s : [Message] %s' % (self.owner_inbox.owner.username, self.reciever_inbox.owner.username, self.text)
 
 
-# class Image(models.Model):
-#   pass
 

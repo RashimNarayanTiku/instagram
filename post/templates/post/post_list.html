@@ -145,8 +145,8 @@
               <p> <span class='owner-username'>{{comment.owner.username}}</span> {{ comment.text }}</p>
             {% endfor %}
           </div>
-          
-          <small class="text-muted" style="font-size: 65%;">{{ post.created_at|timesince|upto:',' }}</small>
+
+          <small class="text-muted" style="font-size: 65%;">{{post.created_at|timesince|upto:','}}</small>
             
         </div>
 
@@ -161,8 +161,7 @@
             {{comment_form.text}}
             <input type='submit' class='comment-submit col-5 col-md-6 justify-content-end text-right' value="Post"> 
             <input type='hidden' name='url' id='url' value='{% url "post_comment_create" post.id %}'>
-          </form>   
-                
+          </form>       
         </div>
       </div>
       {% endfor %}

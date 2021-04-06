@@ -31,7 +31,7 @@ def PostListView(request):
     following = [follow.reciever for follow in following_queryset]
     posts = Post.objects.filter(owner__in = following).order_by('-created_at')
     
-    paginator = Paginator(posts, 2)
+    paginator = Paginator(posts, 4)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context['page_obj'] = page_obj

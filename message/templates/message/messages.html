@@ -25,7 +25,7 @@
     {% else %}
         {% if message.owner != user %}
         <div class='row m-2 position-relative justify-content-start align-text-bottom'> 
-            <img class="rounded-circle" src="{{ reciever.user.photo.url }}" style="width:24px; height:24px; top:95% !important; position:absolute !important;">
+            <img class="rounded-circle" src="{{ reciever.user.photo.url }}" style="width:24px; top:95% !important; position:absolute !important;">
             <div class='reciever_message'>
                 {{ message.text }} 
             </div>

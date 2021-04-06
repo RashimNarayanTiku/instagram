@@ -94,10 +94,8 @@
 <script>    
     var START_UPDATING_MESSAGES = setInterval(function(){
         if($('.message-section').children().length > 0){
-            console.log('Found the message-section')
             UpdateMessages();
             clearInterval(START_UPDATING_MESSAGES);
         }
     }, 500);
-    
 </script>

@@ -14,11 +14,39 @@
         </div>
         <div class="card col-12 col-md-9 p-0 p-md-5 rounded-0 mx-auto">
             <div class="card-content col-12 pl-lg-5 p-0">
-                <form method="POST" class="padding" enctype="multipart/form-data">
+                <form method="POST" class="pr-5 mr-5" enctype="multipart/form-data">
                     {% csrf_token %} 
-                    {{ u_form.as_p }}
-                    <img class='rounded-circle col-3' src='{{user_image}}' alt='' style="width: 85px;">
-                    {{ p_form.as_p }}
+                    <div class='mb-3' style="font-size: larger;">
+                        <img class='rounded-circle col-3' src='{{user_image}}' alt='' style="width: 85px;">
+                        {{user.username}}
+                    </div>
+                    <div class='mb-3'>
+                        {{p_form.photo}}
+                    </div>
+                    <div class='mb-4 text-start d-flex justify-content-end'>
+                        <label><b>Name</b></label>
+                        {{ u_form.first_name }}
+                    </div>
+                    <div class='mb-4 text-start d-flex justify-content-end'>
+                        <label><b>Username</b></label>
+                        {{ u_form.username }}
+                    </div>
+                    <div class='mb-4 text-start d-flex justify-content-end'>
+                        <label><b>Email</b></label>
+                        {{ u_form.email }}
+                    </div>
+                    <div class='mb-4 text-start d-flex justify-content-end'>
+                        <label><b>Website</b></label>
+                        {{p_form.website}}
+                    </div>
+                    <div class='mb-4 text-start d-flex justify-content-end'>
+                        <label><b>Bio</b></label>
+                        {{p_form.bio}}
+                    </div>
+                    <div class='mb-4 text-start d-flex justify-content-end'>
+                        <label><b>Phone</b></label>
+                        {{p_form.phone}}
+                    </div>
                     <button type="submit" class="btn" style="background-color: #0095f6;"><b style="color: #fff;">Submit</b></button>
                 </form>
             </div>
