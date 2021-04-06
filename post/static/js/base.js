@@ -178,7 +178,7 @@ $(document).on('submit','.commentForm', function(e) {
             $(`#${form.attr('id')} input[name=text]`).val('');
 
             if(form.parent().hasClass('modal-footer')) 
-                $(`#comment-section-${response['post_id']}`).prepend("<p style='margin-bottom:10% !important;'>  <img class='rounded-circle' src='" +response['photo']+ "' style='width:25px;'><span class='owner-username'>  " + response['owner']+ "</span>  "+ response['text']+"</p>")
+                $(`#comment-section-${response['post_id']}`).prepend("<div class='media'><div class='media-left'><img class='rounded-circle' src='"+response['photo']+"'style='width:25px; height:25px;'></div><div class='media-body'><span class='owner-username'> <b>"+response['owner']+"</b></span> "+ response['text']+" <br><small class='text-muted'>Now</small></div></div>")
             else 
                 form.parent().prev().children('.comment-section').prepend("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
         },

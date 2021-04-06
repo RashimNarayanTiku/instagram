@@ -16,7 +16,16 @@
 
   <div class='comment-section comment-section-{{post.id}}' id='comment-section-{{post.id}}' style="overflow-y:scroll; scrollbar-width:none; overflow-x: hidden; height:45vh; border-bottom: rgb(230, 230, 230) solid 0.1px; margin:2% 1.5% !important;">
     {% for comment in post.post_comments.all %}
-      <p style="margin-bottom:10% !important;"><img class='rounded-circle' src='{{comment.owner.user.photo.url}}'style="width:25px; height:25px;"><span class='owner-username'>  {{comment.owner.username}}</span>  {{ comment.text}} </p>
+      <!-- <p style="margin-bottom:10% !important;"> -->
+      <div class='media'>
+        <div class="media-left">
+          <img class='rounded-circle' src='{{comment.owner.user.photo.url}}'style="width:25px; height:25px;">
+        </div>
+        <div class="media-body">
+            <span class='owner-username'> <b>{{comment.owner.username}}</b></span> {{comment.text}} <br>
+          <small class="text-muted ">{{ comment.created_at|timesince|shortUpto:',' }}</small>
+        </div>
+      </div>
     {% endfor %}
   </div>
   

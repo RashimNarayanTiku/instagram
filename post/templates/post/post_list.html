@@ -26,7 +26,7 @@
           </svg>
         </div>
 
-        <div class="card-body mb-0">
+        <div class="card-body">
           
           <div class='buttons col-12 d-inline-flex'>
             <div class='like_btn'>
@@ -146,7 +146,7 @@
             {% endfor %}
           </div>
           
-          <small class="text-muted mt-2">{{ post.created_at|timesince|upto:',' }}</small>
+          <small class="text-muted" style="font-size: 65%;">{{ post.created_at|timesince|upto:',' }}</small>
             
         </div>
 
