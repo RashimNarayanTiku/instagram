@@ -20,7 +20,8 @@ The frontend is made with HTML, CSS/Bootstrap and JS/Jquery
 * Add New Posts
 * Profile Search
 * Single Post Page
-* Dynamic Like, Comment and Save posts
+* Dynamic Like and Save posts
+* Comments and reply to comments
 * Share post to others
 * Explore Page
 
