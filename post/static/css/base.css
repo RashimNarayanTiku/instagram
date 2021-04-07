@@ -1,4 +1,14 @@
 
+.loader{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    z-index: 10000;
+}
 
 .errorlist{
     list-style-type: none;
@@ -8,6 +18,10 @@
     padding:0;
     margin-bottom:0.3rem;
     margin-top:0.3rem;
+}
+
+.reply-btn{
+    font-weight: 600 !important;
 }
 
 .image{
@@ -186,6 +200,7 @@ body{
 }
 #search-pic{
     width:44px;
+    height:44px;
 }
 
 #no-result{
@@ -451,7 +466,7 @@ a:hover{
     margin-bottom:0;
 }
 
-.commentForm>#id_text{
+.commentForm>#id_text, .replyForm>#id_text{
     border:0 !important;
     margin-left: 2%;
     width:40% !important;
@@ -471,10 +486,10 @@ a:hover{
     padding-right: 0;
 }
 
-.commentForm svg{
+.commentForm svg, .replyForm svg{
     display: inline !important;
 }
-.commentForm img{
+.commentForm img, .replyForm img{
     display: none !important;
 }
 .card-footer{
@@ -625,7 +640,6 @@ a:hover{
     }
     .commentForm>#id_text{
         background-color: #fafafa;
-        /* width:85% !important; */
     }
     .messageForm>#id_text{
         background-color: #fafafa;
@@ -633,10 +647,10 @@ a:hover{
     .comment-submit{
         margin-left:0% !important;
     }
-    .commentForm svg{
+    .commentForm svg, .replyForm svg{
         display: none !important;
     }
-    .commentForm img{
+    .commentForm img, .replyForm img{
         display: inline !important;
     }
     .comment-submit{
@@ -653,11 +667,4 @@ a:hover{
         max-width: 100% !important;
     }
 }
-
-
-@media (max-width: 576px) { 
-    /* .commentForm>#id_text{
-        width:68% !important;
-    }*/
-
-} 
+ 

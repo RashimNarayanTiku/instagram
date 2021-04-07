@@ -15,6 +15,7 @@ urlpatterns = [
     path('create/details/', post_views.PostCreateView.as_view(), name='post_create'),
     path('p/<int:pk>', post_views.SinglePostView, name='single_post_view'),
     path('comment/<int:pk>', post_views.CommentCreateView, name='post_comment_create'),
+    path('reply/<int:pk>', post_views.ReplyCreateView, name='comment_reply_create'),
     path('search/', post_views.SearchView, name='search'),
     path('explore/', post_views.ExploreView.as_view(), name='explore'),
     path('admin/', admin.site.urls),

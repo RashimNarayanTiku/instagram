@@ -1,12 +1,12 @@
 {% extends "user/base.html" %}
 {% load static %}
 
-{% block title %} Create\ Post {% endblock %}
+{% block title %} Create Post {% endblock %}
 {% block content %}
   <div class='card col-12 col-sm-8 col-md-5 p-4 text-center p-4 pt-5' style="margin-top:5rem">
       <p><img src="{% static 'img/logo.png' %}" alt="logo" style="width:180px"></p>  
-      <h5>Add New Post</h5>
-      <p class='text-muted mb-5'>Upload an image and enter a caption.</p>
+      <h5>Create New Post</h5>
+      <p class='text-muted mb-5'>Upload an image and add a caption.</p>
 
       <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
@@ -17,7 +17,7 @@
             </div>
           </div>
           {{ form.caption }}
-          <input type="submit" class="btn btn-primary col-11 mt-2 p-1" value="Upload Post" style="font-size: 0.9rem; font-weight: 600; background-color:#0095f6;" />
+          <input type="submit" class="btn btn-primary col-6 mt-2 p-1" value="Upload" style="font-size: 0.9rem; font-weight: 600; background-color:#0095f6;" />
           <input type="hidden" name="next" value="{{ next }}" />
       </form>
   </div>

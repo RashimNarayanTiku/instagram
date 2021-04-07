@@ -1,4 +1,4 @@
-from post.models import Post,Comment,Like,Save
+from post.models import Post,Like,Save,Comment,Reply
 from message.models import Message, Inbox
 from post.forms import PostForm, CommentForm
 from post.owner import  OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpdateView, OwnerDeleteView
@@ -81,8 +81,33 @@ def CommentCreateView(request, pk):
         response_data['created_at'] = comment.created_at
         response_data['owner'] = comment.owner.username
         response_data['photo'] = comment.owner.user.photo.url
-
+        response_data['comment_id'] = comment.id
         response_data['post_id'] = pk
+
+        return JsonResponse(response_data)    
+
+    return redirect('post_list') 
+
+@login_required
+def ReplyCreateView(request, pk):
+    comment = Comment.objects.get(id=pk)
+    response_data = {}
+    
+    if request.POST.get('action') == 'post':
+        text = request.POST.get('text')
+        reply = Reply.objects.create(
+            text = text,
+            owner = request.user,
+            comment = comment,
+        )
+
+        response_data['text'] = text
+        response_data['created_at'] = reply.created_at
+        response_data['owner'] = reply.owner.username
+        response_data['photo'] = reply.owner.user.photo.url
+        response_data['comment_id'] = pk
+        response_data['post_id'] = comment.post.id
+
         return JsonResponse(response_data)    
 
     return redirect('post_list') 

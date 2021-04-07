@@ -77,3 +77,15 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.owner.username}\'s comment on "{self.post.caption[:15]}..." post: {self.text}'
 
+class Reply(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)    
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='comment_replies')
+    text = models.CharField(max_length=250, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        
+    def __str__(self):
+        return f'{self.owner.username}\'s reply to "{self.comment.text[:15]}..." comment: {self.text[:15]}...'
+    

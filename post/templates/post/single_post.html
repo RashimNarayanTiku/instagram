@@ -16,14 +16,29 @@
 
   <div class='comment-section comment-section-{{post.id}}' id='comment-section-{{post.id}}' style="overflow-y:scroll; scrollbar-width:none; overflow-x: hidden; height:45vh; border-bottom: rgb(230, 230, 230) solid 0.1px; margin:2% 1.5% !important;">
     {% for comment in post.post_comments.all %}
-      <!-- <p style="margin-bottom:10% !important;"> -->
       <div class='media'>
         <div class="media-left">
           <img class='rounded-circle' src='{{comment.owner.user.photo.url}}'style="width:25px; height:25px;">
         </div>
         <div class="media-body">
-            <span class='owner-username'> <b>{{comment.owner.username}}</b></span> {{comment.text}} <br>
-          <small class="text-muted ">{{ comment.created_at|timesince|shortUpto:',' }}</small>
+          <span class='owner-username'><a href="{% url 'profile' comment.owner.username %}">{{comment.owner.username}}</a></span> {{comment.text}} <br>
+          <small class="text-muted">{{ comment.created_at|timesince|shortUpto:',' }}</small>
+          <small class="reply-btn text-muted pl-2" id='reply-btn-{{comment.id}}' style="cursor:pointer;">Reply</small>
+
+          <div class='reply-section' id='reply-section-{{comment.id}}'>
+          {% for reply in comment.comment_replies.all %}
+            <div class='media'>
+              <div class="media-left">
+                <img class='rounded-circle' src='{{reply.owner.user.photo.url}}'style="width:25px; height:25px;">
+              </div>
+              <div class="media-body">
+                <span class='owner-username'><a href="{% url 'profile' comment.owner.username %}">{{reply.owner.username}}</a> </span> {{reply.text}} <br>
+                <small class="text-muted">{{ reply.created_at|timesince|shortUpto:',' }}</small>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
         </div>
       </div>
     {% endfor %}
@@ -115,15 +130,15 @@
     
     <!-- csrf token handled by javascript using global cookie -->
     <small class="text-muted position-absolute "style='bottom:10%;'>{{ post.created_at|timesince|upto:',' }}</small>
-    <div class='modal-footer justify-content-start position-absolute ' style="padding:4% 0 !important; bottom:0;">
-      <form method="post" class='commentForm row' id='commentForm-{{post.id}}' name='commentForm' autocomplete="off">
+    <div class='modal-footer col-12 justify-content-start position-absolute' style="padding:4% 0 !important; bottom:0;">
+      <form method="post" class='commentForm col-12 row' id='commentForm-{{post.id}}' name='commentForm' autocomplete="off">
         <span class='col-2'>
           <img class="rounded-circle post-owner-img" src="{{ user.user.photo.url }}" style="width:32px; height:32px;">
           <svg aria-label="Emoji" disabled fill="#262626" height="24" viewBox="0 0 48 48" width="24"><path d="M24 48C10.8 48 0 37.2 0 24S10.8 0 24 0s24 10.8 24 24-10.8 24-24 24zm0-45C12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21S35.6 3 24 3z"></path><path d="M34.9 24c0-1.4-1.1-2.5-2.5-2.5s-2.5 1.1-2.5 2.5 1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5zm-21.8 0c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5-2.5-1.1-2.5-2.5zM24 37.3c-5.2 0-8-3.5-8.2-3.7-.5-.6-.4-1.6.2-2.1.6-.5 1.6-.4 2.1.2.1.1 2.1 2.5 5.8 2.5 3.7 0 5.8-2.5 5.8-2.5.5-.6 1.5-.7 2.1-.2.6.5.7 1.5.2 2.1 0 .2-2.8 3.7-8 3.7z"></path>
           </svg>
         </span>
-        <span class='col-7'> {{comment_form.text}} </span>
-        <input type='submit' class='comment-submit col-2' value="Post" style='background-color:white; padding:0;'> 
+        <span class='col-7 p-0' style="overflow: hidden; font-size: 80%;"> {{comment_form.text}} </span>
+        <input type='submit' class='comment-submit ml-3 col-2' value="Post" style='background-color:white; padding:0;'> 
         <input type='hidden' name='url' id='url' value='{% url "post_comment_create" post.id %}'>
       </form>       
     </div> 

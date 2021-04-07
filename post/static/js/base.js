@@ -34,17 +34,13 @@ $("body").on('click',function(ele) {
         $("#user-input").css('color', 'grey');
     }
     
-    
     // ---------notification---------
-    if(ele.target.id !== "notification" && ele.target.id !== "notification-display"){
+    if(ele.target.id !== "notification" && ele.target.id !== "notification-display") {
         $("#notification-display").css('display', 'none');
     }    
-    console.log(ele.target.id)
 
 });
    
-
-
 
 
 // ------------ Inbox Create Profile search --------------
@@ -151,14 +147,76 @@ user_input.on('keyup', function () {
 });
 
 
+//------------------- Reply Button-----------------------
 
+$(document).on('click','.reply-btn', function(){
+    
+    var reply_btn_id = $(this).attr('id').split('-');
+    comment_id = reply_btn_id[reply_btn_id.length-1];
+
+    comment_username = $(this).siblings('.owner-username').text();
+
+    var comment_form = $(this).parents('.comment-section').siblings('.modal-footer').children('.commentForm');
+    var reply_form = $(this).parents('.comment-section').siblings('.modal-footer').children('.replyForm');
+    comment_form.attr('class','replyForm col-12 row');
+    comment_form.attr('id',`replyForm-${comment_id}`)
+    comment_form.attr('name','replyForm')
+    
+    reply_form.attr('id',`replyForm-${comment_id}`)
+    comment_form.find('#id_text').val('')
+    reply_form.find('#id_text').val('')
+
+    comment_form.find('#id_text').focus();
+    comment_form.find('#url').val(`/reply/${comment_id}`);
+});
+
+
+//--------------------Reply Form Functionality-----------------
+
+$(document).on('submit','.replyForm', function(){
+    var form = $(this).closest('form');
+
+    if(form.find('#id_text').val() == '')
+    {
+        console.log('Empty Reply stopped') 
+        return false;
+    }
+
+    $.ajax({
+        type:'post',
+        url: form.children("#url").val(),
+        headers: {'X-CSRFToken': getCookie('csrftoken')},
+        data:{
+            text:form.find("#id_text").val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            action: 'post',
+        },
+        
+        success: function(response) {
+            $(`#${form.attr('id')} input[name=text]`).val('');
+            $(`#reply-section-${response['comment_id']}`).prepend("<div class='media'><div class='media-left'><img class='rounded-circle' src='"+response['photo']+"'style='width:25px; height:25px;'></div><div class='media-body'><span class='owner-username'> <b>"+response['owner']+"</b></span> "+ response['text']+" <br><small class='text-muted'>Now</small></div></div>")
+
+            var reply_form = $(`#replyForm-${response['comment_id']}`);
+            reply_form.attr('class','commentForm col-12 row');
+            reply_form.attr('id',`commentForm-${response['post_id']}`);
+            reply_form.attr('name','commentForm');
+            reply_form.find('#url').val(`comment/${response['post_id']}`);
+            
+        },
+        
+        error: function(response) {
+            console.log('ERROR in reply ajax request')
+        }
+    });
+    return false;
+});
 
 //------------------- Comment Form ----------------------
 
 $(document).on('submit','.commentForm', function(e) {
     var form = $(this).closest('form');
 
-    if(form.children('#id_text').val() == '')
+    if(form.find('#id_text').val() == '')
     {
         console.log('Empty Comment stopped') 
         return false;
@@ -178,7 +236,9 @@ $(document).on('submit','.commentForm', function(e) {
             $(`#${form.attr('id')} input[name=text]`).val('');
 
             if(form.parent().hasClass('modal-footer')) 
-                $(`#comment-section-${response['post_id']}`).prepend("<div class='media'><div class='media-left'><img class='rounded-circle' src='"+response['photo']+"'style='width:25px; height:25px;'></div><div class='media-body'><span class='owner-username'> <b>"+response['owner']+"</b></span> "+ response['text']+" <br><small class='text-muted'>Now</small></div></div>")
+                $(`#comment-section-${response['post_id']}`).prepend("<div class='media'><div class='media-left'><img class='rounded-circle' src='" + response['photo']+
+                "'style='width:25px; height:25px;'></div><div class='media-body'><span class='owner-username'> <b>" + response['owner']+"</b></span>" + response['text']+
+                "<br><small class='text-muted'>Now</small><small class='reply-btn text-muted pl-2' id='reply-btn-" + response['comment_id'] + "'style='cursor:pointer;'>Reply</small><div class='reply-section' id='reply-section-" + response['comment_id']+ "'></div></div></div>")
             else 
                 form.parent().prev().children('.comment-section').prepend("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
         },
@@ -388,8 +448,6 @@ $(document).on('submit','.messageForm', function(e) {
             var message_section = $(`#message-section-${response['inbox_id']}`)
             message_section.append("<div class='row m-2 justify-content-end'><div class='owner_message'>"+ response['text'] +"</div></div>")
             message_section[0].scrollTop = message_section[0].scrollHeight - message_section[0].clientHeight;
-            
-            console.log('successful message sent')
         },
         
         error: function(response) {
@@ -411,8 +469,6 @@ function UpdateMessages() {
     $.ajax({
         url: `message/update/${inbox_id}`,
         success: function(response) {
-            console.log('Messages Updated')
-
             $(`#message-section-${inbox_id}`).append(response.html)
         },
         complete: function() {
@@ -472,8 +528,3 @@ $(document.body).on('click','.follow-btn', function() {
     
     return false;
 });
-
-
-
-
-
