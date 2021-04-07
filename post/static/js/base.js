@@ -163,8 +163,8 @@ $(document).on('click','.reply-btn', function(){
     comment_form.attr('name','replyForm')
     
     reply_form.attr('id',`replyForm-${comment_id}`)
-    comment_form.find('#id_text').val('')
-    reply_form.find('#id_text').val('')
+    comment_form.find('#id_text').val(`@${comment_username} `)
+    reply_form.find('#id_text').val(`@${comment_username} `)
 
     comment_form.find('#id_text').focus();
     comment_form.find('#url').val(`/reply/${comment_id}`);
@@ -194,7 +194,7 @@ $(document).on('submit','.replyForm', function(){
         
         success: function(response) {
             $(`#${form.attr('id')} input[name=text]`).val('');
-            $(`#reply-section-${response['comment_id']}`).prepend("<div class='media'><div class='media-left'><img class='rounded-circle' src='"+response['photo']+"'style='width:25px; height:25px;'></div><div class='media-body'><span class='owner-username'> <b>"+response['owner']+"</b></span> "+ response['text']+" <br><small class='text-muted'>Now</small></div></div>")
+            $(`#reply-section-${response['comment_id']}`).prepend("<div class='media'><div class='media-left'><img class='rounded-circle' src='"+response['photo']+"'style='width:25px; height:25px;'></div><div class='media-body'><span class='owner-username'> <b>"+response['owner']+"</b></span>  "+ response['text']+" <br><small class='text-muted'>Now</small></div></div>")
 
             var reply_form = $(`#replyForm-${response['comment_id']}`);
             reply_form.attr('class','commentForm col-12 row');
@@ -237,7 +237,7 @@ $(document).on('submit','.commentForm', function(e) {
 
             if(form.parent().hasClass('modal-footer')) 
                 $(`#comment-section-${response['post_id']}`).prepend("<div class='media'><div class='media-left'><img class='rounded-circle' src='" + response['photo']+
-                "'style='width:25px; height:25px;'></div><div class='media-body'><span class='owner-username'> <b>" + response['owner']+"</b></span>" + response['text']+
+                "'style='width:25px; height:25px;'></div><div class='media-body'><span class='owner-username'> <b>" + response['owner']+"</b></span>  " + response['text']+
                 "<br><small class='text-muted'>Now</small><small class='reply-btn text-muted pl-2' id='reply-btn-" + response['comment_id'] + "'style='cursor:pointer;'>Reply</small><div class='reply-section' id='reply-section-" + response['comment_id']+ "'></div></div></div>")
             else 
                 form.parent().prev().children('.comment-section').prepend("<p><span class='owner-username'>"+response['owner']+'</span> '+response['text']+'</p>')
