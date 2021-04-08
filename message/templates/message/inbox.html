@@ -43,7 +43,7 @@
         <li class="inbox m-0 position-relative inbox-{{inbox.id}}" id='inbox-{{inbox.id}}' onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;">
           <div class="media p-2 ml-3">
             <div class="media-left">
-              <img class='rounded-circle' id='inbox-pic'src="{{ inbox.reciever.user.photo.url }}" style="width: 56px;"> 
+              <img class='rounded-circle' id='inbox-pic'src="{{ inbox.reciever.user.photo.url }}" style="width: 56px;">
             </div>
             <div class="media-body p-2">
               <p class="media-heading m-1">
@@ -71,7 +71,7 @@
         <li class="inbox m-0 position-relative inbox-{{inbox.id}}" id='inbox-{{inbox.id}}' onclick="inboxDetail('{% url 'inbox_detail' inbox.id %}', {{inbox.id}});return false;">
           <div class="media p-2 ml-3">
             <div class="media-left">
-              <img class='rounded-circle' id='inbox-pic'src="{{ inbox.reciever.user.photo.url }}" style="width: 56px;"> 
+              <img class='rounded-circle' id='inbox-pic'src="{{ inbox.reciever.user.photo.url }}" style="width: 56px;">
             </div>
             <div class="media-body p-2">
               <p class="media-heading m-1">
@@ -84,7 +84,7 @@
         {% endfor %}
       </ul>
     </div>
-    
+
   </div>
 
   <div class='card col-12 col-md-7 p-0 rounded-0 justify-content-center ' id='inbox-detail' style="height: 70hv;">
@@ -110,7 +110,7 @@
 
 </script>
 <style>
-  @media (max-width: 768px) { 
+  @media (max-width: 768px) {
     body, .card{
       background-color: white !important;
     }
