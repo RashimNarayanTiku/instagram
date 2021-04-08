@@ -5,13 +5,13 @@
 <div class='notification-popover' href="#" data-toggle="popover" data-html='true' data-placement="bottom" data-content="
 
     {% if comment_notifications.count is not 0 %}
-    <i class='fas fa-comment'></i> {{comment_notifications.count}}
+    <i class='fa fa-comment'></i> {{comment_notifications.count}}
     {% endif%}
     {% if like_notifications.count is not 0 %}
     <i class='fa fa-heart'></i> {{like_notifications.count}}
     {% endif%}
     {% if follow_notifications.count is not 0 %}
-    <i class='fas fa-user'></i> {{follow_notifications.count}}
+    <i class='fa fa-user'></i> {{follow_notifications.count}}
     {% endif%}
     ">
     <a class="notification-btn" id="notification-btn-{{post.id}}">
