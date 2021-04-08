@@ -2,6 +2,11 @@
 {% if inbox %}
 
 <div class="card-header pb-0 rounded-0 border-bottom">
+    <div style="margin-bottom: 1.08rem;">
+        <a href="{% url 'inbox_list' %}" class="d-inline d-md-none"><i class="fa fa-arrow-left mr-2"></i></a>
+        <img class="rounded-circle article-img" src="/media/default.jpg" style="width:24px;">
+        <b><a href="{% url 'profile' inbox.reciever.username %}"> {{ inbox.reciever.username }}</a></b>
+    </div>
     <div style="margin-bottom: 1.08rem; margin-left:.55rem;">
         <img class="rounded-circle article-img" src="{{ inbox.reciever.user.photo.url }}" style="width:24px;">
         <b><a href="{% url 'profile' inbox.reciever.username %}"> {{ inbox.reciever.username }}</a></b>
