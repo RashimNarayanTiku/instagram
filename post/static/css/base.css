@@ -645,6 +645,9 @@ a:hover{
         height: 85vh !important;
     }
     
+    .post-overlay-container{
+        margin-bottom: 0 !important;
+    }
     .messageFormContainer{
         height: 7.5vh !important;   
     }
