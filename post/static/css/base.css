@@ -640,6 +640,10 @@ a:hover{
     .commentForm>#id_text{
         background-color: #fafafa;
     }
+
+    #inbox-detail{
+        height: 75vh !important;
+    }
     
     .messageFormContainer{
         height: 7.5vh !important;   
