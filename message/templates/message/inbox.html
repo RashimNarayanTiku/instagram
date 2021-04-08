@@ -88,7 +88,7 @@
   </div>
 
   <div class='card col-12 col-md-7 p-0 rounded-0 justify-content-center ' id='inbox-detail' style="height: 70hv;">
-    <span style="margin-top:2.5rem; margin-left:40%; "><img src="{% static 'img/message.png' %}" style="width: 96px;"></span>
+    <span style="margin-top:5rem; margin-left:40%; "><img src="{% static 'img/message.png' %}" style="width: 96px;"></span>
     <span style="margin-top:1%; margin-left:36%; font-size: 140%; font-weight: 200 !important;">Your Messages</span>
     <small style="margin:0 auto; font-weight: 600; font-size: 90%; text-align: center;">Send private photos and messages to a friend or group.</small>
     <div class='text-center' data-toggle="modal" data-target="#new-inbox-modal" style="border-radius:5px; background-color:#0095f6; color:white; width:7rem;  margin:3.5% 39%; height: 1.7rem; font-size: 0.9rem; cursor: pointer;"><span><b>Send Message</b></span></div>
@@ -113,6 +113,9 @@
   @media (max-width: 768px) {
     body, .card{
       background-color: white !important;
+    }
+    body{
+      overflow:scroll !important;
     }
   }
 </style>
