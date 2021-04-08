@@ -142,7 +142,7 @@
 
           <div class='comment-section comment-section-{{post.id}}' id='comment-section-{{post.id}}'>
             {% for comment in post.post_comments.all|slice:":2" %}
-              <p> <span class='owner-username'>{{comment.owner.username}}</span> {{ comment.text }}</p>
+              <p> <span class='owner-username'><a href="{% url 'profile' comment.owner.username %}">{{comment.owner.username}}</a></span>  {{ comment.text }}</p>
             {% endfor %}
           </div>
 

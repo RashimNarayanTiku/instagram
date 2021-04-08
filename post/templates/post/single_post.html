@@ -32,7 +32,7 @@
                 <img class='rounded-circle' src='{{reply.owner.user.photo.url}}'style="width:25px; height:25px;">
               </div>
               <div class="media-body">
-                <span class='owner-username'><a href="{% url 'profile' comment.owner.username %}">{{reply.owner.username}}</a> </span> {{reply.text}} <br>
+                <span class='owner-username'><a href="{% url 'profile' reply.owner.username %}">{{reply.owner.username}}</a> </span> {{reply.text}} <br>
                 <small class="text-muted">{{ reply.created_at|timesince|shortUpto:',' }}</small>
               </div>
             </div>
