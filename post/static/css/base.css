@@ -592,7 +592,6 @@ a:hover{
 }
 
 
-
 /* ---------------------- Profile ----------------------- */
 
 .post-overlay{
@@ -640,6 +639,10 @@ a:hover{
     }
     .commentForm>#id_text{
         background-color: #fafafa;
+    }
+    
+    .messageFormContainer{
+        height: 7.5vh !important;   
     }
     .messageForm>#id_text{
         background-color: #fafafa;
