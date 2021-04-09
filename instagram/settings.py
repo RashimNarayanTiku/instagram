@@ -1,6 +1,13 @@
 from pathlib import Path
 import os
 
+import environ
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,8 +15,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
+
+
+# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY=f"{os.environ.get('instagram_SECRET_KEY')}"
+SECRET_KEY = env("instagram_SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
+    'django.contrib.staticfiles',
     'social_django',
     'crispy_forms',
 ]
@@ -66,8 +77,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends', 
-                'social_django.context_processors.login_redirect', 
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -129,12 +140,12 @@ MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_REDIRECT_URL = 'post_list'
 
-SOCIAL_AUTH_FACEBOOK_KEY = f"{os.environ.get('instagram_SOCIAL_AUTH_FACEBOOK_KEY')}"
-SOCIAL_AUTH_FACEBOOK_SECRET=f"{os.environ.get('instagram_SOCIAL_AUTH_FACEBOOK_SECRET')}"
+SOCIAL_AUTH_FACEBOOK_KEY = env('instagram_SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET=env('instagram_SOCIAL_AUTH_FACEBOOK_SECRET')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = f"{os.environ.get('EMAIL_HOST_USER')}"
-EMAIL_HOST_PASSWORD = f"{os.environ.get('EMAIL_HOST_PASSWORD')}" 
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
