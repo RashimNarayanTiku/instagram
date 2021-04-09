@@ -405,7 +405,7 @@ $(document).on('click','.share-post', function(){
 
 function inboxDetail(url,inbox_id){
 
-    $('.inbox-dropdown').css('display','none !important');
+    $('.dropdown-toggle').css('display','none');
     $.get(url, function(response) {
         $("#inbox-detail").html(response.html)
 
