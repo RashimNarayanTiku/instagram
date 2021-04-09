@@ -311,7 +311,7 @@ function likePost(url,post_id){
         $(".unlike-btn-"+post_id).toggle();
         $(".post-like-"+post_id).html(response.html); 
     }).fail(function(xhr) {
-        alert('Like failed with '+xhr.status+' '+url);
+        console.log('Like failed with '+xhr.status+' '+url);
     });
 }
 
@@ -337,7 +337,7 @@ function savePost(url,post_id){
         $(".save-btn-"+post_id).toggle();
         $(".unsave-btn-"+post_id).toggle();
     }).fail(function(xhr) {
-        alert('Save failed with '+xhr.status+' '+url);
+        console.log('Save failed with '+xhr.status+' '+url);
     });
 }
 
@@ -404,10 +404,9 @@ $(document).on('click','.share-post', function(){
 // -------------------Inbox Detail Button Functionality-------------------
 
 function inboxDetail(url,inbox_id){
-    console.log('Requesting Inbox Detail functionality');
 
+    $('.inbox-dropdown').css('display','none !important');
     $.get(url, function(response) {
-        console.log(url, 'detail finished successfully');
         $("#inbox-detail").html(response.html)
 
         var new_url = `/direct/t/${inbox_id}`;
@@ -417,7 +416,7 @@ function inboxDetail(url,inbox_id){
         message_section[0].scrollTop = message_section[0].scrollHeight - message_section[0].clientHeight;
 
     }).fail(function(xhr) {
-        alert('Save failed with '+xhr.status+' '+url);
+        console.log('Save failed with '+xhr.status+' '+url);
     });
 }
 
@@ -523,7 +522,7 @@ $(document.body).on('click','.follow-btn', function() {
         console.log(response.html);
         $('.follow-section').html(response.html)
     }).fail(function(xhr){
-        alert('Follow failed with '+xhr.status+' '+'/follow/');
+        console.log('Follow failed with '+xhr.status+' '+'/follow/');
     });
     
     return false;
