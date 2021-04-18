@@ -129,7 +129,7 @@
 
     
     <!-- csrf token handled by javascript using global cookie -->
-    <small class="text-muted position-absolute "style='bottom:10%;'>{{ post.created_at|timesince|upto:',' }}</small>
+    <small class="text-muted d-none d-md-block position-absolute "style='bottom:10%;'>{{ post.created_at|timesince|upto:',' }}</small>
     <div class='modal-footer col-12 justify-content-start position-absolute' style="padding:4% 0 !important; bottom:0;">
       <form method="post" class='commentForm col-12 row' id='commentForm-{{post.id}}' name='commentForm' autocomplete="off">
         <span class='col-2'>
