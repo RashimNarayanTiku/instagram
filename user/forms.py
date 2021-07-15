@@ -71,6 +71,7 @@ class passwordChangeForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super(passwordChangeForm, self).__init__(*args, **kwargs)
 
-        self.fields['old_password'].widget = forms.PasswordInput(attrs={'class': 'user-edit-form','placeholder': 'Website'},)
-        self.fields['new_password1'].widget = forms.PasswordInput(attrs={'class': 'user-edit-form','placeholder': 'Bio'},)
-        self.fields['phone'].widget = forms.PasswordInput(attrs={'class': 'user-edit-form','placeholder': 'Phone'},)
+        self.fields['old_password'].widget = forms.PasswordInput(attrs={'class': 'user-edit-form','placeholder': 'current passowrd'},)
+        self.fields['new_password1'].widget = forms.PasswordInput(attrs={'class': 'user-edit-form','placeholder': 'new passowrd'},)
+        self.fields['new_password2'].widget = forms.PasswordInput(attrs={'class': 'user-edit-form','placeholder': 'confirm passowrd'},)
+
